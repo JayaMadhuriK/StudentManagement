@@ -18,7 +18,7 @@ app2.route('/')
 
 .post((req,res)=>{
     var bt = req.body;
-    var btData = [bt.University_RollNumber,bt.First_Name,bt.Last_Name,bt.Gender,bt.Nationality,bt.DOB,bt.Phone_Number,bt.Email_ID,bt.ADHAR_Number,bt.Address,bt.District,bt.State,bt.Country,bt.Pin_Code,bt.Category,bt.Sub_Category,bt._10th_CGPA,bt._10th_Board,bt._10th_YOP,bt._12th_Percentage,bt._12th_Board,bt._12th_YOP,bt.Diploma_Percentage,bt.Diploma_Board,bt.Diploma_YOP,bt.DegreeCourse,bt.Branch,bt.College_Name,bt.Course_CGPA,bt.Number_Of_Backlogs,bt.Entrance_Exam,bt.CET_Rank,bt.Course_YOP,bt.MTECH_College,bt.Department,bt.MTECH_Specialization,bt.MTECH_NumberOF_Backlogs,bt.MTECH_CGPA];
+    var btData = [bt.University_RollNumber,bt.First_Name,bt.Last_Name,bt.Gender,bt.Nationality,bt.DOB,bt.Phone_Number,bt.Email_ID,bt.ADHAR_Number,bt.Address,bt.District,bt.State,bt.Country,bt.Pin_Code,bt.Category,bt.Sub_Category,bt._10th_CGPA,bt._10th_Board,bt._10th_YOP,bt._12th_Percentage,bt._12th_Board,bt._12th_YOP,bt.Diploma_Percentage,bt.Diploma_Board,bt.Diploma_YOP,bt.DegreeCourse,bt.Branch,bt.College_Name,bt.Course_CGPA,bt.Entrance_Exam,bt.CET_Rank,bt.Course_YOP,bt.MTECH_College,bt.Department,bt.MTECH_Specialization,bt.MTECH_NumberOF_Backlogs,bt.MTECH_CGPA,bt.YOP];
     conn.query('insert into mtech values(?)',[btData],(err,rows)=>{
        if(err){
            console.log(err);

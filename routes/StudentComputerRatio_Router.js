@@ -18,7 +18,7 @@ app13.route('/')
 
 .post((req,res)=>{
     var bt = req.body;
-    var btData = [bt.Total_number_of_students,bt.Number_of_computers_available_to_use,bt.Bills_Purchase_documents,bt.Proof_of_stock_register_entry,bt.Student_Computer_Ratio];
+    var btData = [bt.Total_number_of_students,bt.Number_of_computers_available_to_use,bt.Bills_Purchase_documents,bt.Proof_of_stock_register_entry,bt.Student_Computer_Ratio,bt.Name_Of_Department];
     conn.query('insert into student_computer_ratio values(?)',[btData],(err,rows)=>{
        if(err){
            console.log(err);

@@ -1,0 +1,149 @@
+.register-popup{
+    width:400px;
+    height:493px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:50px;
+    border:1px solid #555555;
+    border-radius:5px;
+    box-shadow: 10px 10px 10px #888888; 
+    .register-logo{
+        width: 65px;
+        height: 65px;
+        border: 2px solid black;
+        border-radius: 50%;
+    }
+    .register-form{
+        position:absolute;
+        margin-top:80px;
+        margin-left:-180px;
+        .first-name{
+            display:flex;
+            margin-left:-35px;
+            margin-top:20px;
+            .flabel{
+                margin-top:5px;
+                font-size:20px;
+                margin-right:10px;
+                font-family:'Times New Roman', Times, serif;
+            }
+            .llabel{
+                margin-top:5px;
+                font-size:20px;
+                margin-right:12px;
+                font-family:'Times New Roman', Times, serif;
+            }
+            .email-label{
+                margin-top:5px;
+                margin-right:25px;
+                font-size:20px;
+                font-family:'Times New Roman', Times, serif;
+            }
+            .passwordlabel{
+                margin-top:5px;
+                margin-right:20px;
+                font-size:20px;
+                font-family:'Times New Roman', Times, serif;
+            }
+            .confirmlabel{
+                width:70px;
+                margin-top:-10px;
+                margin-right:27px;
+                font-size:20px;
+                font-family:'Times New Roman', Times, serif;
+            }
+        }
+        .gender-container{
+            display:flex;
+            margin-top:10px;
+            margin-left:-30px;
+            .gender-label{
+                width:70px;
+                margin-right:27px;
+                margin-left:-10px;
+                font-size:20px;
+                font-family:'Times New Roman', Times, serif;
+            }
+        }
+        
+    }
+    
+
+}
+
+.home{
+    background-color:#888888;
+    .home-grid1{
+        background-color: antiquewhite;
+        .register-logo{
+            width: 85px;
+            height: 85px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-top:30px;
+            margin-left:-20px;
+        }
+        .home-label{
+            margin-top:20px;
+            font-size:30px;
+            font-family:'Times New Roman', Times, serif;
+            margin-left:-30px;
+        }
+        .home-label1{
+            margin-top:20px;
+            font-size:30px;
+            font-family:'Times New Roman', Times, serif;
+            margin-left:-40px;
+        }
+    
+
+    }
+}
+.placement-popup{
+    width:500px;
+    height:850px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .register-form{
+        margin-top:50px;
+        .first-grid{
+            margin-top:-40px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .button-grid{
+            margin-left:-50px;
+            .button{
+                margin-left:50px;
+                margin-top:20px;
+                width:250px;
+            }
+        }
+        
+    }
+}

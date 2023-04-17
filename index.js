@@ -1,8 +1,15 @@
 const conn = require('./database');
 http = require('http');
+const cors = require('cors');
 const express = require('express');
-const morgan = require('morgan')
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const path = require('path');
+
+dotenv.config({
+    path:'./.env'
+})
 
 
 const app1 = require('./routes/BtechRouter');
@@ -20,17 +27,19 @@ const app12 = require('./routes/HigherEducation_Router');
 const app13 = require('./routes/StudentComputerRatio_Router');
 const app14 = require('./routes/CouncilActivity_Router');
 const app15 = require('./routes/StudentSatisfactory_Router');
+const app16 = require('./routes/login');
 
 const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/btech',app1);
 app.use('/mtech',app2);
 app.use('/mscormca',app3);
 app.use('/placement',app4);
 app.use('/activities',app5);
-app.use('/',app6);
+app.use('/valueaddedcourse',app6);
 app.use('/demandratio',app7);
 app.use('/avgnumberofdays',app8);
 app.use('/avgpasspercentage',app9);
@@ -40,6 +49,9 @@ app.use('/highereducation',app12);
 app.use('/computerratio',app13);
 app.use('/councilactivities',app14);
 app.use('/studentsatisfactory',app15);
+app.use('/',app16);
+
+
 
 app.use('/',(req,res)=>{
     res.end('<html><body><h1>This is home page</h1><h2>btech,mtech,mscormca,placement,activities,ValueAdded</h2></body></html>');
@@ -47,6 +59,6 @@ app.use('/',(req,res)=>{
 
 const server = http.createServer(app);
 
-server.listen(4000,()=>{
-    console.log('listening on port 4000');
+server.listen(process.env.DATABASE_PORT,()=>{
+    console.log('listening on port '+process.env.DATABASE_PORT);
 });

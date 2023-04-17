@@ -1,0 +1,376 @@
+.mtech-popup{
+    .logo{
+        height:150px;
+        .register-logo{
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+        .andhra-university{
+            position:absolute;
+            margin-top:120px;
+            margin-left:-190px;
+            color:black;
+        }
+    }
+    .mtech-form{
+        .department-details{
+            font-size:30px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top:10px;
+            color:black;
+        }
+        .personal-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top:10px;
+            margin-left:-860px;
+            color:black;
+        }
+        .grid-container{
+            display:flex;
+            margin-left:-30px;
+            margin-top:30px;
+            .second-grid-item{
+                margin-left:50px;
+            }
+            .third-grid-item{
+                margin-left:50px;
+            }
+            .fourth-grid-item{
+                margin-left:50px;
+            }
+        }
+        .gender-container{
+            display:flex;
+            margin-top:30px;
+            margin-left:-30px;
+            .gender-label{
+                font-size:20px;
+                font-family:'Courier New', Courier, monospace;
+                color:black;
+                margin-top:5px;
+                margin-right:15px;
+            }
+        }
+        .contact-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-870px;
+        }
+        .address-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top:30px;
+            color:black;
+            margin-left:-990px;
+        }
+        .secondary-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-825px;
+        }
+        .intermediate-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-770px;
+        }
+        .diploma-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-840px;
+        }
+        .graduation-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-950px;
+        }
+        .mtech-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-900px;
+        }
+        .msc-details{
+            font-size:25px;
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            margin-top:30px;
+            margin-left:-870px;
+        }
+        .submit-button{
+            margin-top:15px;
+            margin-left:-900px;
+            margin-bottom:20px;
+        }
+    }
+}
+.activities-popup{
+    width:500px;
+    height:620px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .register-form{
+        margin-top:50px;
+        .first-grid{
+            margin-top:-40px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .button-grid{
+
+            .button{
+                margin-left:50px;
+                margin-top:20px;
+            }
+            .button1{
+                margin-left:10px;
+                margin-top:40px;
+                width:300px;
+            }
+        }
+    }
+}
+.pass-form{
+    margin-top:50px;
+    .first-grid{
+        margin-top:50px;
+    }
+    .first-name{
+        margin-top:30px;
+    }
+    .button-grid{
+        .button1{
+            margin-left:10px;
+            margin-top:50px;
+            width:300px;
+        }
+    }
+}
+.awards-popup{
+    width:500px;
+    height:750px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .register-form{
+        margin-top:50px;
+        .first-grid{
+            margin-top:-40px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .button-grid{
+            .button{
+                margin-left:50px;
+                margin-top:20px;
+            }
+        }
+        
+    }
+}
+.demand-popup{
+    width:500px;
+    height:660px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .register-form{
+        margin-top:60px;
+        .first-grid{
+            margin-top:-40px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .button-grid{
+            .button{
+                margin-left:0px;
+                margin-top:20px;
+                width:300px;
+            }
+        }
+        
+    }
+}
+.activity-popup{
+    width:500px;
+    height:670px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .register-form{
+        margin-top:50px;
+        .first-grid{
+            margin-top:-40px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .button-grid{
+            .button{
+                margin-left:50px;
+                margin-top:20px;
+            }
+        }
+    }
+}
+.student-popup{
+    width:500px;
+    height:1200px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .pass-form{
+        margin-top:50px;
+        .first-grid{
+            margin-top:-0px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .gender-label{
+           font-size: 20px;
+        }
+        .radio-group{
+            margin-left:30px;
+        }
+        .button-grid{
+
+            .button{
+                margin-left:50px;
+                margin-top:20px;
+            }
+            .button1{
+                margin-left:10px;
+                margin-top:40px;
+                width:300px;
+            }
+        }
+    }
+}
