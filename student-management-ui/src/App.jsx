@@ -18,6 +18,8 @@ import PerStudentUndertaking from './components/Login_And_Register/PerStudentUnd
 import Placements from './components/Login_And_Register/Placements';
 import StudentComputer from './components/Login_And_Register/StudentComputer';
 import StudentSatisfactory from './components/Login_And_Register/StudentSatisfactory';
+import ViewStudent from './components/Login_And_Register/ViewStudent';
+
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
               <Route path='/placements' element={<Placements/>}/>
               <Route path='/studentcomputerratio' element={<StudentComputer/>}/>
               <Route path='/studentsatisfactory' element={<StudentSatisfactory/>}/>
+              <Route path='/viewStudent' element={<ViewStudent/>}/>
+
           </Routes>
       </BrowserRouter>
     </div>
