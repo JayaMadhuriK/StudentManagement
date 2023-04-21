@@ -60,7 +60,7 @@ app15.route('/:roll')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
   
     var bt = req.body
     conn.query('update student_satisfactory_survey set ? where Student_Unique_Enrollment ='+req.params.roll,[bt],(err,rows)=>{

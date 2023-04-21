@@ -30,18 +30,17 @@ const Login = () =>{
     const handleSubmit = async() => {
         let res = {};
         await axios.post('http://localhost:4000/login', loginRequestBody)
-    .then((response) => {
-        res = response;
-    })
-    .catch((error) => {
-         res = error;
-    }); 
-    console.log(res.data.status)
+        .then((response) => {
+            res = response;
+        })
+        .catch((error) => {
+            res = error;
+        }); 
         if(res.data.status === 200) {
             setToastMessage({...toastMessage, message: res?.data.message + " Redirecting to Home Page in 2 seconds.... ",type:"success"});
             setTimeout(function() {
-                navigate("/");
-              }, 2000);
+                navigate("/home");
+                }, 2000);
 
         }
         else{
@@ -63,6 +62,7 @@ const Login = () =>{
                                 <TextField type="password" name = "Admin_Password" onChange={(e)=>{onChangeTextField(e)}} required size="small"></TextField>
                             </Grid>
                             <Grid className="buttonlabel">
+                                <Button variant="text" className='button' onClick={()=>{navigate("/register")}} >New User! Register</Button>
                                 <Button variant="contained" onClick={handleSubmit} color="success" >Login</Button>
                             </Grid>
                         </FormControl>

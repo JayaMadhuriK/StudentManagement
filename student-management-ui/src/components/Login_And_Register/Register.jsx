@@ -40,12 +40,12 @@ const Register = () =>{
     const handleSubmit = async() => {
         let res = {};
         await axios.post('http://localhost:4000/register', registerRequestBody)
-    .then((response) => {
-        res = response;
-    })
-    .catch((error) => {
-         res = error;
-    });
+        .then((response) => {
+            res = response;
+        })
+        .catch((error) => {
+            res = error;
+        });
         if(res.data) {
             setToastMessage({...toastMessage, message: res?.data.message + " Redirecting to Login Page in 2 seconds.... ",type:"success"});
             setTimeout(function() {
@@ -54,7 +54,7 @@ const Register = () =>{
 
         }
         else if(!res.data){
-            setToastMessage({...toastMessage, message:"Something Went Wrong!",type:"error"});
+            setToastMessage({...toastMessage, message:"Email ID already exists...",type:"error"});
         }
     }
     return (
@@ -100,12 +100,12 @@ const Register = () =>{
                         </FormControl>
                 </Grid>
             </Grid>
-            {toastMessage?.message.length > 0 && 
-                <Alert sx={{ marginTop: '550px',position:"fixed",marginLeft:"385px" , minWidth:'500px'}} severity={toastMessage?.type}>
-                    <AlertTitle>{toastMessage?.type}</AlertTitle>
-                    <strong>{toastMessage?.message}</strong>
-                </Alert>
-            }
+                {toastMessage?.message.length > 0 && 
+                    <Alert sx={{ marginTop: '550px',position:"fixed",marginLeft:"385px" , minWidth:'500px'}} severity={toastMessage?.type}>
+                        <AlertTitle>{toastMessage?.type}</AlertTitle>
+                        <strong>{toastMessage?.message}</strong>
+                    </Alert>
+                }
         </Grid>
     )
 }

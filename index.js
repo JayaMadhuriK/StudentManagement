@@ -39,7 +39,7 @@ app.use('/mtech',app2);
 app.use('/mscormca',app3);
 app.use('/placement',app4);
 app.use('/activities',app5);
-app.use('/valueaddedcourse',app6);
+app.use('/',app6);
 app.use('/demandratio',app7);
 app.use('/avgnumberofdays',app8);
 app.use('/avgpasspercentage',app9);
