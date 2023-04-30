@@ -59,7 +59,7 @@ app9.route('/:code')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
 
     var bt = req.body
     conn.query('update avg_pass_percentage set ? where Program_Code ='+req.params.code,[bt],(err,rows)=>{

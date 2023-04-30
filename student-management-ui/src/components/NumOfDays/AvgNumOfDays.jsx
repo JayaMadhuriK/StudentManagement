@@ -4,15 +4,20 @@ import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControl, FormLabel } from '@mui/material';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle'; 
+import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom'; 
+import {useLocation} from 'react-router-dom'
 
 const AvgNumOfDays = () =>{
+    const location = useLocation();
+    const navigate = useNavigate();
     const [dateOfYear,setDateOfYear] = useState(null)
     const [dateOfBirth,setDateOfBirth] = useState(null)
     const [dateOfDec,setDateOfDec] = useState(null)
@@ -20,7 +25,7 @@ const AvgNumOfDays = () =>{
         type:"",
         message:""
     });
-    const [registerRequestBody,setRegisterRequestBody] = useState({
+    const student= location?.state?.student ||({
         Program_Name:"",
         Program_Code:"",
         Semester_Year:"",
@@ -32,26 +37,62 @@ const AvgNumOfDays = () =>{
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const editData = location?.state?.student ? true : false;
+    const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const handleSubmit = async() => {
         let res = {};
-        await axios.post('http://localhost:4000/avgnumberofdays', registerRequestBody)
-        .then((response) => {
+        if(editData){
+            await axios.put(`http://localhost:4000/avgnumberofdays/${student.Program_Code}`, registerRequestBody)
+            .then((response) => {
             res = response;
-        })
-        .catch((error) => {
-            res = error;
-        });
-        if(res.data) {
-            setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
-            setTimeout(function() {
-                window.location.reload(false);
-              }, 2000);
-        }
-        else{
-            setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
+                setTimeout(function() {
+                    navigate("/viewavg")
+                }, 2000);
+            }
+            else if(!res.data){
+                setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
+            }
+        }else{
+        await axios.post('http://localhost:4000/avgnumberofdays', registerRequestBody)
+            .then((response) => {
+                res = response;
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
+                setTimeout(function() {
+                    window.location.reload(false);
+                }, 2000);
+            }
+            else{
+                setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
         }
     }
-    console.log('request body:',registerRequestBody)
+    useEffect(()=>{
+        if(editData){
+            const year = Number(student.Semester_Year);
+            setDateOfYear(dayjs(year+"T18:30:00.000Z"));
+        }
+    },[]);
+    useEffect(()=>{
+        if(editData){
+            setDateOfBirth(dayjs(student.LastDateOf_LastSemesterEndExam+"T18:30:00.000Z"));
+        }
+    },[]);
+    useEffect(()=>{
+        if(editData){
+            setDateOfDec(dayjs(student.DateOf_Declaration_resultsOf_semester+"T18:30:00.000Z"));
+        }
+    },[]);
     return (
         <Grid>
             <Grid className='activities-popup'>
@@ -62,10 +103,10 @@ const AvgNumOfDays = () =>{
                     </Grid>
                     <FormControl className="register-form">
                             <Grid className="first-grid">
-                                <TextField name = "Program_Name" label="Program Name"InputProps={{ sx: { width: 250 } }}onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Program_Name" value={registerRequestBody?.Program_Name} label="Program Name"InputProps={{ sx: { width: 250 } }}onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Program_Code" type="Number" label="Program Code" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Program_Code" value={registerRequestBody?.Program_Code} type="Number" label="Program Code" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
                                 <LocalizationProvider dateAdapter={AdapterDayjs}> 
@@ -120,12 +161,6 @@ const AvgNumOfDays = () =>{
                                     />
                                 </LocalizationProvider>
                             </Grid>
-                            {/* <Grid className="first-name">
-                                <TextField name = "LastDateOf_LastSemesterEndExam" InputProps={{ sx: { width: 250 } }} label="Last Date Of Last Semester End Exam" onChange={(e)=>{onChangeTextField(e)}}  size="medium"></TextField>
-                            </Grid>
-                            <Grid className="first-name">
-                                <TextField name = "DateOf_Declaration_resultsOf_semester" InputProps={{ sx: { width: 250 } }} label="Date Of Declaration Results Of Semester" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
-                            </Grid> */}
                             <Grid className="button-grid">
                                 <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>

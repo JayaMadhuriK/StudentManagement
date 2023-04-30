@@ -61,7 +61,7 @@ app5.route('/:title')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
     const Title= '"'+req.params.title+'"';
     var bt = req.body
     conn.query('update collaborative_activities_withotherinstitutions_pastfiveyrs set ? where Title_of_collaborative_activity ='+Title,[bt],(err,rows)=>{

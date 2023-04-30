@@ -60,7 +60,7 @@ app6.route('/valueaddedYr1/:CourseCode')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update Yr_1 set ? where Course_Code ='+req.params.CourseCode,[bt],(err,rows)=>{
@@ -128,7 +128,7 @@ app6.route('/valueaddedYr2/:CourseCode')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update Yr_2 set ? where Course_Code ='+req.params.CourseCode,[bt],(err,rows)=>{
@@ -196,7 +196,7 @@ app6.route('/valueaddedYr3/:CourseCode')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update Yr_3 set ? where Course_Code ='+req.params.CourseCode,[bt],(err,rows)=>{
@@ -264,7 +264,7 @@ app6.route('/valueaddedYr4/:CourseCode')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update Yr_4 set ? where Course_Code ='+req.params.CourseCode,[bt],(err,rows)=>{
@@ -332,7 +332,7 @@ app6.route('/valueaddedYr5/:CourseCode')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update Yr_5 set ? where Course_Code ='+req.params.CourseCode,[bt],(err,rows)=>{

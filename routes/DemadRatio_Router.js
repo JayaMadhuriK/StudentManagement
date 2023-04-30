@@ -59,7 +59,7 @@ app7.route('/:Code')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
   
     var bt = req.body
     conn.query('update demand_ratio set ? where Program_Code ='+req.params.Code,[bt],(err,rows)=>{

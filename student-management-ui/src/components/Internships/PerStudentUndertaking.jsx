@@ -8,44 +8,69 @@ import { useState } from 'react';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle'; 
+import { useNavigate } from 'react-router-dom'; 
+import {useLocation} from 'react-router-dom'
+
 
 const PerStudentUndertaking = () =>{
+    const location = useLocation();
+    const navigate = useNavigate();
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
     });
-    const [registerRequestBody,setRegisterRequestBody] = useState({
+    const student= location?.state?.student ||{
         Program_Name:"",
         Program_Code:"",
         list_of_students_undertakig_field_projects_researchs_internships:"",
         link_to_relevant_documents:""
-    });
+    };
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const editData = location?.state?.student ? true : false;
+    const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const handleSubmit = async() => {
         let res = {};
-        await axios.post('http://localhost:4000/internships', registerRequestBody)
-        .then((response) => {
+        if(editData){
+            await axios.put(`http://localhost:4000/internships/${student.Program_Code}`, registerRequestBody)
+            .then((response) => {
             res = response;
-        })
-        .catch((error) => {
-            res = error;
-        });
-        if(res.data) {
-            setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
-            setTimeout(function() {
-                window.location.reload(false);
-              }, 2000);
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
+                setTimeout(function() {
+                    navigate("/viewinternships")
+                }, 2000);
+            }
+            else if(!res.data){
+                setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
+            }
+        }else{
+            await axios.post('http://localhost:4000/internships', registerRequestBody)
+            .then((response) => {
+                res = response;
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
+                setTimeout(function() {
+                    window.location.reload(false);
+                }, 2000);
 
-        }
-        else{
-            setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
+            else{
+                setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
         }
     }
-    console.log('request body:',registerRequestBody)
     return (
         <Grid>
             <Grid className='activities-popup'>
@@ -56,16 +81,16 @@ const PerStudentUndertaking = () =>{
                     </Grid>
                     <FormControl className="pass-form">
                             <Grid className="first-grid">
-                                <TextField name = "Program_Name" label="Program Name" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Program_Name" value={registerRequestBody?.Program_Name} label="Program Name" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Program_Code" type="Number" label="Program Code" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Program_Code" value={registerRequestBody?.Program_Code} type="Number" label="Program Code" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "list_of_students_undertakig_field_projects_researchs_internships" type="Number" label="list of students undertakig field/projects/researchs/internships" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "list_of_students_undertakig_field_projects_researchs_internships" value={registerRequestBody?.list_of_students_undertakig_field_projects_researchs_internships} type="Number" label="list of students undertakig field/projects/researchs/internships" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="Link_to_the_relevant_documents" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" value={registerRequestBody?.Link_to_the_relevant_documents} name="Link_to_the_relevant_documents" onChange={(e)=>{onChangeTextField(e)}}/></Button>
                             <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>

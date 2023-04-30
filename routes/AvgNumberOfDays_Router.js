@@ -59,7 +59,7 @@ app8.route('/:code')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update avg_numofdays_from_date_of_last_semester set ? where Program_Code ='+req.params.code,[bt],(err,rows)=>{

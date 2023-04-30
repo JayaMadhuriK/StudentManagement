@@ -8,41 +8,67 @@ import { useState } from 'react';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle'; 
+import { useNavigate } from 'react-router-dom';
+import {useLocation} from 'react-router-dom'
+
 
 const AvgPassPercentage = () =>{
+    const location = useLocation();
+    const navigate = useNavigate();
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
     });
-    const [registerRequestBody,setRegisterRequestBody] = useState({
+    const student= location?.state?.student ||{
         Program_Name:"",
         Program_Code:"",
         NumOfStudents_appeared_in_finalYr_examination:"",
         NumOfStudents_Passed_in_finalYr_examination:""
-    });
+    };
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const editData = location?.state?.student ? true : false;
+    const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const handleSubmit = async() => {
         let res = {};
-        await axios.post('http://localhost:4000/avgpasspercentage', registerRequestBody)
-        .then((response) => {
+        if(editData){
+            await axios.put(`http://localhost:4000/avgpasspercentage/${student.Program_Code}`, registerRequestBody)
+            .then((response) => {
             res = response;
-        })
-        .catch((error) => {
-            res = error;
-        });
-        if(res.data) {
-            setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
-            setTimeout(function() {
-                window.location.reload(false);
-              }, 2000);
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
+                setTimeout(function() {
+                    navigate("/viewpass")
+                }, 2000);
+            }
+            else if(!res.data){
+                setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
+            }
+        }else{
+            await axios.post('http://localhost:4000/avgpasspercentage', registerRequestBody)
+            .then((response) => {
+                res = response;
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
+                setTimeout(function() {
+                    window.location.reload(false);
+                }, 2000);
 
-        }
-        else{
-            setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
+            else{
+                setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
         }
     }
     return (
@@ -55,16 +81,16 @@ const AvgPassPercentage = () =>{
                     </Grid>
                     <FormControl className="pass-form">
                             <Grid className="first-grid">
-                                <TextField name = "Program_Name" label="Program Name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                <TextField name = "Program_Name" value={registerRequestBody?.Program_Name} label="Program Name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Program_Code" type="Number" label="Program Code" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                <TextField name = "Program_Code" value={registerRequestBody?.Program_Code} type="Number" label="Program Code" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "NumOfStudents_appeared_in_finalYr_examination" type="Number" label="No Of Students appeared finalYr examination" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                <TextField name = "NumOfStudents_appeared_in_finalYr_examination" value={registerRequestBody?.NumOfStudents_appeared_in_finalYr_examination} type="Number" label="No Of Students appeared finalYr examination" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "NumOfStudents_Passed_in_finalYr_examination" type="Number" label="No Of Students Passed in finalYr examination" onChange={(e)=>{onChangeTextField(e)}}  size="small"></TextField>
+                                <TextField name = "NumOfStudents_Passed_in_finalYr_examination" value={registerRequestBody?.NumOfStudents_Passed_in_finalYr_examination} type="Number" label="No Of Students Passed in finalYr examination" onChange={(e)=>{onChangeTextField(e)}}  size="small"></TextField>
                             </Grid>
                             <Grid className="button-grid">
                                 <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>

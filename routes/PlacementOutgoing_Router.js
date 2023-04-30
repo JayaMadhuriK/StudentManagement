@@ -59,7 +59,7 @@ app4.route('/:teacher')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
     const teachers= '"'+req.params.teacher+'"';
     var bt = req.body
     conn.query('update avg_percentage_placement_outgoingstudents_lastfiveyears set ? where Name_of_the_Teacher ='+teachers,[bt],(err,rows)=>{

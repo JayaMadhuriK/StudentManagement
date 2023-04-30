@@ -59,7 +59,7 @@ app13.route('/:numberofstudents')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
     
     var bt = req.body
     conn.query('update student_computer_ratio set ? where Total_number_of_students ='+req.params.numberofstudents,[bt],(err,rows)=>{

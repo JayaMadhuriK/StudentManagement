@@ -59,7 +59,7 @@ app14.route('/:name')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
     var con = '"'+req.params.name+'"';
     var bt = req.body
     conn.query('update student_council_activities set ? where StudentCouncil_Name ='+con,[bt],(err,rows)=>{

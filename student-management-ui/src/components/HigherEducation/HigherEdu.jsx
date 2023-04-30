@@ -4,21 +4,26 @@ import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControl, FormLabel } from '@mui/material';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle'; 
+import AlertTitle from '@mui/material/AlertTitle';
+import { useNavigate } from 'react-router-dom'; 
+import dayjs from 'dayjs';
+import {useLocation} from 'react-router-dom' 
 
 const HigherEdu = () =>{
     const [dateOfBirth,setDateOfBirth] = useState(null)
+    const location = useLocation();
+    const navigate = useNavigate();
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
     });
-    const [registerRequestBody,setRegisterRequestBody] = useState({
+    const student= location?.state?.student ||{
         NameOfTeacher:"",
         NumberOf_Students_Enrolled:"",
         Name_Of_Students:"",
@@ -26,32 +31,59 @@ const HigherEdu = () =>{
         Name_Of_Institution_joined:"",
         Name_Of_Programme_Admitted_To:"",
         IdentityCardORAdmissionLetter:""
-    });
+    };
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const editData = location?.state?.student ? true : false;
+    const [registerRequestBody,setRegisterRequestBody] = useState(student);
      const handleSubmit = async() => {
         let res = {};
-        await axios.post('http://localhost:4000/highereducation', registerRequestBody)
-        .then((response) => {
+        if(editData){
+            await axios.put(`http://localhost:4000/highereducation/${student.NameOfTeacher}`, registerRequestBody)
+            .then((response) => {
             res = response;
-        })
-        .catch((error) => {
-            res = error;
-        });
-        if(res.data) {
-            setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
-            setTimeout(function() {
-                window.location.reload(false);
-              }, 2000);
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
+                setTimeout(function() {
+                    navigate("/viewhigher")
+                }, 2000);
+            }
+            else if(!res.data){
+                setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
+            }
+        }else{
+            await axios.post('http://localhost:4000/highereducation', registerRequestBody)
+            .then((response) => {
+                res = response;
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
+                setTimeout(function() {
+                    window.location.reload(false);
+                }, 2000);
 
-        }
-        else{
-            setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
+            else{
+                setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+            }
         }
     }
+    useEffect(()=>{
+        if(editData){
+            const year = Number(student.Program_Graduated_From) - 1;
+            setDateOfBirth(dayjs(year+"-12-31T18:30:00.000Z"));
+        }
+    },[]);
     return (
         <Grid>
             <Grid className='activity-popup'>
@@ -62,13 +94,13 @@ const HigherEdu = () =>{
                     </Grid>
                     <FormControl className="register-form">
                             <Grid className="first-grid">
-                                <TextField name = "NameOfTeacher" label="Name Of Teacher" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "NameOfTeacher" value={registerRequestBody?.NameOfTeacher} label="Name Of Teacher" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "NumberOf_Students_Enrolled" type="Number" InputProps={{ sx: { width: 250 } }} label="Number Of Students Enrolled" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "NumberOf_Students_Enrolled" value={registerRequestBody?.NumberOf_Students_Enrolled} type="Number" InputProps={{ sx: { width: 250 } }} label="Number Of Students Enrolled" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Name_Of_Students" label="Name Of Students" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Name_Of_Students" label="Name Of Students" value={registerRequestBody?.Name_Of_Students} InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
                                 <LocalizationProvider dateAdapter={AdapterDayjs}> 
@@ -88,13 +120,13 @@ const HigherEdu = () =>{
                                 </LocalizationProvider>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Name_Of_Institution_joined" label="Name Of Institution joined" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
+                                <TextField name = "Name_Of_Institution_joined" value={registerRequestBody?.Name_Of_Institution_joined} label="Name Of Institution joined" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Name_Of_Programme_Admitted_To" label="Name Of Programme Admitted To" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
+                                <TextField name = "Name_Of_Programme_Admitted_To" value={registerRequestBody?.Name_Of_Programme_Admitted_To}label="Name Of Programme Admitted To" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="IdentityCardORAdmissionLetter" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" value={registerRequestBody?.IdentityCardORAdmissionLetter} name="IdentityCardORAdmissionLetter" onChange={(e)=>{onChangeTextField(e)}}/></Button>
                                 <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>

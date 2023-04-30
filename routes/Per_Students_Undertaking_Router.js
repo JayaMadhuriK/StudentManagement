@@ -59,7 +59,7 @@ app11.route('/:code')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
    
     var bt = req.body
     conn.query('update percentage_students_undertaking_internships_projects set ? where Program_Code ='+req.params.code,[bt],(err,rows)=>{

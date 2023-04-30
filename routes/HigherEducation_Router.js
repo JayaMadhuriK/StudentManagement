@@ -59,7 +59,7 @@ app12.route('/:teacher')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
     var con ='"' +req.params.teacher+'"';
     var bt = req.body
     conn.query('update percentageof_highereducation_students set ? where NameOfTeacher ='+con,[bt],(err,rows)=>{

@@ -59,7 +59,7 @@ app2.route('/:University_RollNumber')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
        var bt = req.body
        conn.query('update mtech set ? where University_RollNumber = '+req.params.University_RollNumber,[bt],(err,rows)=>{
           if(err){

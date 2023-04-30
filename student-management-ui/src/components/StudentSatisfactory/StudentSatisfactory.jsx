@@ -56,20 +56,20 @@ const StudentSatisfactory = () =>{
         if(editData){
             await axios.put(`http://localhost:4000/studentsatisfactory/${student.Student_Unique_Enrollment}`, registerRequestBody)
             .then((response) => {
-                res = response;
-                })
-                .catch((error) => {
-                    res = error;
-                });
-                if(res.data) {
-                    setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
-                    setTimeout(function() {
-                        navigate("/viewstudent")
-                    }, 2000);
-                }
-                else if(!res.data){
-                    setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
-                }
+            res = response;
+            })
+            .catch((error) => {
+                res = error;
+            });
+            if(res.data) {
+                setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
+                setTimeout(function() {
+                    navigate("/viewstudent")
+                }, 2000);
+            }
+            else if(!res.data){
+                setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
+            }
         }else{
             await axios.post('http://localhost:4000/studentsatisfactory', registerRequestBody)
             .then((response) => {
@@ -136,13 +136,11 @@ const StudentSatisfactory = () =>{
                                         value={dateOfBirth}
                                         views={['year']}
                                         onChange={(newValue)=>{
-                                            console.log(newValue);
                                         setDateOfBirth(newValue);
                                         const date = new Date(newValue);
                                         const year =String(date.getFullYear())
                                         setRegisterRequestBody({...registerRequestBody,Year_of_joining:year});
                                         }}
-                                      
                                     />
                                 </LocalizationProvider>
                             </Grid>

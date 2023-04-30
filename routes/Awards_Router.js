@@ -59,7 +59,7 @@ app10.route('/:award')
        });
 })
    
-.patch((req,res)=>{
+.put((req,res)=>{
     var con = '"'+req.params.award+'"';
     var bt = req.body
     conn.query('update no_of_awards_wonbystudents set ? where Name_Of_Award ='+con,[bt],(err,rows)=>{
