@@ -14,8 +14,11 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { useNavigate } from 'react-router-dom'; 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const MscOrMca = () =>{
+    const navigate = useNavigate();
     const [dateOfBirth,setDateOfBirth] = useState(null)
     const [dateOfSec,setDateOfSec] = useState(null)
     const [dateOfInter,setDateOfInter] = useState(null)
@@ -100,6 +103,7 @@ const MscOrMca = () =>{
                 <Grid>
                     <Grid className="logo">
                         <img src={logo} className="register-logo" alt="logo" />
+                        <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
                         <FormLabel className="andhra-university">Andhra University College Of Engineering</FormLabel>
                     </Grid>
                         <FormControl className="mtech-form">

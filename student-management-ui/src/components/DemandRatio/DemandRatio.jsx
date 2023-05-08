@@ -11,7 +11,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom'; 
 import dayjs from 'dayjs';
 import {useLocation} from 'react-router-dom'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 const DemandRatio = () =>{
     const location = useLocation();
     const navigate = useNavigate();
@@ -76,6 +76,9 @@ const DemandRatio = () =>{
     }
     return (
         <Grid>
+             <Grid className="stu">
+            <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
+            </Grid>
             <Grid className='demand-popup'>
                 <Grid>
                     <Grid className="logo">

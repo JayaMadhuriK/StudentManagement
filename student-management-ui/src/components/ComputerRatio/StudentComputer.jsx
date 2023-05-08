@@ -4,13 +4,13 @@ import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControl, FormLabel } from '@mui/material';
-import { useEffect,useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle'; 
 import { useNavigate } from 'react-router-dom'; 
-import dayjs from 'dayjs';
 import {useLocation} from 'react-router-dom'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StudentComputer = () =>{
     const location = useLocation();
@@ -75,6 +75,9 @@ const StudentComputer = () =>{
     }
     return (
         <Grid>
+            <Grid className="stu">
+            <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
+            </Grid>
             <Grid className='activities-popup'>
                 <Grid>
                     <Grid className="logo">

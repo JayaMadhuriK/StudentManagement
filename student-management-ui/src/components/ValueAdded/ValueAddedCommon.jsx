@@ -15,6 +15,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom'; 
 import {useLocation} from 'react-router-dom'
 import dayjs from 'dayjs';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ValueAddedCommon = (url,url1) =>{
     const location = useLocation();
@@ -86,6 +87,9 @@ const ValueAddedCommon = (url,url1) =>{
     },[]);
     return (
         <Grid>
+            <Grid className="stu">
+            <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
+            </Grid>
             <Grid className='demand-popup'>
                 <Grid>
                     <Grid className="logo">
