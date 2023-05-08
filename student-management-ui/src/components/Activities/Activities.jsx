@@ -14,6 +14,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom'; 
 import {useLocation} from 'react-router-dom'
 import dayjs from 'dayjs';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Activities = () =>{
     const [dateOfBirth,setDateOfBirth] = useState(null)
@@ -85,6 +86,9 @@ const Activities = () =>{
     },[]);
     return (
         <Grid>
+            <Grid className="stu">
+            <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
+            </Grid>
             <Grid className='activity-popup'>
                 <Grid>
                     <Grid className="logo">

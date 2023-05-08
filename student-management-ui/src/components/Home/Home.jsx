@@ -41,11 +41,16 @@ const Home = () =>{
                 <Button ClassName="button10" onClick={()=>{navigate("/viewplacements")}} variant="text"><font color="black">Placements</font></Button>
                 <Button ClassName="button11" onClick={()=>{navigate("/home")}} variant="text">Value Added</Button>
                 <Button ClassName="button12" onClick={()=>{navigate("/viewstudent")}} variant="text"><font color="black">Student Satisfactory</font></Button>
-                <Button ClassName="button12" onClick={()=>{navigate("/viewvalue1")}} variant="text"><font color="black">value added year1</font></Button>
-                <Button ClassName="button12" onClick={()=>{navigate("/viewvalue2")}} variant="text"><font color="black">value added year2</font></Button>
-                <Button ClassName="button12" onClick={()=>{navigate("/viewvalue3")}} variant="text"><font color="black">value added year3</font></Button>
-                <Button ClassName="button12" onClick={()=>{navigate("/viewvalue4")}} variant="text"><font color="black">value added year4</font></Button>
-                <Button ClassName="button12" onClick={()=>{navigate("/viewvalue5")}} variant="text"><font color="black">value added year5</font></Button>
+                <Button ClassName="button13" onClick={()=>{navigate("/viewvalue1")}} variant="text"><font color="black">value added year1</font></Button>
+                <Button ClassName="button14" onClick={()=>{navigate("/viewvalue2")}} variant="text"><font color="black">value added year2</font></Button>
+                <Button ClassName="button15" onClick={()=>{navigate("/viewvalue3")}} variant="text"><font color="black">value added year3</font></Button>
+                <Button ClassName="button16" onClick={()=>{navigate("/viewvalue4")}} variant="text"><font color="black">value added year4</font></Button>
+                <Button ClassName="button17" onClick={()=>{navigate("/viewvalue5")}} variant="text"><font color="black">value added year5</font></Button>
+                <Button ClassName="button18" onClick={()=>{navigate("/viewbtech")}} variant="text"><font color="black">Btech</font></Button>
+                <Button ClassName="button19" onClick={()=>{navigate("/viewmtech")}} variant="text"><font color="black">Mtech</font></Button>
+                <Button ClassName="button20" onClick={()=>{navigate("/viewmscormca")}} variant="text"><font color="black">MSC And MCA</font></Button>
+
+
             </Grid>
         </Grid>
     )

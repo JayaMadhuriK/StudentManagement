@@ -28,6 +28,7 @@ const app13 = require('./routes/StudentComputerRatio_Router');
 const app14 = require('./routes/CouncilActivity_Router');
 const app15 = require('./routes/StudentSatisfactory_Router');
 const app16 = require('./routes/login');
+const excel = require('./routes/Excel');
 
 const app = express();
 app.use(morgan('dev'));
@@ -50,6 +51,7 @@ app.use('/computerratio',app13);
 app.use('/councilactivities',app14);
 app.use('/studentsatisfactory',app15);
 app.use('/',app16);
+app.use('/download',excel);
 
 
 

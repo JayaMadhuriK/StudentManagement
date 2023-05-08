@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const conn = require('../database');
 const xlsx = require('xlsx');
-
+const dbPool =require ('../database');
 const app15 = express.Router();
 
 app15.use(bodyParser.json());
@@ -72,6 +72,6 @@ app15.route('/:roll')
         }
     
       })
-});
+}); 
 
 module.exports = app15;

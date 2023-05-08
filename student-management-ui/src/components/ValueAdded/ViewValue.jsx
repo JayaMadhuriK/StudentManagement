@@ -11,8 +11,11 @@ import Button from '@mui/material/Button';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../View.scss'
+import AddIcon from '@mui/icons-material/Add';
+import DownloadIcon from '@mui/icons-material/Download';
 
-const ViewValue = (url,url1) =>{
+const ViewValue = (url,url1,url2) =>{
     const navigate = useNavigate();
     const [studentData,setStudentData] = useState([])
     const getStudentData = async () =>{
@@ -22,9 +25,19 @@ const ViewValue = (url,url1) =>{
     useEffect(() => {
         getStudentData();
       },[]);
+    const handleDownload = async() =>{
+        await axios.post(url2);
+        window.alert("downloaded");
+    }
     return(
-        <Grid>
-            <TableContainer component={Paper}>
+        <Grid className="grid">
+            <Grid className="grid-btn">
+                <h1>Student Satisfactory</h1>
+                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(url1)}} className="buttonnew"><AddIcon/>Add Record</Button>
+
+                <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
+            </Grid>
+            <TableContainer component={Paper} className="app-container">
                 <Table aria-label='table'>
                     <TableHead>
                         <TableRow>

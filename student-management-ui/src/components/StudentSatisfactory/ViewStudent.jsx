@@ -11,6 +11,9 @@ import Button from '@mui/material/Button';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../View.scss'
+import AddIcon from '@mui/icons-material/Add';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const ViewStudent = () =>{
     const navigate = useNavigate();
@@ -23,22 +26,31 @@ const ViewStudent = () =>{
     useEffect(() => {
         getStudentData();
       },[]);
+    const handleDownload = async() =>{
+        await axios.post('http://localhost:4000/download/download1');
+        window.alert("downloaded");
+    }
     return(
-        <Grid>
-            <TableContainer component={Paper}>
+        <Grid className="grid">
+            <Grid className="grid-btn">
+                <h1>Student Satisfactory</h1>
+                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/studentsatisfactory")}} className="buttonnew"><AddIcon/>Add Record</Button>
+                <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
+            </Grid>
+            <TableContainer component={Paper} className="app-container">
                 <Table aria-label='table'>
-                    <TableHead>
+                    <TableHead> 
                         <TableRow>
-                            <TableCell>Name of Student</TableCell>
-                            <TableCell>Gender</TableCell>
-                            <TableCell>Category</TableCell>
-                            <TableCell>State of domicille</TableCell>
-                            <TableCell>Nationality(if other than India)</TableCell>
-                            <TableCell>Email ID</TableCell>
-                            <TableCell>Program Name</TableCell>
-                            <TableCell>Student Unique Enrollment</TableCell>
-                            <TableCell>mobile number</TableCell>
-                            <TableCell>Year of joining</TableCell>
+                            <TableCell align="center">Name of Student</TableCell>
+                            <TableCell align="center">Gender</TableCell>
+                            <TableCell align="center">Category</TableCell>
+                            <TableCell align="center">State of domicille</TableCell>
+                            <TableCell align="center">Nationality(if other than India)</TableCell>
+                            <TableCell align="center">Email ID</TableCell>
+                            <TableCell align="center">Program Name</TableCell>
+                            <TableCell align="center">Student Unique Enrollment</TableCell>
+                            <TableCell align="center">mobile number</TableCell>
+                            <TableCell align="center">Year of joining</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -53,7 +65,7 @@ const ViewStudent = () =>{
                                 <TableCell>{student.Category}</TableCell>
                                 <TableCell>{student.State_of_domicille}</TableCell>
                                 <TableCell>{student.Nationality_if_other_than_india}</TableCell>
-                                <TableCell>{student.Email_ID}</TableCell>
+                                <TableCell align="center">{student.Email_ID}</TableCell>
                                 <TableCell>{student.Program_Name}</TableCell>
                                 <TableCell>{student.Student_Unique_Enrollment}</TableCell>
                                 <TableCell>{student.mobile_number}</TableCell>

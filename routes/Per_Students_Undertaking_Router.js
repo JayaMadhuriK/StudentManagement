@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const conn = require('../database');
-
+const xlsx = require('xlsx');
 const app11 = express.Router();
+const dbPool = require('../database');
 
 app11.use(bodyParser.json());
 app11.route('/')
@@ -72,5 +73,7 @@ app11.route('/:code')
     
       })
 });
+
+
 
 module.exports = app11;

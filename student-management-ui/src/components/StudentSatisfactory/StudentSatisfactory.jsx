@@ -17,6 +17,7 @@ import dayjs from 'dayjs';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom'; 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const StudentSatisfactory = () =>{
     const location = useLocation();
@@ -69,6 +70,9 @@ const StudentSatisfactory = () =>{
             }
             else if(!res.data){
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
+                setTimeout(function() {
+                    window.location.reload(false);
+                }, 2000);
             }
         }else{
             await axios.post('http://localhost:4000/studentsatisfactory', registerRequestBody)
@@ -85,8 +89,11 @@ const StudentSatisfactory = () =>{
                 }, 2000);
 
             }
-            else if(!res.data){
+            else{
                 setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+                setTimeout(function() {
+                    window.location.reload(false);
+                }, 2000);
             }
         }
     }
@@ -98,6 +105,11 @@ const StudentSatisfactory = () =>{
     },[]);
     return (
         <Grid>
+            <Grid className="stu">
+            <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
+
+            </Grid>
+
             <Grid className='student-popup'>
                 <Grid>
                     <Grid className="logo">
