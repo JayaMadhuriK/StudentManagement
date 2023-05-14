@@ -76,6 +76,7 @@ const ViewMscOrMca = () =>{
                             <TableCell align="center">CET_Rank</TableCell>
                             <TableCell align="center">MSC_OR_MCA_CGPA</TableCell>
                             <TableCell align="center">Number_Of_Backlogs</TableCell>
+                            <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -103,6 +104,7 @@ const ViewMscOrMca = () =>{
                                 <TableCell>{student._10th_CGPA}</TableCell>
                                 <TableCell>{student._10th_Board}</TableCell>
                                 <TableCell>{student._10th_YOP}</TableCell>
+                                <TableCell>{student._12th_Percentage}</TableCell>
                                 <TableCell>{student._12th_Board}</TableCell>
                                 <TableCell>{student._12th_YOP}</TableCell>
                                 <TableCell>{student.Degree}</TableCell>

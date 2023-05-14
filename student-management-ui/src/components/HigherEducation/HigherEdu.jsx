@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -24,6 +24,10 @@ const HigherEdu = () =>{
         type:"",
         message:""
     });
+    const [file,setFile] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
     const student= location?.state?.student ||{
         NameOfTeacher:"",
         NumberOf_Students_Enrolled:"",
@@ -41,6 +45,14 @@ const HigherEdu = () =>{
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
      const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('NameOfTeacher',registerRequestBody.NameOfTeacher)
+        formdata.append('NumberOf_Students_Enrolled',registerRequestBody.NumberOf_Students_Enrolled)
+        formdata.append('Name_Of_Students',registerRequestBody.Name_Of_Students)
+        formdata.append('Program_Graduated_From',registerRequestBody.Program_Graduated_From)
+        formdata.append('Name_Of_Institution_joined',registerRequestBody.Name_Of_Institution_joined)
+        formdata.append('Name_Of_Programme_Admitted_To',registerRequestBody.Name_Of_Programme_Admitted_To)
+        formdata.append('image',file);
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/highereducation/${student.NameOfTeacher}`, registerRequestBody)
@@ -60,7 +72,7 @@ const HigherEdu = () =>{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
             }
         }else{
-            await axios.post('http://localhost:4000/highereducation', registerRequestBody)
+            await axios.post('http://localhost:4000/highereducation', formdata)
             .then((response) => {
                 res = response;
             })
@@ -130,13 +142,13 @@ const HigherEdu = () =>{
                                 <TextField name = "Name_Of_Programme_Admitted_To" value={registerRequestBody?.Name_Of_Programme_Admitted_To}label="Name Of Programme Admitted To" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" value={registerRequestBody?.IdentityCardORAdmissionLetter} name="IdentityCardORAdmissionLetter" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
                                 <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>
                     {toastMessage?.message.length > 0 && 
-                        <Alert sx={{ marginTop: '-150px',position:"fixed",marginRight:"300px" , minWidth:'500px'}} severity={toastMessage?.type}>
+                        <Alert sx={{ marginTop: '-250px',position:"fixed",marginRight:"300px" , minWidth:'500px'}} severity={toastMessage?.type}>
                             <AlertTitle>{toastMessage?.type}</AlertTitle>
                             <strong>{toastMessage?.message}</strong>
                         </Alert>

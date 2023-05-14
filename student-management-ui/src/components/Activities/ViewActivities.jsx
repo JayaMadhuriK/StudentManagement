@@ -23,13 +23,13 @@ const ViewActivities = () =>{
         setStudentData(response?.data);
         console.log(response);
     };
-    useEffect(() => {
-        getStudentData();
-      },[]);
     const handleDownload = async() =>{
         await axios.post('http://localhost:4000/download/download7');
         window.alert("downloaded");
     }
+    useEffect(() => {
+        getStudentData();
+      },[]);
     return(
         <Grid className="grid">
             <Grid className="grid-btn">
@@ -63,8 +63,12 @@ const ViewActivities = () =>{
                                 <TableCell>{student.Name_of_Participant}</TableCell>
                                 <TableCell>{student.Year_of_collaboration}</TableCell>
                                 <TableCell>{student.Duration}</TableCell>
-                                <TableCell>{student.NatureofActivity}</TableCell>
-                                <TableCell>{student.Link_to_the_relevant_documents}</TableCell>
+                                <TableCell>{student.Nature_of_Activity}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                    <Button variant="contained" size="small">File</Button>
+                                    </Grid>
+                                </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
                                         <Button variant="contained" size="small" onClick={()=>{navigate("/activities",{state:{student:student}})}}>Edit</Button>

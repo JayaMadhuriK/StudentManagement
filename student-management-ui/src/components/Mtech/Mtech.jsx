@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import Home from '../Home/HomeStu'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -15,10 +15,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom'; 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
 const Mtech = () =>{
-    const navigate = useNavigate();
     const [dateOfSec,setDateOfSec] = useState(null)
     const [dateOfInter,setDateOfInter] = useState(null)
     const [dateOfBtech,setDateOfBtech] = useState(null)
@@ -88,26 +85,29 @@ const Mtech = () =>{
         .catch((error) => {
             res = error;
         }); 
-        console.log(res);
         if(res.data) {
             setToastMessage({...toastMessage, message:"Data Submitted Successfully......",type:"success"});
             setTimeout(function() {
                 window.location.reload(false);
             }, 2000);
         }
+        else if(res.response.status==400){
+            setTimeout(function() {
+                setToastMessage({...toastMessage, message:"Duplicate Entries University RollNumber or Email or Adhar Number",type:"error"})
+            }, 3000);
+        }
         else{
-            setToastMessage({...toastMessage, message:"Error, Try Again!",type:"error"});
+            setTimeout(function() {
+                setToastMessage({...toastMessage, message:"Error, Try Again!",type:"error"});
+            }, 2000);
         }
     }
+    console.log(registerRequestBody)
     return (
         <Grid>
+            <Grid><Home/></Grid>
             <Grid className='mtech-popup'>
                 <Grid>
-                    <Grid className="logo">
-                        <img src={logo} className="register-logo" alt="logo" />
-                        <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
-                        <FormLabel className="andhra-university">Andhra University College Of Engineering</FormLabel>
-                    </Grid>
                         <FormControl className="mtech-form">
                         <FormLabel className="department-details">Student Form MTECH</FormLabel>
                             <FormLabel className="personal-details">Personal Details</FormLabel>
@@ -129,6 +129,7 @@ const Mtech = () =>{
                                                     onChange={(newValue)=>{
                                                     setDateOfBirth(newValue);
                                                     const date = new Date(newValue);
+                                                    console.log(newValue);
                                                     const year =String(date.getFullYear())
                                                     const month =Number(String(date.getMonth()).padStart(0,2))+1;
                                                     const day =String(date.getDate()).padStart(0,2);
@@ -248,7 +249,7 @@ const Mtech = () =>{
                                         </LocalizationProvider>
                                     </Grid>
                                 </Grid>
-                                <FormLabel className="diploma-details">Diploma Education</FormLabel>
+                                <FormLabel className="diploma-details">Diploma Education(Optional)</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
                                         <TextField name = "Diploma_Percentage" label="Percentage" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>

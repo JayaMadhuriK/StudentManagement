@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -20,6 +20,10 @@ const PerStudentUndertaking = () =>{
         type:"",
         message:""
     });
+    const [file,setFile] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
     const student= location?.state?.student ||{
         Program_Name:"",
         Program_Code:"",
@@ -34,6 +38,11 @@ const PerStudentUndertaking = () =>{
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('Program_Name',registerRequestBody.Program_Name)
+        formdata.append('Program_Code',registerRequestBody.Program_Code)
+        formdata.append('list_of_students_undertakig_field_projects_researchs_internships',registerRequestBody.list_of_students_undertakig_field_projects_researchs_internships)
+        formdata.append('image',file);
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/internships/${student.Program_Code}`, registerRequestBody)
@@ -53,7 +62,7 @@ const PerStudentUndertaking = () =>{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
             }
         }else{
-            await axios.post('http://localhost:4000/internships', registerRequestBody)
+            await axios.post('http://localhost:4000/internships', formdata)
             .then((response) => {
                 res = response;
             })
@@ -94,7 +103,7 @@ const PerStudentUndertaking = () =>{
                                 <TextField name = "list_of_students_undertakig_field_projects_researchs_internships" value={registerRequestBody?.list_of_students_undertakig_field_projects_researchs_internships} type="Number" label="list of students undertakig field/projects/researchs/internships" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" value={registerRequestBody?.Link_to_the_relevant_documents} name="Link_to_the_relevant_documents" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
                             <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>

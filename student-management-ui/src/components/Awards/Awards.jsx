@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -33,6 +33,10 @@ const Awards = () =>{
         University_RollNumber:"",
         E_Copy_Of_Award_Letter:"",
     };
+    const [file,setFile] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const [dateOfBirth,setDateOfBirth] = useState(null);
@@ -42,6 +46,15 @@ const Awards = () =>{
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
     const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('Year',registerRequestBody.Year)
+        formdata.append('Name_Of_Award',registerRequestBody.Name_Of_Award)
+        formdata.append('TeamORIndividual',registerRequestBody.TeamORIndividual)
+        formdata.append('InterUniversity_State_National_International',registerRequestBody.InterUniversity_State_National_International)
+        formdata.append('Name_Of_Event',registerRequestBody.Name_Of_Event)
+        formdata.append('Name_Of_Student',registerRequestBody.Name_Of_Student)
+        formdata.append('University_RollNumber',registerRequestBody.University_RollNumber)
+        formdata.append('image',file);
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/awards/${student.Name_Of_Award}`, registerRequestBody)
@@ -61,13 +74,14 @@ const Awards = () =>{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
             }
         }else{
-            await axios.post('http://localhost:4000/awards', registerRequestBody)
+            await axios.post('http://localhost:4000/awards', formdata)
             .then((response) => {
                 res = response;
             })
             .catch((error) => {
                 res = error;
             });
+            console.log(res);
             if(res.data) {
                 setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
                 setTimeout(function() {
@@ -134,7 +148,7 @@ const Awards = () =>{
                                 <TextField name = "University_RollNumber" type="Number" value={registerRequestBody?.University_RollNumber} label="University RollNumber" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" value={registerRequestBody?.E_Copy_Of_Award_Letter} name="E_Copy_Of_Award_Letter" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
                                 <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>

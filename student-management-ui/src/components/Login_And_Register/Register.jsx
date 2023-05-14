@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import './Register.scss'
 import TextField from '@mui/material/TextField';

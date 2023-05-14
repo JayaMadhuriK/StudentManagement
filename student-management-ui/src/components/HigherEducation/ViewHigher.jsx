@@ -70,7 +70,7 @@ const ViewHigher = () =>{
                                         <Button variant="contained" size="small" onClick={()=>{navigate("/highereducation",{state:{student:student}})}}>Edit</Button>
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
-                                            axios.delete(`http://localhost:4000/highereducation/${student.Student_Unique_Enrollment}`);
+                                            axios.delete(`http://localhost:4000/highereducation/${student.NameOfTeacher}`);
                                             window.location.reload(false);
                                         }} 
                                         color="error" size="small">Delete</Button>

@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -24,6 +24,10 @@ const CouncilActivity = () =>{
         type:"",
         message:""
     });
+    const [file,setFile] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
     const student= location?.state?.student ||{
         StudentCouncil_Name:"",
         Date_Of_Establishment:"",
@@ -38,6 +42,11 @@ const CouncilActivity = () =>{
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
      const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('StudentCouncil_Name',registerRequestBody.StudentCouncil_Name)
+        formdata.append('Date_Of_Establishment',registerRequestBody.Date_Of_Establishment)
+        formdata.append('Activities',registerRequestBody.Activities)
+        formdata.append('image',file);
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/councilactivities/${student.StudentCouncil_Name}`, registerRequestBody)
@@ -57,7 +66,7 @@ const CouncilActivity = () =>{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
             }
         }else{
-            await axios.post('http://localhost:4000/councilactivities', registerRequestBody)
+            await axios.post('http://localhost:4000/councilactivities', formdata)
             .then((response) => {
                 res = response;
             })
@@ -79,7 +88,6 @@ const CouncilActivity = () =>{
     useEffect(()=>{
         if(editData){
             setDateOfBirth(dayjs(student.Date_Of_Establishment));
-            console.log(dateOfBirth)
         }
     },[]);
     return (
@@ -98,28 +106,28 @@ const CouncilActivity = () =>{
                                 <TextField name = "StudentCouncil_Name" value={registerRequestBody?.StudentCouncil_Name} label="Student Council Name" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="large"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}> 
-                                            <DatePicker 
-                                                label="Date Of Birth"
-                                                value={dateOfBirth}
-                                                onChange={(newValue)=>{
-                                                setDateOfBirth(newValue);
-                                                const date = new Date(newValue);
-                                                const year =String(date.getFullYear())
-                                                const month =Number(String(date.getMonth()).padStart(0,2))+1;
-                                                const day =String(date.getDate()).padStart(0,2);
-                                                const dob = year+"-"+month+"-"+day;
-                                                setRegisterRequestBody({...registerRequestBody,Date_Of_Establishment:dob});
-                                                }}
-                                                renderInput={(props)=>{ <TextField {...props}/> }}
-                                            />
-                                        </LocalizationProvider>
-                                    </Grid>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}> 
+                                    <DatePicker 
+                                        label="Date Of Birth"
+                                        value={dateOfBirth}
+                                        onChange={(newValue)=>{
+                                        setDateOfBirth(newValue);
+                                        const date = new Date(newValue);
+                                        const year =String(date.getFullYear())
+                                        const month =Number(String(date.getMonth()).padStart(0,2))+1;
+                                        const day =String(date.getDate()).padStart(0,2);
+                                        const dob = year+"-"+month+"-"+day;
+                                        setRegisterRequestBody({...registerRequestBody,Date_Of_Establishment:dob});
+                                        }}
+                                        renderInput={(props)=>{ <TextField {...props}/> }}
+                                    />
+                                </LocalizationProvider>
+                            </Grid>
                             <Grid className="first-name">
                                 <TextField name = "Activities" value={registerRequestBody?.Activities} label="Activities" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="large"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" value={registerRequestBody?.ProofsOREvidencesOrWebLinks} name="ProofsOREvidencesOrWebLinks" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
                             <Button variant="contained" className="button1" size="medium" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>

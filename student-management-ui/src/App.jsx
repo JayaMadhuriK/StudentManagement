@@ -38,7 +38,7 @@ import ViewValue2 from './components/ValueAdded/ViewValue2';
 import ViewValue3 from './components/ValueAdded/ViewValue3';
 import ViewValue4 from './components/ValueAdded/ViewValue4';
 import ViewValue5 from './components/ValueAdded/ViewValue5';
-import HomeStu from './components/Home/HomeStu';
+import HomeStu from './components/Home/HomeStudent';
 import ViewPass from './components/PassPercentage/ViewPass';
 import ViewBtech from './components/Btech/ViewBtech'
 import ViewMtech from './components/Mtech/ViewMtech'

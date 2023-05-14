@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import Home from '../Home/HomeStu'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -19,11 +19,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const MscOrMca = () =>{
     const navigate = useNavigate();
-    const [dateOfBirth,setDateOfBirth] = useState(null)
     const [dateOfSec,setDateOfSec] = useState(null)
     const [dateOfInter,setDateOfInter] = useState(null)
     const [dateOfBtech,setDateOfBtech] = useState(null)
     const [dateOfMsc,setDateOfMsc] = useState(null)
+    const [focus,setFocus] = useState(false);
+    const onFocus =()=>{setFocus(true)};
+    const onBlur = () =>{
+        setFocus(false);
+    }
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
@@ -65,6 +69,7 @@ const MscOrMca = () =>{
         MSC_OR_MCA_CGPA:"",
         Number_Of_Backlogs:""
     });
+    console.log(registerRequestBody)
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -76,6 +81,7 @@ const MscOrMca = () =>{
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+
     const handleSubmit = async() => {
         let res = {};
         await axios.post('http://localhost:4000/mscormca', registerRequestBody)
@@ -92,20 +98,22 @@ const MscOrMca = () =>{
                 window.location.reload(false);
             }, 2000);
         }
+        else if(res.response.status==400){
+            setTimeout(function() {
+                setToastMessage({...toastMessage, message:"Duplicate Entries University RollNumber or Email or Adhar Number",type:"error"})
+            }, 2000);
+        }
         else{
-            setToastMessage({...toastMessage, message:"Error, Try Again!",type:"error"});
+            setTimeout(function() {
+                setToastMessage({...toastMessage, message:"Error, Try Again!",type:"error"});
+            }, 2000);
         }
     }
-    console.log('request body:',registerRequestBody)
     return (
         <Grid>
+            <Grid><Home/></Grid>
             <Grid className='mtech-popup'>
                 <Grid>
-                    <Grid className="logo">
-                        <img src={logo} className="register-logo" alt="logo" />
-                        <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
-                        <FormLabel className="andhra-university">Andhra University College Of Engineering</FormLabel>
-                    </Grid>
                         <FormControl className="mtech-form">
                         <FormLabel className="department-details">Student Form MSC/MCA</FormLabel>
                             <FormLabel className="personal-details">Personal Details</FormLabel>
@@ -120,22 +128,7 @@ const MscOrMca = () =>{
                                         <TextField name = "Last_Name" label="Last Name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
-                                            <LocalizationProvider dateAdapter={AdapterDayjs}> 
-                                                <DatePicker 
-                                                    label="Date Of Birth"
-                                                    value={dateOfBirth}
-                                                    onChange={(newValue)=>{
-                                                    setDateOfBirth(newValue);
-                                                    const date = new Date(newValue);
-                                                    const year =String(date.getFullYear())
-                                                    const month =Number(String(date.getMonth()).padStart(0,2))+1;
-                                                    const day =String(date.getDate()).padStart(0,2);
-                                                    const dob = year+"-"+month+"-"+day;
-                                                    setRegisterRequestBody({...registerRequestBody,DOB:dob});
-                                                    }}
-                                                    renderInput={(props)=>{ <TextField {...props}/> }}
-                                                />
-                                            </LocalizationProvider>
+                                    <TextField type={focus?"date":"text"} name = "DOB" label="Date Of Birth" onChange={(e)=>{onChangeTextField(e)}} style={{width:"220px"}} onFocus={onFocus} onBlur={onBlur} size='small'></TextField>
                                         </Grid>
                                 </Grid>
                                 <Grid className="gender-container">

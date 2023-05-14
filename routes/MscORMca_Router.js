@@ -21,6 +21,7 @@ app3.route('/')
     var btData = [bt.University_RollNumber,bt.First_Name,bt.Last_Name,bt.Gender,bt.Nationality,bt.DOB,bt.Phone_Number,bt.Email_ID,bt.ADHAR_Number,bt.Address,bt.District,bt.State,bt.Country,bt.Pin_Code,bt.Category,bt.Sub_Category,bt._10th_CGPA,bt._10th_Board,bt._10th_YOP,bt._12th_Percentage,bt._12th_Board,bt._12th_YOP,bt.Degree,bt.Degree_Specialization,bt.Degree_Score,bt.Degree_University,bt.Degree_College,bt.Degree_YOP,bt.MSC_OR_MCA,bt.Course_Branch,bt.College,bt.Entrance_CET,bt.CET_Rank,bt.MSC_OR_MCA_CGPA,bt.Number_Of_Backlogs,bt.YOP];
     conn.query('insert into msc_or_mca values(?)',[btData],(err,rows)=>{
        if(err){
+           res.sendStatus(400);
            console.log(err);
        }else{
            res.send('inserted');

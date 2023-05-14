@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -19,6 +19,14 @@ const StudentComputer = () =>{
         type:"",
         message:""
     });
+    const [file,setFile] = useState();
+    const [file1,setFile1] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
+    const handleFile1=(e)=>{
+        setFile1(e.target.files[0]);
+    }
     const student= location?.state?.student || {
         Name_Of_Department:"",
         Total_number_of_students:"",
@@ -35,6 +43,14 @@ const StudentComputer = () =>{
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
     const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('Name_Of_Department',registerRequestBody.Name_Of_Department)
+        formdata.append('Total_number_of_students',registerRequestBody.Total_number_of_students)
+        formdata.append('Number_of_computers_available_to_use',registerRequestBody.Number_of_computers_available_to_use)
+        formdata.append('image',file)
+        formdata.append('image1',file1);
+        formdata.append('Student_Computer_Ratio',registerRequestBody.Student_Computer_Ratio)
+
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/computerratio/${student.Name_Of_Department}`, registerRequestBody)
@@ -54,7 +70,7 @@ const StudentComputer = () =>{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
             }
         }else{
-            await axios.post('http://localhost:4000/computerratio', registerRequestBody)
+            await axios.post('http://localhost:4000/computerratio', formdata)
             .then((response) => {
                 res = response;
             })
@@ -97,8 +113,8 @@ const StudentComputer = () =>{
                             <Grid className="first-name">
                                 <TextField name = "Student_Computer_Ratio" label="Student Computer Ratio" value={registerRequestBody?.Student_Computer_Ratio} InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
-                            <Button className="first-name" size="small" ><font color="black">Bill Purchases:</font><input type="file" value={registerRequestBody?.Bills_Purchase_documents} name="Bills_Purchase_documents" onChange={(e)=>{onChangeTextField(e)}}/></Button>
-                            <Button className="first-name" size="small" ><font color="black">Stock Register:</font><input type="file" value={registerRequestBody?.Proof_of_stock_register_entry} name="Proof_of_stock_register_entry" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                            <Button className="first-name" size="small" ><font color="black">Bill Purchases:</font><input type="file" name="image" onChange={handleFile}/></Button>
+                            <Button className="first-name" size="small" ><font color="black">Stock Register:</font><input type="file" name="image1" onChange={handleFile1}/></Button>
                             <Grid className="button-grid">
                                 <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>

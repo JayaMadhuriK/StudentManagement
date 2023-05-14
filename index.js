@@ -32,7 +32,7 @@ const excel = require('./routes/Excel');
 
 const app = express();
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 
 app.use('/btech',app1);

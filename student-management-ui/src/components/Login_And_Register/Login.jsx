@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import './Login.scss'
 import TextField from '@mui/material/TextField';
@@ -24,7 +24,6 @@ const Login = () =>{
         const name = e.target.name;
         const value = e.target.value;
         setLoginRequestBody({...loginRequestBody,[name]:value})
-       // console.log('name: ',name,'value: ',value);
        
     }
     const handleSubmit = async() => {

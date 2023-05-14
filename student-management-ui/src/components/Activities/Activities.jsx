@@ -1,4 +1,4 @@
-import logo from '../../resources/logo.jpg'
+import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
@@ -25,13 +25,17 @@ const Activities = () =>{
         type:"",
         message:""
     });
+    const [file,setFile] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
     const student = location?.state?.student ||{
         Title_of_collaborative_activity:"",
         Name_of_collaborative_agency_with_contact_details:"",
         Name_of_Participant:"",
         Year_of_collaboration:"",
         Duration:"",
-        NatureofActivity:"",
+        Nature_of_Activity:"",
         Link_to_the_relevant_documents:""
     }
     const editData = location?.state?.student ? true : false;
@@ -42,6 +46,14 @@ const Activities = () =>{
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
     const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('Title_of_collaborative_activity',registerRequestBody.Title_of_collaborative_activity)
+        formdata.append('Name_of_collaborative_agency_with_contact_details',registerRequestBody.Name_of_collaborative_agency_with_contact_details)
+        formdata.append('Name_of_Participant',registerRequestBody.Name_of_Participant)
+        formdata.append('Year_of_collaboration',registerRequestBody.Year_of_collaboration)
+        formdata.append('Duration',registerRequestBody.Duration)
+        formdata.append('Nature_of_Activity',registerRequestBody.Nature_of_Activity)
+        formdata.append('image',file);
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/activities/${student.Title_of_collaborative_activity}`, registerRequestBody)
@@ -61,21 +73,23 @@ const Activities = () =>{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
             }
         }else{
-            await axios.post('http://localhost:4000/activities', registerRequestBody)
+            await axios.post('http://localhost:4000/activities', formdata)
             .then((response) => {
                 res = response;
             })
             .catch((error) => {
                 res = error;
             });
+            console.log(res)
             if(res.data) {
                 setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
                 setTimeout(function() {
-                    window.location.reload(false);
                 }, 2000);
             }
             else if(!res.data){
-                setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+                setTimeout(function() {
+                    setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
+                }, 2000);
             }
         }
     }
@@ -113,6 +127,7 @@ const Activities = () =>{
                                         value={dateOfBirth}
                                         views={['year']}
                                         name="small"
+                                        defaultValue={registerRequestBody?.dateOfBirth}
                                         onChange={(newValue)=>{
                                         setDateOfBirth(newValue);
                                         const date = new Date(newValue);
@@ -127,17 +142,16 @@ const Activities = () =>{
                                 <TextField name = "Duration" value={registerRequestBody?.Duration} label="Duration(In Days)" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "NatureofActivity" value={registerRequestBody?.NatureofActivity} label="Nature Of Activity" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
+                                <TextField name = "Nature_of_Activity" value={registerRequestBody?.Nature_of_Activity} label="Nature Of Activity" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" color="success"  className="first-name" size="small" ><input type="file" value={registerRequestBody?.Link_to_the_relevant_documents} name="Link_to_the_relevant_documents" onChange={(e)=>{onChangeTextField(e)}}/></Button>
+                                <Button variant="contained" color="success"  className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
                                 <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
                             </Grid>
                     </FormControl>
-                   
                 </Grid>
                     {toastMessage?.message.length > 0 && 
-                        <Alert sx={{ marginTop: '-150px',position:"fixed",marginRight:"300px" , minWidth:'500px'}} severity={toastMessage?.type}>
+                        <Alert sx={{ marginTop: '-250px',position:"fixed",marginRight:"300px" , minWidth:'500px'}} severity={toastMessage?.type}>
                             <AlertTitle>{toastMessage?.type}</AlertTitle>
                             <strong>{toastMessage?.message}</strong>
                         </Alert>
