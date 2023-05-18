@@ -1,0 +1,60 @@
+.home-admin{
+    height:657px;
+    width:1366px;
+    background-size: cover;
+    background-image: url('../AU.jpg');
+    background-repeat: no-repeat;
+    .grid1{
+        background-color: rgb(8, 15, 105);
+        display:flex;
+        height:70px;
+        width:1366px;
+       .register-logo{
+        width: 55px;
+        height: 55px;
+        border: 2px solid black;
+        border-radius: 50%;
+        margin-top:5px;
+        margin-right:50px;
+       } 
+       .au{
+        margin-top: 15px;
+        margin-left:-40px;
+        font-size: xx-large;
+        color:white;
+        }
+        .welcome{
+        margin-top: 15px;
+        margin-left:450px;
+        font-size: xx-large;
+        color:white;
+        }
+    }
+    .grid2{
+        display:flex;
+        .btn-1{
+            background-color: rgb(8, 15, 105);
+            height: 320px;
+            width:250px;
+            margin-top:150px;
+            margin-left: 150px;
+            opacity: 0.9;
+        }
+        .btn-2{
+            background-color: rgb(8, 15, 105);
+            height: 320px;
+            width:250px;
+            margin-top:150px;
+            margin-left: 150px;
+            opacity:0.9;
+        }
+        .btn-3{
+            background-color: rgb(8, 15, 105);
+            height: 320px;
+            width:250px;
+            margin-top:150px;
+            margin-left: 150px;
+            opacity:0.9;
+        }
+    }
+}

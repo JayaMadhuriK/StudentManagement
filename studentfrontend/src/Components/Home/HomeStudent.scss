@@ -1,0 +1,150 @@
+
+.stu{
+    .slider{
+        height:200px;
+        width:350px;
+        background-color:black;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url('https://www.andhrauniversity.edu.in/img/slider/1.jpg');
+
+       
+    }
+    .slide{
+        height:200px;
+        width:350px;
+        background-color:black;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-left:350px;
+        margin-top:-200px;
+        background-image: url('https://www.andhrauniversity.edu.in/img/gallery/2.jpg');
+      }
+    .slide1{
+        height:200px;
+        width:350px;
+        background-color:black;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-left:700px;
+        margin-top:-200px;
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNX6R47iE3bX5Lj0-bidcEtLBy0GmDCYSXA&usqp=CAU');
+    }
+    .slide2{
+        height:200px;
+        width:316px;
+        background-color:black;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-left:1050px;
+        margin-top:-200px;
+        background-image: url('https://www.careerindia.com/college-photos/520x380/31420/computer-science-department_1462426509.jpg');
+    }
+    .slide3{
+        height:384px;
+        width:350px;
+        margin-top:400px;
+        background-color: rgb(8, 15, 105);
+        
+            .label{
+                color:white;
+                margin-top:-400px;
+                margin-left:-20px;
+            }
+            .btn{
+                color:white;
+                font-size: large;
+                padding-left: 40px;
+                padding-right: 60px;
+                margin-left:-55px;
+                margin-top:30px;
+            }
+            .btn1{
+                color:white;
+                font-size: large;
+                margin-left:-60px;
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+            .btn2{
+                color:white;
+                font-size: large;
+                margin-left:35px;
+                
+            }
+            .btn3{
+                color:white;
+                font-size: large;
+                margin-left:20px;
+            }
+            .btn4{
+                color:white;
+                font-size: large;
+                padding-left: 60px;
+                padding-right: 60px;
+                margin-left:-73px;
+            }
+        
+    }
+    .slide4{
+        height:384px;
+        width:346px;
+        margin-top:15px;
+        margin-left:1020px;
+        background-color: rgb(8, 15, 105);
+        
+        
+            .label{
+                color:white;
+                margin-top:-400px;
+                margin-left:-20px;
+            }
+            .btn{
+                color:white;
+                font-size: large;
+                margin-top:-30px;
+                margin-left:-110px;
+                padding-left: 40px;
+                padding-right: 40px;
+                
+            }
+            .btn1{
+                color:white;
+                font-size: large;
+               margin-left:-143px;
+               padding:10px;
+               margin-top:60px;
+               padding-left: 40px;
+               padding-right: 40px;
+            }
+            .btn2{
+                color:white;
+                font-size: large;
+                margin-left:45px;
+                
+            }
+            .btn3{
+                color:white;
+                font-size: large;
+                margin-left:30px;
+            }
+            
+        
+    }
+    .slide5{
+        height:350px;
+        width:670px;
+        background-color: white;
+        margin-left:350px;
+        margin-top:-367px;
+        .con{
+            display:flex;
+            .icon{
+                margin-left:120px;
+                margin-top:20px;
+            }
+        }
+       
+    }
+}
+  

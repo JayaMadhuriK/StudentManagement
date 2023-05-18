@@ -1,0 +1,95 @@
+.all{
+    background-color: white;
+   // background-image: url('../AU.jpg');
+    .register-popup{
+        width:400px;
+        height:600px;
+        background-color:rgb(8, 15, 105);
+        position: absolute;
+        margin-left:450px;
+        margin-top:20px;
+        border:1px solid #555555;
+        border-radius:5px;
+        opacity: 0.8;
+        .register-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-top:5px;
+        }
+        .register-form{
+            position:absolute;
+            margin-top:50px;
+            margin-left:-110px;
+            .first-name{
+                display:flex;
+                margin-left:-35px;
+                margin-top:35px;
+            }
+            .gender-container{
+                display:flex;
+                margin-top:20px;
+                margin-left:-50px;
+                .gender-label{
+                    width:70px;
+                    margin-right:27px;
+                    margin-left:-10px;
+                    font-size:20px;
+                    font-family:'Times New Roman', Times, serif;
+                }
+            }
+           
+        }
+        
+    
+    }
+}
+
+.placement-popup{
+    width:500px;
+    height:850px;
+    background-color:aliceblue;
+    position: absolute;
+    margin-left:450px;
+    margin-top:30px;
+    border:1px solid #555555;
+    border-radius:5px;
+    .logo{
+        margin-top:45px;
+        margin-left: 150px;
+        height:100px;
+        .activities-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-left:-150px;
+            margin-top:-30px;
+        }
+        .andhra-university{
+            margin-left:-175px;
+            position: absolute;
+            margin-top:50px;
+            color:black;
+        }
+    }
+    .register-form{
+        margin-top:50px;
+        .first-grid{
+            margin-top:-40px;
+        }
+        .first-name{
+            margin-top:20px;
+        }
+        .button-grid{
+            margin-left:-50px;
+            .button{
+                margin-left:50px;
+                margin-top:20px;
+                width:250px;
+            }
+        }
+        
+    }
+}

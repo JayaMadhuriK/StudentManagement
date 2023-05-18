@@ -1,0 +1,62 @@
+.all{
+    height:657px;
+    width:1366px;
+    background-image: url('../AU.jpg');
+    background-size: cover;
+    .login-popup{
+        width:400px;
+        height:300px;
+        background-color:rgb(8, 15, 105);
+        position: absolute;
+        margin-left:450px;
+        margin-top:150px;
+        border:1px solid #555555;
+        border-radius:5px;
+        opacity: 0.8;
+        .register-logo{
+            width: 65px;
+            height: 65px;
+            border: 2px solid black;
+            border-radius: 50%;
+            margin-top:10px;
+        }
+        .register-form{
+            position:absolute;
+            margin-top:70px;
+            margin-left:-180px;
+            .first-name{
+                display:flex;
+                margin-left:-35px;
+                margin-top:30px;
+                .flabel{
+                    margin-top:5px;
+                    font-size:20px;
+                    margin-right:25px;
+                    font-family:'Times New Roman', Times, serif;
+                    color:white;
+                }
+                .llabel{
+                    margin-top:5px;
+                    font-size:20px;
+                    margin-right:22px;
+                    font-family:'Times New Roman', Times, serif;
+                    color:white;
+                }
+            }
+            .buttonlabel{
+                margin-top:30px;
+                .button{
+                    margin-right: 20px;
+                    padding-left: 30px;
+                    color:white;
+                }
+                .button:hover{
+                    background-color:blue;
+                    color:white;
+                }
+    
+            }
+        }
+}
+
+}
