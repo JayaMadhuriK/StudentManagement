@@ -4,6 +4,7 @@ const conn = require('../database');
 const multer = require('multer');
 const path = require('path');
 const app13 = express();
+app13.set('view engine','ejs')
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./routes/uploads')

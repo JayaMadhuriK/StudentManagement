@@ -4,7 +4,7 @@ const express = require('express');
 const fs = require('fs');
 const excel = express.Router();
 
-const workbookPath='C:\\Users\\madhu\\OneDrive\\Desktop\\Student\\xlsx\\Student.xlsx';
+const workbookPath='C:\\Users\\madhu\\OneDrive\\Desktop\\Student\\xlsx\\DATA_TEMPLATES.xlsx';
 let workbook;
 if(fs.existsSync(workbookPath)){
     workbook = xlsx.readFile(workbookPath);
@@ -21,7 +21,7 @@ excel.route('/download1')
         }
         else{
             let response = result[0];
-            let worksheetName = 'stu';
+            let worksheetName = '2.7.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -54,7 +54,7 @@ excel.route('/download2')
         }
         else{
             let response = result[0];
-            let worksheetName = 'intern';
+            let worksheetName = '1.3.4';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -85,7 +85,7 @@ excel.route('/download3')
         }
         else{
             let response = result[0];
-            let worksheetName = 'lastsem';
+            let worksheetName = '2.5.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -118,7 +118,7 @@ excel.route('/download4')
         }
         else{
             let response = result[0];
-            let worksheetName = 'passper';
+            let worksheetName = '2.6.3';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -149,7 +149,7 @@ excel.route('/download5')
         }
         else{
             let response = result[0];
-            let worksheetName = 'placement';
+            let worksheetName = '5.2.2';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -211,7 +211,7 @@ excel.route('/download7')
         }
         else{
             let response = result[0];
-            let worksheetName = 'collab';
+            let worksheetName = '3.7.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -242,7 +242,7 @@ excel.route('/download8')
         }
         else{
             let response = result[0];
-            let worksheetName = 'demand';
+            let worksheetName = '2.1.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -335,7 +335,7 @@ excel.route('/download11')
         }
         else{
             let response = result[0];
-            let worksheetName = 'awards';
+            let worksheetName = '5.3.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -367,7 +367,7 @@ excel.route('/download12')
         }
         else{
             let response = result[0];
-            let worksheetName = 'higher';
+            let worksheetName = '5.2.3';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -399,7 +399,7 @@ excel.route('/download13')
         }
         else{
             let response = result[0];
-            let worksheetName = 'stucomp';
+            let worksheetName = '4.3.3';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -430,7 +430,7 @@ excel.route('/download14')
         }
         else{
             let response = result[0];
-            let worksheetName = 'council';
+            let worksheetName = '5.3.2';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -461,7 +461,7 @@ excel.route('/download15')
         }
         else{
             let response = result[0];
-            let worksheetName = 'yr1';
+            let worksheetName = '1.1.3 & 1.2.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
@@ -492,16 +492,16 @@ excel.route('/download16')
         }
         else{
             let response = result[0];
-            let worksheetName = 'yr2';
+            let worksheetName = '1.1.3 & 1.2.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
             const newWorksheet = xlsx.utils.json_to_sheet(response);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A50'});
             } else {
             const worksheet = xlsx.utils.json_to_sheet(response);
             xlsx.utils.book_append_sheet(workbook, worksheet, worksheetName);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A50'});
             }
             xlsx.writeFile(workbook,workbookPath);
             res.send("downloaded");
@@ -523,16 +523,16 @@ excel.route('/download17')
         }
         else{
             let response = result[0];
-            let worksheetName = 'yr3';
+            let worksheetName = '1.1.3 & 1.2.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
             const newWorksheet = xlsx.utils.json_to_sheet(response);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A100'});
             } else {
             const worksheet = xlsx.utils.json_to_sheet(response);
             xlsx.utils.book_append_sheet(workbook, worksheet, worksheetName);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A100'});
             }
             xlsx.writeFile(workbook,workbookPath);
             res.send("downloaded");
@@ -554,16 +554,16 @@ excel.route('/download18')
         }
         else{
             let response = result[0];
-            let worksheetName = 'yr4';
+            let worksheetName = '1.1.3 & 1.2.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
             const newWorksheet = xlsx.utils.json_to_sheet(response);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A150'});
             } else {
             const worksheet = xlsx.utils.json_to_sheet(response);
             xlsx.utils.book_append_sheet(workbook, worksheet, worksheetName);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A150'});
             }
             xlsx.writeFile(workbook,workbookPath);
             res.send("downloaded");
@@ -585,16 +585,16 @@ excel.route('/download19')
         }
         else{
             let response = result[0];
-            let worksheetName = 'yr5';
+            let worksheetName = '1.1.3 & 1.2.1';
             const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
             const newWorksheet = xlsx.utils.json_to_sheet(response);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A200'});
             } else {
             const worksheet = xlsx.utils.json_to_sheet(response);
             xlsx.utils.book_append_sheet(workbook, worksheet, worksheetName);
-            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A200'});
             }
             xlsx.writeFile(workbook,workbookPath);
             res.send("downloaded");

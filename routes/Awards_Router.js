@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage:storage,
-})
+});
 
 app10.use(bodyParser.json());
 app10.route('/')
