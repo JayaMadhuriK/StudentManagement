@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const conn = require('../database');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const app13 = express();
 app13.set('view engine','ejs')
 const storage = multer.diskStorage({
@@ -32,12 +33,10 @@ app13.route('/')
 })
 
 .post(multiupload,(req,res)=>{
-    // var bt = req.body;
-    // var btData = [bt.Total_number_of_students,bt.Number_of_computers_available_to_use,bt.Bills_Purchase_documents,bt.Proof_of_stock_register_entry,bt.Student_Computer_Ratio,bt.Name_Of_Department];
     const {Total_number_of_students} = req.body;
     const {Number_of_computers_available_to_use} = req.body;
-    const Bills_Purchase_documents = req.file.filename;
-    const Proof_of_stock_register_entry = req.file.filename;
+    const Bills_Purchase_documents = req.files['image'][0].filename;
+    const Proof_of_stock_register_entry = req.files['image1'][0].filename;
     const {Student_Computer_Ratio} = req.body;
     const {Name_Of_Department} = req.body;
     conn.query('insert into student_computer_ratio SET ?',{
@@ -66,9 +65,9 @@ app13.route('/')
     });
 });
 
-app13.route('/:numberofstudents')
+app13.route('/:Name_Of_Department')
 .get((req,res)=>{
-    conn.query('select * from student_computer_ratio where Total_number_of_students = ?',[req.params.numberofstudents],(err,rows)=>{
+    conn.query('select * from student_computer_ratio where Name_Of_Department = ?',[req.params.Name_Of_Department],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -78,11 +77,11 @@ app13.route('/:numberofstudents')
 })
    
 .delete((req,res)=>{
-       conn.query('delete from student_computer_ratio where Total_number_of_students= ?',[req.params.numberofstudents],(err,rows)=>{
+       conn.query('delete from student_computer_ratio where Name_Of_Department= ?',[req.params.Name_Of_Department],(err,rows)=>{
           if(err){
               console.log(err);
           }else{
-              res.send('Details of '+req.params.numberofstudents+' deleted');
+              res.send('Details of '+req.params.Name_Of_Department+' deleted');
           }
        });
 })
@@ -90,7 +89,7 @@ app13.route('/:numberofstudents')
 .put((req,res)=>{
     
     var bt = req.body
-    conn.query('update student_computer_ratio set ? where Total_number_of_students ='+req.params.numberofstudents,[bt],(err,rows)=>{
+    conn.query('update student_computer_ratio set ? where Name_Of_Department ='+req.params.Name_Of_Department,[bt],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -99,6 +98,40 @@ app13.route('/:numberofstudents')
         }
     
       })
+});
+app13.get('/download/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, 'uploads', filename);
+    
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send('File not found');
+        return;
+      }
+      res.download(filePath,filename, (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Internal server error');
+        }
+      });
+    });
+});
+app13.get('/open/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, 'uploads', filename);
+  
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send('File not found');
+        return;
+      }
+  
+      const fileStream = fs.createReadStream(filePath);
+      res.setHeader('Content-Type', 'application/pdf');
+      fileStream.pipe(res);
+    });
 });
 
 module.exports = app13;

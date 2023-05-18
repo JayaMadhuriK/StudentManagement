@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const conn = require('../database');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const app12 = express.Router();
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
@@ -99,5 +100,38 @@ app12.route('/:teacher')
     
       })
 });
-
+app12.get('/download/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, 'uploads', filename);
+    
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send('File not found');
+        return;
+      }
+      res.download(filePath,filename, (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Internal server error');
+        }
+      });
+    });
+});
+app12.get('/open/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, 'uploads', filename);
+  
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send('File not found');
+        return;
+      }
+  
+      const fileStream = fs.createReadStream(filePath);
+      res.setHeader('Content-Type', 'application/pdf');
+      fileStream.pipe(res);
+    });
+});
 module.exports = app12;

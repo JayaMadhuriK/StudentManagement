@@ -3,8 +3,10 @@ const bodyParser = require('body-parser');
 const conn = require('../database');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const app5 = express();
+app5.use(bodyParser.json());
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./routes/uploads')
@@ -17,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage:storage,
 })
-app5.use(bodyParser.json());
+
 app5.route('/')
 .get((req,res)=>{
     conn.query('select * from collaborative_activities_withotherinstitutions_pastfiveyrs',(err,rows)=>{
@@ -96,6 +98,39 @@ app5.route('/:title')
       })
 });
 
-
+app5.get('/download/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, 'uploads', filename);
+    
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send('File not found');
+        return;
+      }
+      res.download(filePath,filename, (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Internal server error');
+        }
+      });
+    });
+});
+app5.get('/open/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, 'uploads', filename);
+  
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send('File not found');
+        return;
+      }
+  
+      const fileStream = fs.createReadStream(filePath);
+      res.setHeader('Content-Type', 'application/pdf');
+      fileStream.pipe(res);
+    });
+});
 
 module.exports = app5;
