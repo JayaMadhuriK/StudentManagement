@@ -133,8 +133,8 @@ const CouncilActivity = () =>{
                                 <TextField name = "Activities" value={registerRequestBody?.Activities} label="Activities" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="large"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
-                            <Button variant="contained" className="button1" size="medium" onClick={handleSubmit} color="success">Submit</Button>
+                            <Button variant="contained" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
+                            <Button variant="contained" className="button1" size="medium" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

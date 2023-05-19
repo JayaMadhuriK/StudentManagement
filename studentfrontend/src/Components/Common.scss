@@ -105,10 +105,10 @@
 .activities-popup{
     width:500px;
     height:620px;
-    background-color:aliceblue;
+    background-color:rgb(205, 235, 253);
     position: absolute;
     margin-left:450px;
-    margin-top:30px;
+    margin-top:0px;
     border:1px solid #555555;
     border-radius:5px;
     .logo{
@@ -171,10 +171,10 @@
 .awards-popup{
     width:500px;
     height:750px;
-    background-color:aliceblue;
+    background-color:rgb(205, 235, 253);
     position: absolute;
     margin-left:450px;
-    margin-top:30px;
+    margin-top:0px;
     border:1px solid #555555;
     border-radius:5px;
     .logo{
@@ -216,10 +216,10 @@
 .demand-popup{
     width:500px;
     height:660px;
-    background-color:aliceblue;
+    background-color:rgb(205, 235, 253);
     position: absolute;
     margin-left:450px;
-    margin-top:30px;
+    margin-top:0px;
     border:1px solid #555555;
     border-radius:5px;
     .logo{
@@ -262,10 +262,10 @@
 .activity-popup{
     width:500px;
     height:670px;
-    background-color:aliceblue;
+    background-color: rgb(205, 235, 253);
     position: absolute;
     margin-left:450px;
-    margin-top:30px;
+    margin-top:0px;
     border:1px solid #555555;
     border-radius:5px;
     .logo{
@@ -312,11 +312,11 @@
 }
 .student-popup{
     width:500px;
-    height:1100px;
-    background-color:aliceblue;
+    height:1000px;
+    background-color:rgb(205, 235, 253);
     position: absolute;
     margin-left:450px;
-    margin-top:30px;
+    margin-top:0px;
     border:1px solid #555555;
     border-radius:5px;
     
@@ -340,7 +340,7 @@
         }
     }
     .pass-form{
-        margin-top:50px;
+        margin-top:0px;
         .first-grid{
             margin-top:-0px;
         }
@@ -357,11 +357,11 @@
 
             .button{
                 margin-left:50px;
-                margin-top:20px;
+                margin-top:10px;
             }
             .button1{
                 margin-left:10px;
-                margin-top:40px;
+                margin-top:20px;
                 width:300px;
             }
         }

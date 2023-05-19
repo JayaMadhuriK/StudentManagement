@@ -138,7 +138,7 @@ const ValueAddedYr3 = () =>{
                                 <TextField name = "Num_Of_Students_Completed" value={registerRequestBody?.Num_Of_Students_Completed} type="Number" label="Number Of Students Completed" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="button" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

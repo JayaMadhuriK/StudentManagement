@@ -109,8 +109,8 @@ const PerStudentUndertaking = () =>{
                                 <TextField name = "list_of_students_undertakig_field_projects_researchs_internships" value={registerRequestBody?.list_of_students_undertakig_field_projects_researchs_internships} type="Number" label="list of students undertakig field/projects/researchs/internships" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                            <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
-                            <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
+                            <Button variant="contained" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
+                            <Button variant="contained" className="button1" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

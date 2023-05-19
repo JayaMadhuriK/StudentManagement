@@ -157,7 +157,7 @@ const StudentSatisfactory = () =>{
                                 </LocalizationProvider>
                             </Grid>
                             <Grid className="first-name">
-                                <FormLabel className="gender-label">Gender</FormLabel>
+                                <FormLabel className="gender-label" ><font color="grey">Gender</font></FormLabel>
                                     <RadioGroup 
                                         className="radio-group"
                                         row
@@ -166,13 +166,13 @@ const StudentSatisfactory = () =>{
                                         value={registerRequestBody?.Gender}
                                         onChange={(e)=>{onChangeRadioGroup(e)}}
                                     >
-                                    <FormControlLabel value="male" control={<Radio color="success"/>} label="Male" />
-                                    <FormControlLabel value="female" control={<Radio color="success" />} label="Female" />
-                                    <FormControlLabel value="other" control={<Radio color="success" />} label="Other" />
+                                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                    <FormControlLabel value="other" control={<Radio/>} label="Other" />
                                 </RadioGroup>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="button1" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

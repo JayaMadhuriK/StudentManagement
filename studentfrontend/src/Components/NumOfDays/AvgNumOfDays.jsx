@@ -173,7 +173,7 @@ const AvgNumOfDays = () =>{
                                 </LocalizationProvider>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="button1" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

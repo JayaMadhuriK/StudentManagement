@@ -35,7 +35,7 @@ const ViewMscOrMca = () =>{
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>MSC & MCA</h1>
-                <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} style={{marginTop:'0px',marginLeft:'-600px',position:'absolute'}}><ArrowBackIcon/></Button>
+                <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} style={{marginTop:'0px',marginLeft:'-600px',position:'absolute',backgroundColor:'rgb(8, 15, 105)'}}><ArrowBackIcon/></Button>
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
             <TableContainer component={Paper} className="app-container">

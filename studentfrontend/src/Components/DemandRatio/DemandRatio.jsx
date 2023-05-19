@@ -114,7 +114,7 @@ const DemandRatio = () =>{
                                 <TextField name = "Avg_Of_Last5Years" type="Number" label="Average Of Last5Years" value={registerRequestBody?.Avg_Of_Last5Years} onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button" onClick={handleSubmit} size="medium" color="success">Submit</Button>
+                                <Button variant="contained" className="button" onClick={handleSubmit} size="medium">Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

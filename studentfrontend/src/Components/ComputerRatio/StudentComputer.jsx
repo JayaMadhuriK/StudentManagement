@@ -122,7 +122,7 @@ const StudentComputer = () =>{
                             <Button className="first-name" size="small" ><font color="black">Bill Purchases:</font><input type="file" name="image" onChange={handleFile}/></Button>
                             <Button className="first-name" size="small" ><font color="black">Stock Register:</font><input type="file" name="image1" onChange={handleFile1}/></Button>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="button1" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

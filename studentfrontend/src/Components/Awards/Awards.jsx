@@ -154,8 +154,8 @@ const Awards = () =>{
                                 <TextField name = "University_RollNumber" type="Number" value={registerRequestBody?.University_RollNumber} label="University RollNumber" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" color="success" className="first-name" size="small" ><input type="file" defaultValue={registerRequestBody?.E_Copy_Of_Award_Letter} name="image" onChange={handleFile}/></Button>
-                                <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
+                                <Button variant="contained" className="button" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>

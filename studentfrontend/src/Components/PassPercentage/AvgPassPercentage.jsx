@@ -102,7 +102,7 @@ const AvgPassPercentage = () =>{
                                 <TextField name = "NumOfStudents_Passed_in_finalYr_examination" value={registerRequestBody?.NumOfStudents_Passed_in_finalYr_examination} type="Number" label="No Of Students Passed in finalYr examination" onChange={(e)=>{onChangeTextField(e)}}  size="small"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button1" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="button1" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                    

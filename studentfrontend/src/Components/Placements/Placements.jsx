@@ -143,7 +143,7 @@ const Placements = () =>{
                                 <TextField name = "Pay_package_at_appointment" label="Pay package at appointment" value={registerRequestBody?.Pay_package_at_appointment}  onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
-                                <Button variant="contained" className="button" onClick={handleSubmit} color="success">Submit</Button>
+                                <Button variant="contained" className="button" onClick={handleSubmit}>Submit</Button>
                             </Grid>
                     </FormControl>
                 </Grid>
