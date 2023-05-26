@@ -16,21 +16,30 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import Home from '../Home/HomeStu'
 
-const Register = () =>{
+
+const Register = (UserType) =>{
+    const initialValues = {
+        Admin_MailID:"",
+        Admin_Password:"",
+        First_Name:"",
+        Last_Name:"",
+        Gender:"female",
+        UserType:UserType?.UserType
+    };
     const navigate = useNavigate();
     const [registerRequestBody,setRegisterRequestBody] = useState({
         Admin_MailID:"",
         Admin_Password:"",
         First_Name:"",
         Last_Name:"",
-        Gender:"female"
+        Gender:"female",
+        UserType:""
     });
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
-    const [formValues, setFormValues] = useState(registerRequestBody);
+    const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
     const [showPasswordConf, setShowPasswordConf] = useState(false);
     const handleClickShowPasswordConf = () => setShowPasswordConf(!showPasswordConf);
@@ -77,37 +86,37 @@ const Register = () =>{
                 setFormValues({...formValues,Admin_Password:value})
             }
         }
-            else if(name === "Admin_confirmPassword"){
-                if(!value){
-                    setFormErrors({...formErrors,Admin_confirmPassword:'Confirm your password'});
-                }
-                else if(password!=value){
-                    
-                    setFormErrors({...formErrors,Admin_confirmPassword:'Passwords does not match'});
-                }
-                else{
-                    setFormErrors({...formErrors,Admin_confirmPassword:''});
-                    setFormValues({...formValues,Admin_confirmPassword:value})
-                }
+        else if(name === "Admin_confirmPassword"){
+            if(!value){
+                setFormErrors({...formErrors,Admin_confirmPassword:'Confirm your password'});
             }
-            else if(name === "First_Name"){
-                if(!value){
-                    setFormErrors({...formErrors,First_Name:'First Name Required'});
-                }
-                else{
-                    setFormErrors({...formErrors,First_Name:''});
-                    setFormValues({...formValues,First_Name:value})
-                }
+            else if(password!=value){
+                
+                setFormErrors({...formErrors,Admin_confirmPassword:'Passwords does not match'});
             }
-            else if(name === "Last_Name"){
-                if(!value){
-                    setFormErrors({...formErrors,Last_Name:'Last Name Required'});
-                }
-                else{
-                    setFormErrors({...formErrors,Last_Name:''});
-                    setFormValues({...formValues,Last_Name:value})
-                }
+            else{
+                setFormErrors({...formErrors,Admin_confirmPassword:''});
+                setFormValues({...formValues,Admin_confirmPassword:value})
             }
+        }
+        else if(name === "First_Name"){
+            if(!value){
+                setFormErrors({...formErrors,First_Name:'First Name Required'});
+            }
+            else{
+                setFormErrors({...formErrors,First_Name:''});
+                setFormValues({...formValues,First_Name:value})
+            }
+        }
+        else if(name === "Last_Name"){
+            if(!value){
+                setFormErrors({...formErrors,Last_Name:'Last Name Required'});
+            }
+            else{
+                setFormErrors({...formErrors,Last_Name:''});
+                setFormValues({...formValues,Last_Name:value})
+            }
+        }
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
     const onChangeRadioGroup = (e) => {
@@ -171,6 +180,7 @@ const Register = () =>{
             setToastMessage({...toastMessage, message:"Email ID already exists or Failed",type:"error"});
         }
     }
+    console.log(registerRequestBody);
     useEffect(() => {
         if (formErrors?.First_Name?.length == 0 && formErrors?.Last_Name?.length == 0 && formErrors?.Admin_MailID?.length == 0 && formErrors?.Admin_Password?.length == 0 && formErrors?.Admin_confirmPassword?.length == 0) {
             setIsDisable(false);

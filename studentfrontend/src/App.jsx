@@ -1,6 +1,8 @@
 import './App.css';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
-import Register from './Components/Login_And_Register/Register'
+import AdminRegister from './Components/Login_And_Register/AdminRegister'
+import StudentRegister from './Components/Login_And_Register/StudentRegister'
+
 import Login from './Components/Login_And_Register/Login'
 import Btech from './Components/Btech/Btech'
 import Mtech from './Components/Mtech/Mtech'
@@ -49,7 +51,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
           <Routes>
-             <Route path='/register' element={<Register/>}/>
+             <Route path='/adminregister' element={<AdminRegister/>}/>
+             <Route path='/studentregister' element={<StudentRegister/>}/>
               <Route path='/login' element={<Login/>}/>
               <Route path='/btech' element={<Btech/>}/>
               <Route path='/viewbtech' element={<ViewBtech/>}/>

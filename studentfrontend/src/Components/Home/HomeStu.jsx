@@ -21,7 +21,7 @@ const HomeStu = () =>{
             <Grid className="home-grid1">
                 <img src={logo} className="register-logo" alt="logo" />
                 <FormLabel className="au">AU</FormLabel>
-                <Button variant="standard" className="button" onClick={()=>{navigate("/login")}} color="success" >Admin Login</Button>
+                <Button variant="standard" className="button" onClick={()=>{navigate("/login")}} color="success" >Login</Button>
                 <Button variant="standard" color="success" className="home-btn" onClick={()=>{navigate('/')}}><HomeIcon/></Button>
                 <Button variant="standard" color="success" className="btech" onClick={handleBtech}>BTECH</Button>
                 <Button variant="standard" color="success" className="mtech" onClick={handleMtech}>MTECH</Button>

@@ -14,6 +14,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import CloseIcon from '@mui/icons-material/Close';
+import DialogActions from '@mui/material/DialogActions';
+import Dialog from '@mui/material/Dialog';
+
 
 const Login = () =>{
     const navigate = useNavigate();
@@ -25,6 +29,8 @@ const Login = () =>{
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const [isDisable, setIsDisable] = useState(true);
+    const [isDialogOpen,setIsDialogOpen] = useState(false);
+
     const [formValues, setFormValues] = useState(loginRequestBody);
     const [formErrors, setFormErrors] = useState({});
     const [toastMessage,setToastMessage] = useState({
@@ -54,7 +60,10 @@ const Login = () =>{
         }
         setLoginRequestBody({...loginRequestBody,[name]:value})
        
-    }
+    };
+    const handleClose = () =>{
+        setIsDialogOpen(false);
+    };
     const handleSubmit = async() => {
         let res = {};
         await axios.post('http://localhost:4000/login', loginRequestBody)
@@ -137,7 +146,7 @@ const Login = () =>{
 
                             </Grid>
                             <Grid className="buttonlabel">
-                                <Button variant="standard" className='button' onClick={()=>{navigate("/register")}} >New User! Register</Button>
+                                <Button variant="standard" className='button' onClick={()=>{setIsDialogOpen(true)}} >New User! Register</Button>
                                 <Button variant="contained" onClick={handleSubmit} disabled={isDisable} style={{backgroundColor:"white",color:"black"}}>Login</Button>
                             </Grid>
                         </FormControl>
@@ -149,6 +158,23 @@ const Login = () =>{
                     <strong>{toastMessage?.message}</strong>
                 </Alert>
             }
+            <Dialog sx={{
+                    "& .MuiDialog-container": {
+                        "& .MuiPaper-root": {
+                        width: "100%",
+                        maxWidth: "400px", 
+                        marginLeft:"80px"
+                        },
+                    },
+                }} onClose={handleClose} open={isDialogOpen} >
+                <DialogActions>
+                    <Button variant="contained" className="button"  onClick={()=>{navigate('/adminregister')}}>Register as Admin</Button>
+                    <Button variant="contained" className="button" onClick={()=>{navigate('/studentregister')}}>Register as Student</Button>
+                    <IconButton onClick={handleClose}>
+                        <CloseIcon/>
+                    </IconButton>
+                </DialogActions>
+            </Dialog>
             </Grid>
         </Grid>
     )

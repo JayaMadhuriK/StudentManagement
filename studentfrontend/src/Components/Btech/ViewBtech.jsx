@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import '../View.scss'
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewBtech = () =>{
     const navigate = useNavigate();
@@ -23,6 +24,38 @@ const ViewBtech = () =>{
         setStudentData(response?.data);
         console.log(response);
     }
+    const handleFileOpen = (filename) => {
+        axios
+          .get(`http://localhost:4000/btech/open/${filename}`, {
+            responseType: 'blob',
+          })
+          .then((response) => {
+            const file = new Blob([response.data], { type: 'application/pdf' });
+            const fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+    const handleFileDownload = (filename) => {
+        axios
+          .get(`http://localhost:4000/btech/download/${filename}`, {
+            responseType: 'blob',
+          })
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+          })
+          .catch((error) => {
+            console.log(error);
+            // Handle error
+          });
+      };
     useEffect(() => {
         getStudentData();
       },[]);
@@ -75,6 +108,17 @@ const ViewBtech = () =>{
                             <TableCell align="center">Entrance Exam</TableCell>
                             <TableCell align="center">CET Rank</TableCell>
                             <TableCell align="center">Course YOP</TableCell>
+                            <TableCell align="center">Certificate Course</TableCell>
+                            <TableCell align="center">IssuedBy</TableCell>
+                            <TableCell align="center">Platform</TableCell>
+                            <TableCell align="center">Files</TableCell>
+                            <TableCell align="center">Number Of Companies selected</TableCell>
+                            <TableCell align="center">Company Name</TableCell>
+                            <TableCell align="center">Pay Package</TableCell>
+                            <TableCell align="center">Files</TableCell>
+                            <TableCell align="center">Internship Company Name</TableCell>
+                            <TableCell align="center">Internship Duration</TableCell>
+                            <TableCell align="center">Files</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -117,6 +161,32 @@ const ViewBtech = () =>{
                                 <TableCell>{student.Entrance_Exam}</TableCell>
                                 <TableCell>{student.CET_Rank}</TableCell>
                                 <TableCell>{student.Course_YOP}</TableCell>
+                                <TableCell>{student.Certificate_Course}</TableCell>
+                                <TableCell>{student.Certificate_IssuedBy}</TableCell>
+                                <TableCell>{student.CertificatePlatform}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.CertificateUpload)} ><DownloadIcon/></Button>
+                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.CertificateUpload)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
+                                <TableCell>{student.NumberOfCompanies}</TableCell>
+                                <TableCell>{student.Company}</TableCell>
+                                <TableCell>{student.Package}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.Upload)} ><DownloadIcon/></Button>
+                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.Upload)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
+                                <TableCell>{student.InternCompany}</TableCell>
+                                <TableCell>{student.InternDuration}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.InternUpload)} ><DownloadIcon/></Button>
+                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.InternUpload)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
                                         <Button variant="contained" size="small" onClick={()=>{navigate("/btech",{state:{student:student}})}}>Edit</Button>
