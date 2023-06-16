@@ -17,29 +17,20 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 
-
-const Register = (UserType) =>{
-    const initialValues = {
-        Admin_MailID:"",
-        Admin_Password:"",
-        First_Name:"",
-        Last_Name:"",
-        Gender:"female",
-        UserType:UserType?.UserType
-    };
+const Register = () =>{
     const navigate = useNavigate();
     const [registerRequestBody,setRegisterRequestBody] = useState({
-        Admin_MailID:"",
+        Admin_EmailID:"",
         Admin_Password:"",
         First_Name:"",
         Last_Name:"",
         Gender:"female",
-        UserType:""
+        UserType:"admin"
     });
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
-    const [formValues, setFormValues] = useState(initialValues);
+    const [formValues, setFormValues] = useState(registerRequestBody);
     const [formErrors, setFormErrors] = useState({});
     const [showPasswordConf, setShowPasswordConf] = useState(false);
     const handleClickShowPasswordConf = () => setShowPasswordConf(!showPasswordConf);
@@ -51,20 +42,20 @@ const Register = (UserType) =>{
         type:"",
         message:""
     });
-    
+
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        if(name === "Admin_MailID"){
+        if(name === "Admin_EmailID"){
             if(!value){
-                setFormErrors({...formErrors,Admin_MailID:'Email Required'});
+                setFormErrors({...formErrors,Admin_EmailID:'Email Required'});
             }
             else if(!/^[A-Z0-9a-z+_-]+@andhrauniversity.edu.in$/.test(value)){
-                setFormErrors({...formErrors,Admin_MailID:'Invalid Email'});
+                setFormErrors({...formErrors,Admin_EmailID:'Invalid Email'});
             }
             else{
-                setFormErrors({...formErrors,Admin_MailID:''});
-                setFormValues({...formValues,Admin_MailID:value})
+                setFormErrors({...formErrors,Admin_EmailID:''});
+                setFormValues({...formValues,Admin_EmailID:value})
             }
         }
         else if(name === "Admin_Password"){
@@ -86,39 +77,46 @@ const Register = (UserType) =>{
                 setFormValues({...formValues,Admin_Password:value})
             }
         }
-        else if(name === "Admin_confirmPassword"){
-            if(!value){
-                setFormErrors({...formErrors,Admin_confirmPassword:'Confirm your password'});
+            else if(name === "Admin_confirmPassword"){
+                if(!value){
+                    setFormErrors({...formErrors,Admin_confirmPassword:'Confirm your password'});
+                }
+                else if(password!=value){
+
+                    setFormErrors({...formErrors,Admin_confirmPassword:'Passwords does not match'});
+                }
+                else{
+                    setFormErrors({...formErrors,Admin_confirmPassword:''});
+                }
             }
-            else if(password!=value){
-                
-                setFormErrors({...formErrors,Admin_confirmPassword:'Passwords does not match'});
+            else if(name === "First_Name"){
+                if(!value){
+                    setFormErrors({...formErrors,First_Name:'First Name Required'});
+                }
+                else{
+                    setFormErrors({...formErrors,First_Name:''});
+                    setFormValues({...formValues,First_Name:value})
+                }
             }
-            else{
-                setFormErrors({...formErrors,Admin_confirmPassword:''});
-                setFormValues({...formValues,Admin_confirmPassword:value})
+            else if(name === "Last_Name"){
+                if(!value){
+                    setFormErrors({...formErrors,Last_Name:'Last Name Required'});
+                }
+                else{
+                    setFormErrors({...formErrors,Last_Name:''});
+                    setFormValues({...formValues,Last_Name:value})
+                }
             }
-        }
-        else if(name === "First_Name"){
-            if(!value){
-                setFormErrors({...formErrors,First_Name:'First Name Required'});
-            }
-            else{
-                setFormErrors({...formErrors,First_Name:''});
-                setFormValues({...formValues,First_Name:value})
-            }
-        }
-        else if(name === "Last_Name"){
-            if(!value){
-                setFormErrors({...formErrors,Last_Name:'Last Name Required'});
-            }
-            else{
-                setFormErrors({...formErrors,Last_Name:''});
-                setFormValues({...formValues,Last_Name:value})
-            }
-        }
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const finalValues = {
+        Admin_EmailID:registerRequestBody.Admin_EmailID,
+        Admin_Password:registerRequestBody.Admin_Password,
+        First_Name:registerRequestBody.First_Name,
+        Last_Name:registerRequestBody.Last_Name,
+        Gender:registerRequestBody.Gender,
+        UserType:registerRequestBody.UserType
+    };
     const onChangeRadioGroup = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -162,7 +160,7 @@ const Register = (UserType) =>{
     };
     const handleSubmit = async() => {
         let res = {};
-        await axios.post('http://localhost:4000/register', registerRequestBody)
+        await axios.post('http://localhost:4000/register', finalValues)
         .then((response) => {
             res = response;
         })
@@ -170,7 +168,7 @@ const Register = (UserType) =>{
             res = error;
         });
         if(res.data) {
-            setToastMessage({...toastMessage, message: res?.data.message + " Redirecting to Login Page in 2 seconds.... ",type:"success"});
+            setToastMessage({...toastMessage, message:" Redirecting to Login Page in 2 seconds.... ",type:"success"});
             setTimeout(function() {
                navigate("/login");
               }, 2000);
@@ -180,12 +178,11 @@ const Register = (UserType) =>{
             setToastMessage({...toastMessage, message:"Email ID already exists or Failed",type:"error"});
         }
     }
-    console.log(registerRequestBody);
     useEffect(() => {
-        if (formErrors?.First_Name?.length == 0 && formErrors?.Last_Name?.length == 0 && formErrors?.Admin_MailID?.length == 0 && formErrors?.Admin_Password?.length == 0 && formErrors?.Admin_confirmPassword?.length == 0) {
+        if (formErrors?.First_Name?.length == 0 && formErrors?.Last_Name?.length == 0 && formErrors?.Admin_EmailID?.length == 0 && formErrors?.Admin_Password?.length == 0 && formErrors?.Admin_confirmPassword?.length == 0) {
             setIsDisable(false);
         }
-        else if(formErrors?.First_Name?.length != 0 || formErrors?.Last_Name?.length != 0 || formErrors?.Admin_MailID?.length != 0 || formErrors?.Admin_Password?.length != 0 || formErrors?.Admin_confirmPassword?.length != 0){
+        else if(formErrors?.First_Name?.length != 0 || formErrors?.Last_Name?.length != 0 || formErrors?.Admin_EmailID?.length != 0 || formErrors?.Admin_Password?.length != 0 || formErrors?.Admin_confirmPassword?.length != 0){
             setIsDisable(true);
         }
     }, [formErrors]);
@@ -206,8 +203,8 @@ const Register = (UserType) =>{
 
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Admin_MailID" variant="filled" InputLabelProps={{style : {color : 'black'} }} style={{backgroundColor:"white"}} label="Email Id" onChange={(e)=>{onChangeTextField(e)}} type="email" size="small"></TextField>
-                                <p style={{color:"red", position:"absolute",marginTop:"45px"}}>{formErrors.Admin_MailID}</p>
+                                <TextField name = "Admin_EmailID" variant="filled" InputLabelProps={{style : {color : 'black'} }} style={{backgroundColor:"white"}} label="Email Id" onChange={(e)=>{onChangeTextField(e)}} type="email" size="small"></TextField>
+                                <p style={{color:"red", position:"absolute",marginTop:"45px"}}>{formErrors.Admin_EmailID}</p>
 
                             </Grid>
                             <Grid className="first-name">

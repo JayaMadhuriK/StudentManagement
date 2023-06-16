@@ -1,9 +1,10 @@
 import Home from '../Home/HomeStu'
-import {Grid} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -158,6 +159,7 @@ const Mtech = () =>{
         formdata.append('InternCompany',registerRequestBody.InternCompany)
         formdata.append('InternDuration',registerRequestBody.InternDuration)
         formdata.append('InternUpload',file2)
+        console.log(formdata)
         let res = {}; 
         if(editData){
             if (file!=null) {
@@ -252,7 +254,6 @@ const Mtech = () =>{
                                                     onChange={(newValue)=>{
                                                     setDateOfBirth(newValue);
                                                     const date = new Date(newValue);
-                                                    console.log(newValue);
                                                     const year =String(date.getFullYear())
                                                     const month =Number(String(date.getMonth()).padStart(0,2))+1;
                                                     const day =String(date.getDate()).padStart(0,2);

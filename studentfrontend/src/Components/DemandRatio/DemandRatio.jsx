@@ -1,9 +1,10 @@
 import logo from '../logo.jpg'
-import {Grid} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';

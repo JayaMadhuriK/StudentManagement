@@ -1,8 +1,6 @@
 import './App.css';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
-import AdminRegister from './Components/Login_And_Register/AdminRegister'
-import StudentRegister from './Components/Login_And_Register/StudentRegister'
-
+import Register from './Components/Login_And_Register/Register'
 import Login from './Components/Login_And_Register/Login'
 import Btech from './Components/Btech/Btech'
 import Mtech from './Components/Mtech/Mtech'
@@ -45,14 +43,14 @@ import ViewPass from './Components/PassPercentage/ViewPass';
 import ViewBtech from './Components/Btech/ViewBtech'
 import ViewMtech from './Components/Mtech/ViewMtech'
 import ViewMscOrMca from './Components/McaAndMsc/ViewMscOrMca'
+import StudentHome from './Components/Home/StudentHome';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
           <Routes>
-             <Route path='/adminregister' element={<AdminRegister/>}/>
-             <Route path='/studentregister' element={<StudentRegister/>}/>
+             <Route path='/register' element={<Register/>}/>
               <Route path='/login' element={<Login/>}/>
               <Route path='/btech' element={<Btech/>}/>
               <Route path='/viewbtech' element={<ViewBtech/>}/>
@@ -94,10 +92,10 @@ function App() {
               <Route path='/viewvalue4' element={<ViewValue4/>}/>
               <Route path='/viewvalue5' element={<ViewValue5/>}/> 
               <Route path='/' element={<HomeStudent/>}/>
+              <Route path='/studenthome' element={<StudentHome/>}/>
           </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;

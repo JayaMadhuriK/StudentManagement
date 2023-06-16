@@ -26,7 +26,7 @@ const Home = () =>{
                 <FormLabel className="welcome">Welcome</FormLabel>
                 <Button onClick={()=>{navigate("/")}} style={{marginLeft:"540px"}} variant="standard"><font color="white">Logout</font></Button>
             </Grid>
-            
+
             <Grid className="grid2">
                 <Grid className="btn-1">
                 <h4><Button ClassName="button1" onClick={()=>{navigate("/viewactivities")}} variant="standard"><font color="white">Activties</font></Button></h4>
@@ -45,7 +45,7 @@ const Home = () =>{
                 <Grid className="btn-3">
                 <h4><Button ClassName="button11" onClick={()=>{setIsDialogOpen(true)}} variant="standard"><font color="white">Value Added</font></Button></h4>
                 <h4><Button ClassName="button12" onClick={()=>{navigate("/viewstudent")}} variant="standard"><font color="white">Student Satisfactory</font></Button></h4>
-            
+
                 <h4><Button ClassName="button18" onClick={()=>{navigate("/viewbtech")}} variant="standard"><font color="white">Btech</font></Button></h4>
                 <h4><Button ClassName="button19" onClick={()=>{navigate("/viewmtech")}} variant="standard"><font color="white">Mtech</font></Button></h4>
                 <h4><Button ClassName="button20" onClick={()=>{navigate("/viewmscormca")}} variant="standard"><font color="white">MSC And MCA</font></Button></h4>

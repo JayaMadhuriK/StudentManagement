@@ -1,9 +1,10 @@
 import Home from '../Home/HomeStu'
-import {Grid} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -94,12 +95,20 @@ const Btech = () =>{
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
     const onChangeRadioGroup = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setRegisterRequestBody({...registerRequestBody,[name]:value})
+        setRegisterRequestBody({...registerRequestBody,Gender:e.target.value})
     }
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
+    const finalValues ={
+        Admin_MailID:registerRequestBody.Email_ID,
+        Admin_Password:"Auce@123",
+        First_Name:registerRequestBody.First_Name,
+        Last_Name:registerRequestBody.Last_Name,
+        Gender:registerRequestBody.Gender,
+        UserType:"student"
+    };
+    console.log(registerRequestBody);
+    console.log(finalValues)
     const handleSubmit = async() => {
         const formdata = new FormData();
         formdata.append('University_RollNumber',registerRequestBody.University_RollNumber)
@@ -159,6 +168,7 @@ const Btech = () =>{
               if (file2!=null) {
                 formdata.append('InternUpload', file2);
               }
+            
             await axios.put(`http://localhost:4000/btech/${student.University_RollNumber}`, formdata)
             .then((response) => {
             res = response;
@@ -183,12 +193,24 @@ const Btech = () =>{
             .catch((error) => {
                 res = error;
             }); 
-            console.log(res);
             if(res.data) {
                 setToastMessage({...toastMessage, message:"Data Submitted Successfully......",type:"success"});
+                await axios.post('http://localhost:4000/register', finalValues)
+                .then((response) => {
+                    res = response;
+                })
+                .catch((error) => {
+                    res = error;
+                });
+                if(res.data){
+                setToastMessage({...toastMessage, message:"Account created",type:"success"})
+                }else{
+                    setToastMessage({...toastMessage, message:"Account not created",type:"success"})
+                }
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
+
             }
             else if(res.response.status==400){
                 setTimeout(function() {

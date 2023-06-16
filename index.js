@@ -53,12 +53,6 @@ app.use('/studentsatisfactory',app15);
 app.use('/',app16);
 app.use('/download',excel);
 
-
-
-app.use('/',(req,res)=>{
-    res.end('<html><body><h1>This is home page</h1><h2>btech,mtech,mscormca,placement,activities,ValueAdded</h2></body></html>');
-});
-
 const server = http.createServer(app);
 
 server.listen(process.env.DATABASE_PORT,()=>{

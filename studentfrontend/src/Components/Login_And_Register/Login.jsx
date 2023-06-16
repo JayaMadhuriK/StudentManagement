@@ -14,23 +14,17 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CloseIcon from '@mui/icons-material/Close';
-import DialogActions from '@mui/material/DialogActions';
-import Dialog from '@mui/material/Dialog';
-
 
 const Login = () =>{
     const navigate = useNavigate();
     const [loginRequestBody,setLoginRequestBody] = useState({
-        Admin_MailID:"",
+        Admin_EmailID:"",
         Admin_Password:""
     });
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const [isDisable, setIsDisable] = useState(true);
-    const [isDialogOpen,setIsDialogOpen] = useState(false);
-
     const [formValues, setFormValues] = useState(loginRequestBody);
     const [formErrors, setFormErrors] = useState({});
     const [toastMessage,setToastMessage] = useState({
@@ -40,13 +34,13 @@ const Login = () =>{
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        if(name === "Admin_MailID"){
+        if(name === "Admin_EmailID"){
             if(!value){
-                setFormErrors({...formErrors,Admin_MailID:'Email Required'});
+                setFormErrors({...formErrors,Admin_EmailID:'Email Required'});
             }
             else{
-                setFormErrors({...formErrors,Admin_MailID:''});
-                setFormValues({...formValues,Admin_MailID:value})
+                setFormErrors({...formErrors,Admin_EmailID:''});
+                setFormValues({...formValues,Admin_EmailID:value})
             }
         }
         else if(name === "Admin_Password"){
@@ -59,11 +53,8 @@ const Login = () =>{
             }
         }
         setLoginRequestBody({...loginRequestBody,[name]:value})
-       
-    };
-    const handleClose = () =>{
-        setIsDialogOpen(false);
-    };
+
+    }
     const handleSubmit = async() => {
         let res = {};
         await axios.post('http://localhost:4000/login', loginRequestBody)
@@ -73,18 +64,33 @@ const Login = () =>{
         .catch((error) => {
             res = error;
         }); 
-        console.log(res)
-        if(res?.data.status === 200) {
-            setToastMessage({...toastMessage, message: res?.data.message + " Redirecting to Home Page in 2 seconds.... ",type:"success"});
-            setTimeout(function() {
-                navigate("/home");
+        if(res?.status == 200) {
+            console.log(res)
+            if(res?.data[0]?.UserType == "admin"){
+                setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
+                setTimeout(function() {
+                    navigate("/home");
+                    }, 2000);
+            }
+            else if(res?.data[0]?.UserType == "student") {
+                setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
+                setTimeout(function() {
+                    navigate("/studenthome")
                 }, 2000);
-
+            }
         }
-        else{
+        else if(res?.status == 400 || res?.status == 404){
+            console.log(res)
             setToastMessage({...toastMessage, message:"Invalid Email Address Or Password, Try Again!",type:"error"});
             setTimeout(function() {
-                window.location.reload(false);
+                setToastMessage({...toastMessage, message:""});
+            }, 2000);
+        }
+        else{
+            console.log(res)
+            setToastMessage({...toastMessage, message:"NetWork Error, Try Again!",type:"error"});
+            setTimeout(function() {
+                setToastMessage({...toastMessage, message:""});
             }, 2000);
         }
     }
@@ -119,10 +125,10 @@ const Login = () =>{
           ),
     };
     useEffect(() => {
-        if (formErrors?.Admin_MailID?.length == 0 && formErrors?.Admin_Password?.length == 0 ) {
+        if (formErrors?.Admin_EmailID?.length == 0 && formErrors?.Admin_Password?.length == 0 ) {
             setIsDisable(false);
         }
-        else if(formErrors?.Admin_MailID?.length != 0 || formErrors?.Admin_Password?.length != 0){
+        else if(formErrors?.Admin_EmailID?.length != 0 || formErrors?.Admin_Password?.length != 0){
             setIsDisable(true);
         }
     }, [formErrors]);
@@ -135,8 +141,8 @@ const Login = () =>{
                         <FormControl className="register-form">
                             <Grid className="first-name">
                                 <FormLabel className="flabel">Email ID</FormLabel>
-                                <TextField type="email" name = "Admin_MailID" onChange={(e)=>{onChangeTextField(e)}} style={{backgroundColor:"white",width:"225px"}} InputProps={input} required  size="small"></TextField>
-                                <p style={{color:"red", position:"absolute",marginTop:"45px",marginLeft:"100px"}}>{formErrors.Admin_MailID}</p>
+                                <TextField type="email" name = "Admin_EmailID" onChange={(e)=>{onChangeTextField(e)}} style={{backgroundColor:"white",width:"225px"}} InputProps={input} required  size="small"></TextField>
+                                <p style={{color:"red", position:"absolute",marginTop:"45px",marginLeft:"100px"}}>{formErrors.Admin_EmailID}</p>
 
                             </Grid>
                             <Grid className="first-name">
@@ -146,7 +152,7 @@ const Login = () =>{
 
                             </Grid>
                             <Grid className="buttonlabel">
-                                <Button variant="standard" className='button' onClick={()=>{setIsDialogOpen(true)}} >New User! Register</Button>
+                                <Button variant="standard" className='button' onClick={()=>{navigate("/register")}} >New User! Register</Button>
                                 <Button variant="contained" onClick={handleSubmit} disabled={isDisable} style={{backgroundColor:"white",color:"black"}}>Login</Button>
                             </Grid>
                         </FormControl>
@@ -158,26 +164,8 @@ const Login = () =>{
                     <strong>{toastMessage?.message}</strong>
                 </Alert>
             }
-            <Dialog sx={{
-                    "& .MuiDialog-container": {
-                        "& .MuiPaper-root": {
-                        width: "100%",
-                        maxWidth: "400px", 
-                        marginLeft:"80px"
-                        },
-                    },
-                }} onClose={handleClose} open={isDialogOpen} >
-                <DialogActions>
-                    <Button variant="contained" className="button"  onClick={()=>{navigate('/adminregister')}}>Register as Admin</Button>
-                    <Button variant="contained" className="button" onClick={()=>{navigate('/studentregister')}}>Register as Student</Button>
-                    <IconButton onClick={handleClose}>
-                        <CloseIcon/>
-                    </IconButton>
-                </DialogActions>
-            </Dialog>
             </Grid>
         </Grid>
     )
 }
-
 export default Login;

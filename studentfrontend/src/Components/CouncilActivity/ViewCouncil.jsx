@@ -6,7 +6,7 @@ import {TableContainer,
     TableCell,
     Paper,
 } from '@mui/material';
-import {Grid} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import Button from '@mui/material/Button';
 import { useEffect,useState } from 'react';
 import axios from 'axios';

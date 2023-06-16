@@ -7,7 +7,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 const HomeStudent = () =>{
-    
+
     return(
             <Grid className="stu">
                <Grid><Home/></Grid>
@@ -17,7 +17,7 @@ const HomeStudent = () =>{
                <Grid className="slide1"></Grid>
                <Grid className="slide2"></Grid>
                <Grid className="slide3">
-                
+
                 <h2 className="label">----- Quick Links -----</h2>
                 <a href="https://www.andhrauniversity.edu.in/aulooks/aulooks.html"><Button variant="standard" className="btn" color="success"><ArrowCircleRightIcon/>AU Looks</Button></a>
                 <a href="https://scholarkart.in/AU/"><Button variant="standard" className="btn1" color="success"><ArrowCircleRightIcon/>AU Library</Button></a>
@@ -28,7 +28,7 @@ const HomeStudent = () =>{
                 </Grid>
 
                 <Grid className="slide4">
-                
+
                 <h2 className="label">----- Departments -----</h2>
                 <a href="https://www.andhrauniversity.edu.in/college/college-of-engineering/engineering-departments/cse.html"><Button variant="standard" className="btn" color="success"><ArrowCircleRightIcon/>CSE</Button></a>
                 <a href="https://www.andhrauniversity.edu.in/college/college-of-engineering/engineering-departments/CSE-IT.html"><Button variant="standard" className="btn1" color="success"><ArrowCircleRightIcon/>IT & CA</Button></a>
@@ -45,9 +45,9 @@ const HomeStudent = () =>{
                     <Grid className="con"><AccessTimeIcon className="icon"/><h3>Office Timings : Mon-Sat : 10:00 AM to 5:00 PM</h3></Grid>
 
                     <Grid className="con"><PhoneIcon className="icon"/> <h3>Phone:0891 2844000</h3></Grid>
-                    
+
                 </Grid>
-                
+
             </Grid>
     )
 }

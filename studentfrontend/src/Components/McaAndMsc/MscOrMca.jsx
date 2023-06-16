@@ -1,9 +1,10 @@
 import Home from '../Home/HomeStu'
-import {Grid} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
 import '../Common.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
