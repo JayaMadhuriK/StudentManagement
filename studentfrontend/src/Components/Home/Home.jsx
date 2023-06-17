@@ -2,21 +2,29 @@ import logo from '../logo.jpg'
 import {Grid} from '@material-ui/core'
 import './HomeAdmin.scss'
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel } from '@mui/material';
+import { FormLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
-import DialogActions from '@mui/material/DialogActions';
 import React,{useState} from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 const Home = () =>{
     const navigate = useNavigate();
-    const [isDisable, setIsDisable] = useState(true);
     const [isDialogOpen,setIsDialogOpen] = useState(false);
+    const [isLogOutDialogOpen,setIsLogOutDialogOpen] = useState(false);
+
     const handleClose = () =>{
         setIsDialogOpen(false);
+    };
+    const handleLogOut = () => {
+        navigate("/")
+    };
+    const handleLogOutClose = () =>{
+        setIsLogOutDialogOpen(false);
     };
     return(
         <Grid className="home-admin">
@@ -24,7 +32,7 @@ const Home = () =>{
                 <img src={logo} className="register-logo" alt="logo" />
                 <FormLabel className="au">AU</FormLabel>
                 <FormLabel className="welcome">Welcome</FormLabel>
-                <Button onClick={()=>{navigate("/")}} style={{marginLeft:"540px"}} variant="standard"><font color="white">Logout</font></Button>
+                <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"540px"}} variant="standard"><font color="white">Logout</font></Button>
             </Grid>
 
             <Grid className="grid2">
@@ -69,6 +77,26 @@ const Home = () =>{
                     <IconButton onClick={handleClose}>
                         <CloseIcon/>
                     </IconButton>
+                </DialogActions>
+            </Dialog>
+            <Dialog 
+                sx={{
+                    "& .MuiDialog-container": {
+                        "& .MuiPaper-root": {
+                            width: "100%",
+                            maxWidth: "400px", 
+                            marginLeft:"80px"
+                        },
+                    },
+                }} onClose={handleLogOutClose} open={isLogOutDialogOpen}>
+                <DialogContent>
+                    <DialogContentText>
+                        Do you want to Logout?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="contained" className="button"  onClick={handleLogOut}>Logout</Button>
+                    <Button variant="contained" className="button" onClick={handleLogOutClose}>Stay</Button>
                 </DialogActions>
             </Dialog>
         </Grid>

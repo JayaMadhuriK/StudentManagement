@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom'; 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Home from '../Home/HomeStu';
 
 const StudentSatisfactory = () =>{
     const location = useLocation();
@@ -106,11 +106,7 @@ const StudentSatisfactory = () =>{
     },[]);
     return (
         <Grid>
-            <Grid className="stu">
-            <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
-
-            </Grid>
-
+            <Grid><Home/></Grid>
             <Grid className='student-popup'>
                 <Grid>
                     <Grid className="logo">

@@ -64,30 +64,30 @@ const Login = () =>{
         .catch((error) => {
             res = error;
         }); 
-        if(res?.status == 200) {
+        if(res?.data?.status == 200) {
             console.log(res)
-            if(res?.data[0]?.UserType == "admin"){
+            if(res?.data?.details?.rows[0]?.UserType == "admin"){
                 setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
                 setTimeout(function() {
                     navigate("/home");
-                    }, 2000);
+                }, 2000);
             }
-            else if(res?.data[0]?.UserType == "student") {
+            else if(res?.data?.details?.rows[0]?.UserType == "student") {
                 setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
                 setTimeout(function() {
-                    navigate("/studenthome")
+                    navigate("/studenthome",{state:{studentDetails:res?.data?.details?.rows[0]}})
+                    // setRenderComponent("student")
+                    // setUserDetails(res?.data?.details?.rows[0])
                 }, 2000);
             }
         }
-        else if(res?.status == 400 || res?.status == 404){
-            console.log(res)
+        else if(res?.data?.status == 400 || res?.data?.status == 404){
             setToastMessage({...toastMessage, message:"Invalid Email Address Or Password, Try Again!",type:"error"});
             setTimeout(function() {
                 setToastMessage({...toastMessage, message:""});
             }, 2000);
         }
         else{
-            console.log(res)
             setToastMessage({...toastMessage, message:"NetWork Error, Try Again!",type:"error"});
             setTimeout(function() {
                 setToastMessage({...toastMessage, message:""});

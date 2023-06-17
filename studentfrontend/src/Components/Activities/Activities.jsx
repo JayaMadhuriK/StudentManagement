@@ -17,7 +17,6 @@ import {useLocation} from 'react-router-dom'
 import dayjs from 'dayjs';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-
 const Activities = () =>{
     const [dateOfBirth,setDateOfBirth] = useState(null)
     const location = useLocation();

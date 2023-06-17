@@ -247,7 +247,7 @@ app1.route('/email/:emailid')
        if(err){
            console.log(err);
        }else{
-           res.send(rows)
+           res.send(rows[0])
        }
     })
 });

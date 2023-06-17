@@ -44,6 +44,7 @@ import ViewBtech from './Components/Btech/ViewBtech'
 import ViewMtech from './Components/Mtech/ViewMtech'
 import ViewMscOrMca from './Components/McaAndMsc/ViewMscOrMca'
 import StudentHome from './Components/Home/StudentHome';
+import Main from './Components/Main';
 
 function App() {
   return (

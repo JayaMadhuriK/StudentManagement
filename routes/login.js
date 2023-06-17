@@ -14,19 +14,16 @@ app16.route('/login')
        if(err){
            res.send(err);
        }else{
-        if(rows.length > 0){
-            res.send(rows)
-        }
-            // if(rows.length > 0){
-            //     const responseObj = {
-            //         status:200,
-            //         message:'login successfully',
-            //         details:{
-            //             Admin_EmailID: email
-            //         }
-            //     }
-            //     res.send(responseObj,"",rows)
-            // }
+            if(rows.length > 0){
+                const responseObj = {
+                    status:200,
+                    message:'login successfully',
+                    details:{
+                        rows
+                    }
+                }
+                res.send(responseObj)
+            }
        
             else{
                 const responseObj = {
