@@ -80,6 +80,7 @@ const MscOrMca = () =>{
         MSC_OR_MCA_CGPA:"",
         Number_Of_Backlogs:"",
         YOP:"",
+        StudyingYear:"firstyear",
         Certificate_Course:"",
         Certificate_IssuedBy:"",
         CertificateUpload:"",
@@ -152,6 +153,7 @@ const MscOrMca = () =>{
         formdata.append('MSC_OR_MCA_CGPA',registerRequestBody.MSC_OR_MCA_CGPA)
         formdata.append('Number_Of_Backlogs',registerRequestBody.Number_Of_Backlogs)
         formdata.append('YOP',registerRequestBody.YOP)
+        formdata.append('StudyingYear',registerRequestBody.StudyingYear)
         formdata.append('Certificate_Course',registerRequestBody.Certificate_Course)
         formdata.append('Certificate_IssuedBy',registerRequestBody.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',registerRequestBody.CertificatePlatform)
@@ -479,6 +481,20 @@ const MscOrMca = () =>{
                                             />
                                         </LocalizationProvider>
                                     </Grid>
+                                </Grid>
+                                <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    row
+                                    defaultValue="firstyear"
+                                    name = "StudyingYear"
+                                    value={registerRequestBody?.StudyingYear}
+                                    onChange={(e)=>{onChangeRadioGroup(e)}}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                    <FormControlLabel value="thirdyear" control={<Radio color="primary" />} label="Third Year" />
+                                </RadioGroup>
                                 </Grid>
                                 <FormLabel className="certificates">Certificates</FormLabel>
                                 <Grid className="grid-container">

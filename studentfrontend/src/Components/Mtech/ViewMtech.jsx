@@ -112,6 +112,7 @@ const ViewMtech = () =>{
                             <TableCell align="center">MTECH NumberOF_Backlogs</TableCell>
                             <TableCell align="center">MTECH CGPA</TableCell>
                             <TableCell align="center">YOP</TableCell>
+                            <TableCell align="center">Studying Year</TableCell>
                             <TableCell align="center">Certificate Course</TableCell>
                             <TableCell align="center">IssuedBy</TableCell>
                             <TableCell align="center">Platform</TableCell>
@@ -164,6 +165,7 @@ const ViewMtech = () =>{
                                 <TableCell>{student.Entrance_Exam}</TableCell>
                                 <TableCell>{student.CET_Rank}</TableCell>
                                 <TableCell>{student.Course_YOP}</TableCell>
+                                <TableCell>{student.StudyingYear}</TableCell>
                                 <TableCell>{student.MTECH_College}</TableCell>
                                 <TableCell>{student.Department}</TableCell>
                                 <TableCell>{student.MTECH_Specialization}</TableCell>

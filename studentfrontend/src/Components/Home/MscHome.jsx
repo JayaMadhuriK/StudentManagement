@@ -31,7 +31,7 @@ const MscHome = () =>{
         University_RollNumber:"",
         First_Name:"",
         Last_Name:"",
-        Gender:"male",
+        Gender:"",
         Nationality:"",
         DOB:"",
         Phone_Number:"",
@@ -64,6 +64,7 @@ const MscHome = () =>{
         MSC_OR_MCA_CGPA:"",
         Number_Of_Backlogs:"",
         YOP:"",
+        StudyingYear:"",
         Certificate_Course:"",
         Certificate_IssuedBy:"",
         CertificateUpload:"",
@@ -109,6 +110,7 @@ const MscHome = () =>{
     }
     const onChangeRadioGroup = (e) => {
         setUser({...user,Gender:e.target.value})
+        setUser({...user,StudyingYear:e.target.value})
     }
     const handleUpdateUser = async () => {
         const formdata = new FormData();
@@ -148,6 +150,7 @@ const MscHome = () =>{
         formdata.append('MSC_OR_MCA_CGPA',user.MSC_OR_MCA_CGPA)
         formdata.append('Number_Of_Backlogs',user.Number_Of_Backlogs)
         formdata.append('YOP',user.YOP)
+        formdata.append('StudyingYear',user.StudyingYear)
         formdata.append('Certificate_Course',user.Certificate_Course)
         formdata.append('Certificate_IssuedBy',user.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',user.CertificatePlatform)
@@ -508,6 +511,17 @@ const MscHome = () =>{
                                         /> 
                                     </Grid>
                                 </Grid>
+                                <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    name = "StudyingYear"
+                                    value={user?.StudyingYear}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                    <FormControlLabel value="thirdyear" control={<Radio color="primary" />} label="Third Year" />
+                                </RadioGroup>
+                                </Grid>
                                 <FormLabel className="certificates">Certificates</FormLabel>
                                     <Grid className="grid-container">
                                         <Grid className="first-grid-item">
@@ -829,6 +843,18 @@ const MscHome = () =>{
                                     <Grid className="fourth-grid-item">
                                         <TextField name = "YOP" value={user?.YOP} label="YOP" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
                                     </Grid>
+                                </Grid>
+                                <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    name = "StudyingYear"
+                                    value={user?.StudyingYear}
+                                    onChange={(e)=>{onChangeRadioGroup(e)}}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                    <FormControlLabel value="thirdyear" control={<Radio color="primary" />} label="Third Year" />
+                                </RadioGroup>
                                 </Grid>
                                 <FormLabel className="certificates">Certificates</FormLabel>
                                     <Grid className="grid-container">

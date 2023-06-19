@@ -110,6 +110,7 @@ const ViewMscOrMca = () =>{
                             <TableCell align="center">MSc/MCA CGPA</TableCell>
                             <TableCell align="center">Number Of Backlogs</TableCell>
                             <TableCell align="center">Year Of Passing</TableCell>
+                            <TableCell align="center">Studying Year</TableCell>
                             <TableCell align="center">Certificate Course</TableCell>
                             <TableCell align="center">IssuedBy</TableCell>
                             <TableCell align="center">Platform</TableCell>
@@ -166,6 +167,7 @@ const ViewMscOrMca = () =>{
                                 <TableCell>{student.MSC_OR_MCA_CGPA}</TableCell>
                                 <TableCell>{student.Number_Of_Backlogs}</TableCell>
                                 <TableCell>{student.YOP}</TableCell>
+                                <TableCell>{student.StudyingYear}</TableCell>
                                 <TableCell>{student.Certificate_Course}</TableCell>
                                 <TableCell>{student.Certificate_IssuedBy}</TableCell>
                                 <TableCell>{student.CertificatePlatform}</TableCell>

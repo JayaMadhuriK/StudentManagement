@@ -61,6 +61,7 @@ const BtechHome = () =>{
         Entrance_Exam:"",
         CET_Rank:"",
         Course_YOP:"",
+        StudyingYear:"",
         Certificate_Course:"",
         Certificate_IssuedBy:"",
         CertificateUpload:"",
@@ -106,6 +107,7 @@ const BtechHome = () =>{
     }
     const onChangeRadioGroup = (e) => {
         setUser({...user,Gender:e.target.value})
+        setUser({...user,StudyingYear:e.target.value})
     }
     const handleUpdateUser = async () => {
         const formdata = new FormData();
@@ -142,6 +144,7 @@ const BtechHome = () =>{
         formdata.append('Entrance_Exam',user.Entrance_Exam)
         formdata.append('CET_Rank',user.CET_Rank)
         formdata.append('Course_YOP',user.Course_YOP)
+        formdata.append('StudyingYear',user.StudyingYear)
         formdata.append('Certificate_Course',user.Certificate_Course)
         formdata.append('Certificate_IssuedBy',user.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',user.CertificatePlatform)
@@ -208,8 +211,8 @@ const BtechHome = () =>{
     },[]);
     return(
         <Grid>
-            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'1940px'}}>{systemErrors?.networkError}</Alert>}   
-            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'1940px'}}>{systemErrors?.response}</Alert>} 
+            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2000px'}}>{systemErrors?.networkError}</Alert>}   
+            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2000px'}}>{systemErrors?.response}</Alert>} 
             <Grid>
                 <h2>Account Profile</h2>
                 <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"1100px",marginTop:"-90px",backgroundColor:"black"}} variant="contained" size="medium">Logout</Button>
@@ -484,6 +487,20 @@ const BtechHome = () =>{
                                         value={user.Course_YOP}
                                         /> 
                                     </Grid>
+                                </Grid>
+                                <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    name = "StudyingYear"
+                                    value={user?.StudyingYear}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                    <FormControlLabel value="thirdyear" control={<Radio color="primary" />} label="Third Year" />
+                                    <FormControlLabel value="fourthyear" control={<Radio color="primary" />} label="Fourth Year" />
+                                    <FormControlLabel value="fifthyear" control={<Radio color="primary" />} label="Fifth Year" />
+                                    <FormControlLabel value="sixthyear" control={<Radio color="primary" />} label="Sixth Year" />
+                                </RadioGroup>
                                 </Grid>
                                 <FormLabel className="certificates">Certificates</FormLabel>
                                     <Grid className="grid-container">
@@ -847,6 +864,21 @@ const BtechHome = () =>{
                                         onChange={(e)=>{onChangeTextField(e)}}
                                         /> 
                                     </Grid>
+                                </Grid>
+                                <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    name = "StudyingYear"
+                                    value={user?.StudyingYear}
+                                    onChange={(e)=>{onChangeRadioGroup(e)}}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                    <FormControlLabel value="thirdyear" control={<Radio color="primary" />} label="Third Year" />
+                                    <FormControlLabel value="fourthyear" control={<Radio color="primary" />} label="Fourth Year" />
+                                    <FormControlLabel value="fifthyear" control={<Radio color="primary" />} label="Fifth Year" />
+                                    <FormControlLabel value="sixthyear" control={<Radio color="primary" />} label="Sixth Year" />
+                                </RadioGroup>
                                 </Grid>
                                 <FormLabel className="certificates">Certificates</FormLabel>
                                     <Grid className="grid-container">

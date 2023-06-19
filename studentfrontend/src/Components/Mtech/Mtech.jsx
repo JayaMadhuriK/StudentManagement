@@ -82,6 +82,7 @@ const Mtech = () =>{
         MTECH_NumberOF_Backlogs:"",
         MTECH_CGPA:"",
         YOP:"",
+        StudyingYear:"firstyear",
         Certificate_Course:"",
         Certificate_IssuedBy:"",
         CertificatePlatform:"",
@@ -157,6 +158,7 @@ const Mtech = () =>{
         formdata.append('MTECH_NumberOF_Backlogs',registerRequestBody.MTECH_NumberOF_Backlogs)
         formdata.append('MTECH_CGPA',registerRequestBody.MTECH_CGPA)
         formdata.append('YOP',registerRequestBody.YOP)
+        formdata.append('StudyingYear',registerRequestBody.StudyingYear)
         formdata.append('Certificate_Course',registerRequestBody.Certificate_Course)
         formdata.append('Certificate_IssuedBy',registerRequestBody.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',registerRequestBody.CertificatePlatform)
@@ -493,6 +495,19 @@ const Mtech = () =>{
                                         </LocalizationProvider>
                                     </Grid>
                                 </Grid>
+                                <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    row
+                                    defaultValue="firstyear"
+                                    name = "StudyingYear"
+                                    value={registerRequestBody?.StudyingYear}
+                                    onChange={(e)=>{onChangeRadioGroup(e)}}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                </RadioGroup>
+                            </Grid>
                                 <FormLabel className="certificates">Certificates</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">

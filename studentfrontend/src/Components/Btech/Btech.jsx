@@ -76,6 +76,7 @@ const Btech = () =>{
         Entrance_Exam:"",
         CET_Rank:"",
         Course_YOP:"",
+        StudyingYear:"firstyear",
         Certificate_Course:"",
         Certificate_IssuedBy:"",
         CertificateUpload:"",
@@ -96,6 +97,7 @@ const Btech = () =>{
     }
     const onChangeRadioGroup = (e) => {
         setRegisterRequestBody({...registerRequestBody,Gender:e.target.value})
+        setRegisterRequestBody({...registerRequestBody,StudyingYear:e.target.value})
     }
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
@@ -143,6 +145,7 @@ const Btech = () =>{
         formdata.append('Entrance_Exam',registerRequestBody.Entrance_Exam)
         formdata.append('CET_Rank',registerRequestBody.CET_Rank)
         formdata.append('Course_YOP',registerRequestBody.Course_YOP)
+        formdata.append('StudyingYear',registerRequestBody.StudyingYear)
         formdata.append('Certificate_Course',registerRequestBody.Certificate_Course)
         formdata.append('Certificate_IssuedBy',registerRequestBody.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',registerRequestBody.CertificatePlatform)
@@ -440,6 +443,23 @@ const Btech = () =>{
                                         />
                                     </LocalizationProvider>
                                 </Grid>
+                            </Grid>
+                            <Grid className="gender-container">
+                                <FormLabel className="gender-label">Studying Year</FormLabel>
+                                <RadioGroup 
+                                    row
+                                    defaultValue="firstyear"
+                                    name = "StudyingYear"
+                                    value={registerRequestBody?.StudyingYear}
+                                    onChange={(e)=>{onChangeRadioGroup(e)}}
+                                >
+                                    <FormControlLabel value="firstyear" control={<Radio color="primary"/>} label="First Year" />
+                                    <FormControlLabel value="secondyear" control={<Radio color="primary" />} label="Second Year" />
+                                    <FormControlLabel value="thirdyear" control={<Radio color="primary" />} label="Third Year" />
+                                    <FormControlLabel value="fourthyear" control={<Radio color="primary" />} label="Fourth Year" />
+                                    <FormControlLabel value="fifthyear" control={<Radio color="primary" />} label="Fifth Year" />
+                                    <FormControlLabel value="sixthyear" control={<Radio color="primary" />} label="Sixth Year" />
+                                </RadioGroup>
                             </Grid>
                             <FormLabel className="certificates">Certificates</FormLabel>
                                 <Grid className="grid-container">

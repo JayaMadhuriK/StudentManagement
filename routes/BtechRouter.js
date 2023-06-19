@@ -33,11 +33,10 @@ app1.route('/')
 })
 
 .post(multiupload,(req,res)=>{
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
     const CertificateUpload = req.files && req.files['CertificateUpload']? req.files['CertificateUpload'][0].filename:null;
     const Upload = req.files && req.files['Upload']? req.files['Upload'][0].filename:null;
     const InternUpload = req.files && req.files['InternUpload']? req.files['InternUpload'][0].filename:null;
-   // var btData = [bt.University_RollNumber,bt.First_Name,bt.Last_Name,bt.Gender,bt.Nationality,bt.DOB,bt.Phone_Number,bt.Email_ID,bt.ADHAR_Number,bt.Address,bt.District,bt.State,bt.Country,bt.Pin_Code,bt.Category,bt.Sub_Category,bt._10th_CGPA,bt._10th_Board,bt._10th_YOP,bt._12th_Percentage,bt._12th_Board,bt._12th_YOP,bt.Diploma_Percentage,bt.Diploma_Board,bt.Diploma_YOP,bt.Course_RegularORIntegrated,bt.Branch,bt.College_Name,bt.Course_CGPA,bt.Number_Of_Backlogs,bt.Entrance_Exam,bt.CET_Rank,bt.Course_YOP,bt.Certificate_Course,bt.Certificate_IssuedBy,bt.CertificateUpload,bt.CertificatePlatform,bt.NumberOfCompanies,bt.Company,bt.Package,bt.Upload,bt.InternCompany,bt.InternDuration,bt.InternUpload];
     conn.query('insert into btech_details SET ?',{
         University_RollNumber:University_RollNumber,
         First_Name:First_Name,
@@ -72,6 +71,7 @@ app1.route('/')
         Entrance_Exam:Entrance_Exam,
         CET_Rank:CET_Rank,
         Course_YOP:Course_YOP,
+        StudyingYear:StudyingYear,
         Certificate_Course:Certificate_Course,
         Certificate_IssuedBy:Certificate_IssuedBy,
         CertificatePlatform:CertificatePlatform,
@@ -125,7 +125,7 @@ app1.route('/:University_RollNumber')
 })
    
 .put(multiupload,(req,res)=>{
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
 
     conn.query('update btech_details set ? where University_RollNumber = ?',[{
         First_Name,
@@ -160,6 +160,7 @@ app1.route('/:University_RollNumber')
       Entrance_Exam,
       CET_Rank,
       Course_YOP,
+      StudyingYear,
       Certificate_Course,
       Certificate_IssuedBy,
       CertificatePlatform,

@@ -33,11 +33,10 @@ app2.route('/')
 })
 
 .post(multiupload,(req,res)=>{
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,DegreeCourse,Branch,College_Name,Course_CGPA,Entrance_Exam,CET_Rank,Course_YOP,MTECH_College,Department,MTECH_Specialization,MTECH_NumberOF_Backlogs,MTECH_CGPA,YOP,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,DegreeCourse,Branch,College_Name,Course_CGPA,Entrance_Exam,CET_Rank,Course_YOP,MTECH_College,Department,MTECH_Specialization,MTECH_NumberOF_Backlogs,MTECH_CGPA,YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
     const CertificateUpload = req.files && req.files['CertificateUpload']? req.files['CertificateUpload'][0].filename:null;
     const Upload = req.files && req.files['Upload']? req.files['Upload'][0].filename:null;
     const InternUpload = req.files && req.files['InternUpload']? req.files['InternUpload'][0].filename:null;
-   // var btData = [bt.University_RollNumber,bt.First_Name,bt.Last_Name,bt.Gender,bt.Nationality,bt.DOB,bt.Phone_Number,bt.Email_ID,bt.ADHAR_Number,bt.Address,bt.District,bt.State,bt.Country,bt.Pin_Code,bt.Category,bt.Sub_Category,bt._10th_CGPA,bt._10th_Board,bt._10th_YOP,bt._12th_Percentage,bt._12th_Board,bt._12th_YOP,bt.Diploma_Percentage,bt.Diploma_Board,bt.Diploma_YOP,bt.DegreeCourse,bt.Branch,bt.College_Name,bt.Course_CGPA,bt.Entrance_Exam,bt.CET_Rank,bt.Course_YOP,bt.MTECH_College,bt.Department,bt.MTECH_Specialization,bt.MTECH_NumberOF_Backlogs,bt.MTECH_CGPA,bt.YOP,bt.Certificate_Course,bt.Certificate_IssuedBy,bt.CertificateUpload,bt.CertificatePlatform,bt.NumberOfCompanies,bt.Company,bt.Package,bt.Upload,bt.InternCompany,bt.InternDuration,bt.InternUpload];
     conn.query('insert into mtech SET ?',{
         University_RollNumber:University_RollNumber,
         First_Name:First_Name,
@@ -77,6 +76,7 @@ app2.route('/')
         MTECH_NumberOF_Backlogs:MTECH_NumberOF_Backlogs,
         MTECH_CGPA:MTECH_CGPA,
         YOP:YOP,
+        StudyingYear,
         Certificate_Course:Certificate_Course,
         Certificate_IssuedBy:Certificate_IssuedBy,
         CertificatePlatform:CertificatePlatform,
@@ -130,7 +130,7 @@ app2.route('/:University_RollNumber')
 })
  .put(multiupload,(req,res)=>{
     // var bt = req.body
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,DegreeCourse,Branch,College_Name,Course_CGPA,Entrance_Exam,CET_Rank,Course_YOP,MTECH_College,Department,MTECH_Specialization,MTECH_NumberOF_Backlogs,MTECH_CGPA,YOP,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,DegreeCourse,Branch,College_Name,Course_CGPA,Entrance_Exam,CET_Rank,Course_YOP,MTECH_College,Department,MTECH_Specialization,MTECH_NumberOF_Backlogs,MTECH_CGPA,YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
 
     conn.query('update mtech set ? where University_RollNumber = ?',[{
        First_Name,
@@ -170,6 +170,7 @@ app2.route('/:University_RollNumber')
         MTECH_NumberOF_Backlogs,
         MTECH_CGPA,
         YOP,
+        StudyingYear,
         Certificate_Course,
         Certificate_IssuedBy,
         CertificatePlatform,

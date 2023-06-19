@@ -14,14 +14,25 @@ import { useNavigate } from 'react-router-dom';
 import '../View.scss'
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import TextField from '@material-ui/core/TextField';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewBtech = () =>{
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredStudentData, setFilteredStudentData] = useState([]);
     const [studentData,setStudentData] = useState([])
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/btech')
         setStudentData(response?.data);
+        const data = response?.data;
+        const filteredData = data?.filter((student) => {
+            const studentId = student.University_RollNumber.toString().includes(searchQuery.toLowerCase());
+            const studentEmail = student.Email_ID.toLowerCase().includes(searchQuery.toLowerCase());
+            const studentyear = student.StudyingYear.toLowerCase().includes(searchQuery.toLowerCase());
+            return studentId || studentEmail || studentyear;
+        });
+        setFilteredStudentData(filteredData);
         console.log(response);
     }
     const handleFileOpen = (filename) => {
@@ -53,12 +64,14 @@ const ViewBtech = () =>{
           })
           .catch((error) => {
             console.log(error);
-            // Handle error
           });
       };
+    const handleSearchQueryChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
     useEffect(() => {
         getStudentData();
-      },[]);
+      },[searchQuery]);
     const handleDownload = async() =>{
         await axios.post('http://localhost:4000/download/download6');
         window.alert("downloaded");
@@ -68,7 +81,7 @@ const ViewBtech = () =>{
             <Grid className="grid-btn">
                 <h1>Btech</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} style={{marginTop:'0px',marginLeft:'-600px',position:'absolute',backgroundColor:'rgb(8, 15, 105)'}}><ArrowBackIcon/></Button>
-
+                <TextField variant="standard" style={{marginLeft:"-500px",position:"absolute",color:"white"}} placeholder='Search' value={searchQuery} onChange={handleSearchQueryChange}></TextField>
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
             <TableContainer component={Paper} className="app-container">
@@ -108,6 +121,7 @@ const ViewBtech = () =>{
                             <TableCell align="center">Entrance Exam</TableCell>
                             <TableCell align="center">CET Rank</TableCell>
                             <TableCell align="center">Course YOP</TableCell>
+                            <TableCell align="center">Studying Year</TableCell>
                             <TableCell align="center">Certificate Course</TableCell>
                             <TableCell align="center">IssuedBy</TableCell>
                             <TableCell align="center">Platform</TableCell>
@@ -122,8 +136,9 @@ const ViewBtech = () =>{
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
+                    {filteredStudentData.length>0 ? (
                     <TableBody>
-                        {studentData.map((student) => (
+                        {filteredStudentData.map((student) => (
                             <TableRow 
                                 key = {student.University_RollNumber}
                                 sx = {{ '&:last-child td, &:last-child th': {border:0} }}
@@ -161,6 +176,7 @@ const ViewBtech = () =>{
                                 <TableCell>{student.Entrance_Exam}</TableCell>
                                 <TableCell>{student.CET_Rank}</TableCell>
                                 <TableCell>{student.Course_YOP}</TableCell>
+                                <TableCell>{student.StudyingYear}</TableCell>
                                 <TableCell>{student.Certificate_Course}</TableCell>
                                 <TableCell>{student.Certificate_IssuedBy}</TableCell>
                                 <TableCell>{student.CertificatePlatform}</TableCell>
@@ -202,6 +218,11 @@ const ViewBtech = () =>{
                         ))
                         }
                     </TableBody>
+                    ):(
+                        <Grid>
+                            <p align="center">No Records Found</p>
+                        </Grid>
+                    )}
                 </Table>
             </TableContainer>
         </Grid>

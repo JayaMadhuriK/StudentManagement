@@ -33,11 +33,10 @@ app3.route('/')
 })
 
 .post(multiupload,(req,res)=>{
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Degree,Degree_Specialization,Degree_Score,Degree_University,Degree_College,Degree_YOP,MSC_OR_MCA,Course_Branch,College,Entrance_CET,CET_Rank,MSC_OR_MCA_CGPA,Number_Of_Backlogs,YOP,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Degree,Degree_Specialization,Degree_Score,Degree_University,Degree_College,Degree_YOP,MSC_OR_MCA,Course_Branch,College,Entrance_CET,CET_Rank,MSC_OR_MCA_CGPA,Number_Of_Backlogs,YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
     const CertificateUpload = req.files && req.files['CertificateUpload']? req.files['CertificateUpload'][0].filename:null;
     const Upload = req.files && req.files['Upload']? req.files['Upload'][0].filename:null;
     const InternUpload = req.files && req.files['InternUpload']? req.files['InternUpload'][0].filename:null;
-   // var btData = [bt.University_RollNumber,bt.First_Name,bt.Last_Name,bt.Gender,bt.Nationality,bt.DOB,bt.Phone_Number,bt.Email_ID,bt.ADHAR_Number,bt.Address,bt.District,bt.State,bt.Country,bt.Pin_Code,bt.Category,bt.Sub_Category,bt._10th_CGPA,bt._10th_Board,bt._10th_YOP,bt._12th_Percentage,bt._12th_Board,bt._12th_YOP,bt.Degree,bt.Degree_Specialization,bt.Degree_Score,bt.Degree_University,bt.Degree_College,bt.Degree_YOP,bt.MSC_OR_MCA,bt.Course_Branch,bt.College,bt.Entrance_CET,bt.CET_Rank,bt.MSC_OR_MCA_CGPA,bt.Number_Of_Backlogs,bt.YOP,bt.Certificate_Course,bt.Certificate_IssuedBy,bt.CertificateUpload,bt.CertificatePlatform,bt.NumberOfCompanies,bt.Company,bt.Package,bt.Upload,bt.InternCompany,bt.InternDuration,bt.InternUpload];
     conn.query('insert into msc_or_mca SET ?',{
         University_RollNumber:University_RollNumber,
         First_Name:First_Name,
@@ -75,6 +74,7 @@ app3.route('/')
         MSC_OR_MCA_CGPA:MSC_OR_MCA_CGPA,
         Number_Of_Backlogs:Number_Of_Backlogs,
         YOP:YOP,
+        StudyingYear:StudyingYear,
         Certificate_Course:Certificate_Course,
         Certificate_IssuedBy:Certificate_IssuedBy,
         CertificatePlatform:CertificatePlatform,
@@ -126,8 +126,7 @@ app3.route('/:University_RollNumber')
        });
 })
 .put(multiupload,(req,res)=>{
-    // var bt = req.body
-  const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Degree,Degree_Specialization,Degree_Score,Degree_University,Degree_College,Degree_YOP,MSC_OR_MCA,Course_Branch,College,Entrance_CET,CET_Rank,MSC_OR_MCA_CGPA,Number_Of_Backlogs,YOP,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+  const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Degree,Degree_Specialization,Degree_Score,Degree_University,Degree_College,Degree_YOP,MSC_OR_MCA,Course_Branch,College,Entrance_CET,CET_Rank,MSC_OR_MCA_CGPA,Number_Of_Backlogs,YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
 
     conn.query('update msc_or_mca set ? where University_RollNumber = ?',[{
         First_Name,
@@ -165,6 +164,7 @@ app3.route('/:University_RollNumber')
                 MSC_OR_MCA_CGPA,
                 Number_Of_Backlogs,
                 YOP,
+                StudyingYear,
                 Certificate_Course,
                 Certificate_IssuedBy,
                 CertificatePlatform,
