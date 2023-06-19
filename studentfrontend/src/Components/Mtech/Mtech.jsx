@@ -108,6 +108,15 @@ const Mtech = () =>{
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const finalValues ={
+        Admin_EmailID:registerRequestBody.Email_ID,
+        Admin_Password:"Auce@123",
+        First_Name:registerRequestBody.First_Name,
+        Last_Name:registerRequestBody.Last_Name,
+        Gender:registerRequestBody.Gender,
+        UserType:"student",
+        branch:"mtech"
+    };
     const handleSubmit = async() => {
         const formdata = new FormData();
         formdata.append('University_RollNumber',registerRequestBody.University_RollNumber)
@@ -200,7 +209,28 @@ const Mtech = () =>{
             if(res.data) {
                 setToastMessage({...toastMessage, message:"Data Submitted Successfully......",type:"success"});
                 setTimeout(function() {
-                   window.location.reload(false);
+                    setToastMessage({...toastMessage, message:""});
+                }, 2000);
+                await axios.post('http://localhost:4000/register', finalValues)
+                .then((response) => {
+                    res = response;
+                })
+                .catch((error) => {
+                    res = error;
+                });
+                if(res.data){
+                    setToastMessage({...toastMessage, message:"Account created",type:"success"})
+                    setTimeout(function() {
+                        setToastMessage({...toastMessage, message:""})
+                    }, 2000);
+                }else{
+                    setToastMessage({...toastMessage, message:"Account not created",type:"error"})
+                    setTimeout(function() {
+                        setToastMessage({...toastMessage, message:""})
+                    }, 2000);
+                }
+                setTimeout(function() {
+                    window.location.reload(false);
                 }, 2000);
             }
             else if(res.response.status==400){
@@ -487,7 +517,7 @@ const Mtech = () =>{
                                         <TextField name = "InternDuration" value={registerRequestBody?.InternDuration} label="Duration" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "Upload" type='file' onChange={handleFile1} InputProps={{ sx: { width: 250 } }} inputProps={{multiple:true}} size="small" ></TextField>
+                                        <TextField name = "InternUpload" type='file' onChange={handleFile1} InputProps={{ sx: { width: 250 } }} inputProps={{multiple:true}} size="small" ></TextField>
                                     </Grid>
                                 </Grid>
                                 <FormLabel className="placements">Placement Details</FormLabel>
@@ -502,7 +532,7 @@ const Mtech = () =>{
                                         <TextField name = "Package" value={registerRequestBody?.Package} label="Pay Package" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
-                                        <TextField name = "InternUpload" type='file' onChange={handleFile2} InputProps={{ sx: { width: 250 } }} inputProps={{multiple:true}} size="small" ></TextField>
+                                        <TextField name = "Upload" type='file' onChange={handleFile2} InputProps={{ sx: { width: 250 } }} inputProps={{multiple:true}} size="small" ></TextField>
                                     </Grid>
                                 </Grid>
                      

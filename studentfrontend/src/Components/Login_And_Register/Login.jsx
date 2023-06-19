@@ -74,11 +74,21 @@ const Login = () =>{
             }
             else if(res?.data?.details?.rows[0]?.UserType == "student") {
                 setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
-                setTimeout(function() {
-                    navigate("/studenthome",{state:{studentDetails:res?.data?.details?.rows[0]}})
-                    // setRenderComponent("student")
-                    // setUserDetails(res?.data?.details?.rows[0])
-                }, 2000);
+                if(res?.data?.details?.rows[0]?.branch == "btech"){
+                    setTimeout(function() {
+                        navigate("/btechhome",{state:{studentDetails:res?.data?.details?.rows[0]}})
+                    }, 2000);
+                }
+                else if(res?.data?.details?.rows[0]?.branch == "mtech"){
+                    setTimeout(function() {
+                        navigate("/mtechhome",{state:{studentDetails:res?.data?.details?.rows[0]}})
+                    }, 2000);
+                }
+                else if(res?.data?.details?.rows[0]?.branch == "msc"){
+                    setTimeout(function() {
+                        navigate("/mschome",{state:{studentDetails:res?.data?.details?.rows[0]}})
+                    }, 2000);
+                }
             }
         }
         else if(res?.data?.status == 400 || res?.data?.status == 404){

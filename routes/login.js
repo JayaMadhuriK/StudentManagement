@@ -39,7 +39,7 @@ app16.route('/login')
 
 app16.post("/register",(req,res)=>{
     var bt = req.body;
-    var btData = [bt.Admin_EmailID,bt.Admin_Password,bt.First_Name,bt.Last_Name,bt.Gender,bt.UserType];
+    var btData = [bt.Admin_EmailID,bt.Admin_Password,bt.First_Name,bt.Last_Name,bt.Gender,bt.UserType,bt.branch];
     
     conn.query('insert into login values(?)',[btData],(err,rows)=>{
        console.log('response ...............',res);
@@ -52,7 +52,8 @@ app16.post("/register",(req,res)=>{
                 First_Name: bt.First_Name,
                 Last_Name: bt.Last_Name,
                 Gender: bt.Gender,
-                UserType: bt.UserType
+                UserType: bt.UserType,
+                branch:bt.branch
             }
         }
         res.status(400).send(responseObj);

@@ -43,8 +43,9 @@ import ViewPass from './Components/PassPercentage/ViewPass';
 import ViewBtech from './Components/Btech/ViewBtech'
 import ViewMtech from './Components/Mtech/ViewMtech'
 import ViewMscOrMca from './Components/McaAndMsc/ViewMscOrMca'
-import StudentHome from './Components/Home/StudentHome';
-import Main from './Components/Main';
+import BtechHome from './Components/Home/BtechHome';
+import MscHome from './Components/Home/MscHome';
+import MtechHome from './Components/Home/MtechHome';
 
 function App() {
   return (
@@ -93,7 +94,9 @@ function App() {
               <Route path='/viewvalue4' element={<ViewValue4/>}/>
               <Route path='/viewvalue5' element={<ViewValue5/>}/> 
               <Route path='/' element={<HomeStudent/>}/>
-              <Route path='/studenthome' element={<StudentHome/>}/>
+              <Route path='/btechhome' element={<BtechHome/>}/>
+              <Route path='/mtechhome' element={<MtechHome/>}/>
+              <Route path='/mschome' element={<MscHome/>}/>
           </Routes>
       </BrowserRouter>
     </div>
