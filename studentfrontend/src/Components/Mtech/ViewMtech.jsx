@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 import '../View.scss'
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -19,10 +20,19 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 const ViewMtech = () =>{
     const navigate = useNavigate();
     const [studentData,setStudentData] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredStudentData, setFilteredStudentData] = useState([]);
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/mtech')
         setStudentData(response?.data);
-        console.log(response);
+        const data = response?.data;
+        const filteredData = data?.filter((student) => {
+            const studentId = student.University_RollNumber.toString().includes(searchQuery.toLowerCase());
+            const studentEmail = student.Email_ID.toLowerCase().includes(searchQuery.toLowerCase());
+            const studentyear = student.StudyingYear.toLowerCase().includes(searchQuery.toLowerCase());
+            return studentId || studentEmail || studentyear;
+        });
+        setFilteredStudentData(filteredData);
     }
     const handleFileOpen = (filename) => {
         axios
@@ -53,12 +63,14 @@ const ViewMtech = () =>{
           })
           .catch((error) => {
             console.log(error);
-            // Handle error
           });
       };
+      const handleSearchQueryChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
     useEffect(() => {
         getStudentData();
-      },[]);
+      },[searchQuery]);
     const handleDownload = async() =>{
         await axios.post('http://localhost:4000/download/download10');
         window.alert("downloaded");
@@ -68,6 +80,7 @@ const ViewMtech = () =>{
             <Grid className="grid-btn">
                 <h1>Mtech</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} style={{marginTop:'0px',marginLeft:'-600px',position:'absolute',backgroundColor:'rgb(8, 15, 105)'}}><ArrowBackIcon/></Button>
+                <TextField variant="standard" style={{marginLeft:"-500px",position:"absolute",color:"white"}} placeholder='Search' value={searchQuery} onChange={handleSearchQueryChange}></TextField>
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
             <TableContainer component={Paper} className="app-container">
@@ -127,8 +140,9 @@ const ViewMtech = () =>{
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
+                    {filteredStudentData.length>0 ? (
                     <TableBody>
-                        {studentData.map((student) => (
+                        {filteredStudentData.map((student) => (
                             <TableRow 
                                 key = {student.University_RollNumber}
                                 sx = {{ '&:last-child td, &:last-child th': {border:0} }}
@@ -213,6 +227,11 @@ const ViewMtech = () =>{
                         ))
                         }
                     </TableBody>
+                    ):(
+                        <Grid>
+                            <p align="center">No Records Found</p>
+                        </Grid>
+                    )}
                 </Table>
             </TableContainer>
         </Grid>

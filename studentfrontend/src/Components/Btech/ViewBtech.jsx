@@ -33,7 +33,6 @@ const ViewBtech = () =>{
             return studentId || studentEmail || studentyear;
         });
         setFilteredStudentData(filteredData);
-        console.log(response);
     }
     const handleFileOpen = (filename) => {
         axios
