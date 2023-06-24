@@ -19,7 +19,8 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewCouncil = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/councilactivities')
         setStudentData(response?.data);
@@ -65,6 +66,8 @@ const ViewCouncil = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Council Activities</h1>
@@ -117,7 +120,10 @@ const ViewCouncil = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

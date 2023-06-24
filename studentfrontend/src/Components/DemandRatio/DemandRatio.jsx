@@ -16,6 +16,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 const DemandRatio = () =>{
     const location = useLocation();
     const navigate = useNavigate();
+    const access = localStorage.getItem("user_access");
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
@@ -82,6 +83,8 @@ const DemandRatio = () =>{
         }
     }
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
              <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -126,7 +129,10 @@ const DemandRatio = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

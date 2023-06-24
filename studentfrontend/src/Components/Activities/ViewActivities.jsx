@@ -19,7 +19,8 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewActivities = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/activities')
         setStudentData(response?.data);
@@ -66,6 +67,8 @@ const ViewActivities = () =>{
         getStudentData();
       },[]);
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Student Activities</h1>
@@ -126,6 +129,10 @@ const ViewActivities = () =>{
                 </Table>
             </TableContainer>
         </Grid>
+        ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

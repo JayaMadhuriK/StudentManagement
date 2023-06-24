@@ -19,8 +19,9 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewMscOrMca = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const access = localStorage.getItem("user_access");
     const [filteredStudentData, setFilteredStudentData] = useState([]);
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/mscormca')
@@ -77,6 +78,8 @@ const ViewMscOrMca = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>MSC & MCA</h1>
@@ -231,7 +234,10 @@ const ViewMscOrMca = () =>{
                     )}
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

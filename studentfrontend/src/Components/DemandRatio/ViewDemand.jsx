@@ -18,7 +18,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ViewDemand = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/demandratio')
         setStudentData(response?.data);
@@ -32,6 +33,8 @@ const ViewDemand = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Demand Ratio</h1>
@@ -84,7 +87,10 @@ const ViewDemand = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

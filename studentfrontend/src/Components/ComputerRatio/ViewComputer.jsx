@@ -57,8 +57,8 @@ const ViewComputer = () =>{
             console.log(error);
             // Handle error
           });
-      };
-      
+    };
+    const access = localStorage.getItem("user_access");
     useEffect(() => {
         getStudentData();
       },[]);
@@ -67,6 +67,8 @@ const ViewComputer = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Student-Computer Ratio</h1>
@@ -128,7 +130,10 @@ const ViewComputer = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

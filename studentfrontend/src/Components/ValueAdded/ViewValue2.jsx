@@ -18,7 +18,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ViewValue2 = () =>{
   const navigate = useNavigate();
-  const [studentData,setStudentData] = useState([])
+  const [studentData,setStudentData] = useState([]);
+  const access = localStorage.getItem("user_access");
   const getStudentData = async () =>{
       const response =await axios.get('http://localhost:4000/valueaddedYr2')
       setStudentData(response?.data);
@@ -31,6 +32,8 @@ const ViewValue2 = () =>{
       window.alert("downloaded");
   }
   return(
+    <>
+        {access == "ADMIN_ACCESS" ? (
       <Grid className="grid">
           <Grid className="grid-btn">
               <h1>Value Added Course Year2</h1>
@@ -84,7 +87,10 @@ const ViewValue2 = () =>{
                   </TableBody>
               </Table>
           </TableContainer>
-      </Grid>
+      </Grid>  ):(
+            <p>No Access</p>
+        )}
+        </>
   )
 }
 

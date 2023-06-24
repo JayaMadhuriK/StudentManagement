@@ -21,6 +21,7 @@ const MtechHome = () =>{
     const navigate = useNavigate();
     const [isLogOutDialogOpen,setIsLogOutDialogOpen] = useState(false);
     const handleLogOut = () => {
+        localStorage.setItem("user_access","");
         navigate("/")
     };
     const handleLogOutClose = () =>{
@@ -96,6 +97,7 @@ const MtechHome = () =>{
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert ref={ref} variant="filled" {...props} />;
     });
+    const access = localStorage.getItem("user_access");
     const fetchUser = async() =>{
         try{
             const response =await axios.get(`http://localhost:4000/mtech/email/${userDetails.Admin_EmailID}`);
@@ -220,6 +222,8 @@ const MtechHome = () =>{
         fetchUser();
     },[]);
     return(
+        <>
+        {access == "STUDENT_ACCESS" ? (
         <Grid>
             {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2250px'}}>{systemErrors?.networkError}</Alert>}   
             {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2250px'}}>{systemErrors?.response}</Alert>} 
@@ -1028,6 +1032,10 @@ const MtechHome = () =>{
                 </DialogActions>
             </Dialog>
         </Grid>
+        ):(
+            <p>No Access</p>
+        )}
+        </>
     );
 };
 export default MtechHome;

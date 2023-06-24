@@ -20,8 +20,10 @@ const MscHome = () =>{
     const location = useLocation();
     const [isLogOutDialogOpen,setIsLogOutDialogOpen] = useState(false);
     const handleLogOut = () => {
+        localStorage.setItem("user_access","");
         navigate("/")
     };
+    const access = localStorage.getItem("user_access");
     const handleLogOutClose = () =>{
         setIsLogOutDialogOpen(false);
     };
@@ -217,6 +219,8 @@ const MscHome = () =>{
         fetchUser();
     },[]);
     return(
+        <>
+        {access == "STUDENT_ACCESS" ? (
         <Grid>
             {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'1840px'}}>{systemErrors?.networkError}</Alert>}   
             {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'1840px'}}>{systemErrors?.response}</Alert>} 
@@ -969,6 +973,10 @@ const MscHome = () =>{
                 </DialogActions>
             </Dialog>
         </Grid>
+        ):(
+            <p>No Access</p>
+        )}
+        </>
     );
 };
 export default MscHome;

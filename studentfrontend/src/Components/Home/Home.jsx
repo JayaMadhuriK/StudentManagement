@@ -16,18 +16,20 @@ const Home = () =>{
     const navigate = useNavigate();
     const [isDialogOpen,setIsDialogOpen] = useState(false);
     const [isLogOutDialogOpen,setIsLogOutDialogOpen] = useState(false);
-
+    const access = localStorage.getItem("user_access");
     const handleClose = () =>{
         setIsDialogOpen(false);
     };
     const handleLogOut = () => {
+        localStorage.setItem("user_access","");
         navigate("/")
     };
     const handleLogOutClose = () =>{
         setIsLogOutDialogOpen(false);
     };
     return(
-        <Grid className="home-admin">
+        <>
+        {access == "ADMIN_ACCESS" ? (<Grid className="home-admin">
             <Grid className="grid1">
                 <img src={logo} className="register-logo" alt="logo" />
                 <FormLabel className="au">AU</FormLabel>
@@ -99,7 +101,10 @@ const Home = () =>{
                     <Button variant="contained" className="button" onClick={handleLogOutClose}>Stay</Button>
                 </DialogActions>
             </Dialog>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 export default Home;

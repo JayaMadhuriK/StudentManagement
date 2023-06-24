@@ -68,12 +68,14 @@ const Login = () =>{
             console.log(res)
             if(res?.data?.details?.rows[0]?.UserType == "admin"){
                 setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
+                localStorage.setItem("user_access","ADMIN_ACCESS");
                 setTimeout(function() {
                     navigate("/home");
                 }, 2000);
             }
             else if(res?.data?.details?.rows[0]?.UserType == "student") {
                 setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
+                localStorage.setItem("user_access","STUDENT_ACCESS");
                 if(res?.data?.details?.rows[0]?.branch == "btech"){
                     setTimeout(function() {
                         navigate("/btechhome",{state:{studentDetails:res?.data?.details?.rows[0]}})

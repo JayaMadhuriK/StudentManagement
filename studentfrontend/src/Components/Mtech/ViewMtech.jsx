@@ -19,7 +19,8 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewMtech = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredStudentData, setFilteredStudentData] = useState([]);
     const getStudentData = async () =>{
@@ -76,6 +77,8 @@ const ViewMtech = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Mtech</h1>
@@ -234,7 +237,10 @@ const ViewMtech = () =>{
                     )}
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

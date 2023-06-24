@@ -26,6 +26,7 @@ const ValueAddedYr1 = () =>{
         type:"",
         message:""
     });
+    const access = localStorage.getItem("user_access");
     const student= location?.state?.student ||{
         Name_Of_ValueAddedCourses_Offered:"",
         Course_Code:"",
@@ -93,6 +94,8 @@ const ValueAddedYr1 = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -151,7 +154,10 @@ const ValueAddedYr1 = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 export default ValueAddedYr1;

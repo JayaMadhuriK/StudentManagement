@@ -28,6 +28,7 @@ const StudentComputer = () =>{
     const handleFile1=(e)=>{
         setFile1(e.target.files[0]);
     }
+    const access = localStorage.getItem("user_access");
     const student= location?.state?.student || {
         Name_Of_Department:"",
         Total_number_of_students:"",
@@ -97,6 +98,8 @@ const StudentComputer = () =>{
         }
     }
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -135,6 +138,10 @@ const StudentComputer = () =>{
                     }
             </Grid>
         </Grid>
+         ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

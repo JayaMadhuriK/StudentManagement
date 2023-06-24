@@ -19,7 +19,8 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewHigher = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/highereducation')
         setStudentData(response?.data);
@@ -66,6 +67,8 @@ const ViewHigher = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Higher Education</h1>
@@ -124,7 +127,10 @@ const ViewHigher = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

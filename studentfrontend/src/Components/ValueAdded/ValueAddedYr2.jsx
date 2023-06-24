@@ -39,6 +39,7 @@ const ValueAddedYr2 = () =>{
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const access = localStorage.getItem("user_access");
     const editData = location?.state?.student ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const handleSubmit = async() => {
@@ -92,6 +93,8 @@ const ValueAddedYr2 = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -150,7 +153,10 @@ const ValueAddedYr2 = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 export default ValueAddedYr2;

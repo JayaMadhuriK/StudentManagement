@@ -18,7 +18,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ViewAvg = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const access = localStorage.getItem("user_access");
+    const [studentData,setStudentData] = useState([]);
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/avgnumberofdays')
         setStudentData(response?.data);
@@ -32,6 +33,8 @@ const ViewAvg = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Average Number of Days</h1>
@@ -81,7 +84,10 @@ const ViewAvg = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

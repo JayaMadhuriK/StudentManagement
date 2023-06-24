@@ -21,6 +21,7 @@ const BtechHome = () =>{
     const navigate = useNavigate();
     const [isLogOutDialogOpen,setIsLogOutDialogOpen] = useState(false);
     const handleLogOut = () => {
+        localStorage.setItem("user_access","");
         navigate("/")
     };
     const handleLogOutClose = () =>{
@@ -193,6 +194,7 @@ const BtechHome = () =>{
             }
         });
     };
+    const access = localStorage.getItem("user_access");
     const handleFileOpen = (filename) => {
         axios.get(`http://localhost:4000/btech/open/${filename}`, {
             responseType: 'blob',
@@ -210,6 +212,8 @@ const BtechHome = () =>{
         fetchUser();
     },[]);
     return(
+        <>
+        {access == "STUDENT_ACCESS" ? (
         <Grid>
             {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2000px'}}>{systemErrors?.networkError}</Alert>}   
             {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2000px'}}>{systemErrors?.response}</Alert>} 
@@ -992,7 +996,10 @@ const BtechHome = () =>{
                     <Button variant="contained" className="button" onClick={handleLogOutClose}>Stay</Button>
                 </DialogActions>
             </Dialog>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     );
 };
 export default BtechHome;

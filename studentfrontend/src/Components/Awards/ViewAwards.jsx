@@ -19,7 +19,8 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const ViewAwards = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/awards')
         setStudentData(response?.data);
@@ -66,6 +67,8 @@ const ViewAwards = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Awards</h1>
@@ -126,7 +129,10 @@ const ViewAwards = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

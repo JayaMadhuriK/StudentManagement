@@ -23,6 +23,7 @@ const ViewValue1 = () =>{
       const response =await axios.get('http://localhost:4000/valueaddedYr1')
       setStudentData(response?.data);
   }
+  const access = localStorage.getItem("user_access");
   useEffect(() => {
       getStudentData();
     },[]);
@@ -31,6 +32,8 @@ const ViewValue1 = () =>{
       window.alert("downloaded");
   }
   return(
+    <>
+        {access == "ADMIN_ACCESS" ? (
       <Grid className="grid">
           <Grid className="grid-btn">
               <h1>Value Added Course Year1</h1>
@@ -84,7 +87,10 @@ const ViewValue1 = () =>{
                   </TableBody>
               </Table>
           </TableContainer>
-      </Grid>
+      </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
   )
 }
 

@@ -19,6 +19,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ValueAddedYr3 = () =>{
     const location = useLocation();
+    const access = localStorage.getItem("user_access");
     const navigate = useNavigate();
     const [dateOfBirth,setDateOfBirth] = useState(null)
     const [toastMessage,setToastMessage] = useState({
@@ -92,6 +93,8 @@ const ValueAddedYr3 = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -150,7 +153,10 @@ const ValueAddedYr3 = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 export default ValueAddedYr3;

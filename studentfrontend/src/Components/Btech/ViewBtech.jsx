@@ -47,7 +47,8 @@ const ViewBtech = () =>{
           .catch((error) => {
             console.log(error);
           });
-      };
+    };
+    const access = localStorage.getItem("user_access");
     const handleFileDownload = (filename) => {
         axios
           .get(`http://localhost:4000/btech/download/${filename}`, {
@@ -76,6 +77,8 @@ const ViewBtech = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Btech</h1>
@@ -224,7 +227,10 @@ const ViewBtech = () =>{
                     )}
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

@@ -21,6 +21,7 @@ const CouncilActivity = () =>{
     const location = useLocation();
     const navigate = useNavigate();
     const [dateOfBirth,setDateOfBirth] = useState(null);
+    const access = localStorage.getItem("user_access");
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
@@ -98,6 +99,8 @@ const CouncilActivity = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -146,7 +149,10 @@ const CouncilActivity = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

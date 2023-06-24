@@ -24,6 +24,7 @@ const ViewPlacements = () =>{
         setStudentData(response?.data);
         console.log(response);
     }
+    const access = localStorage.getItem("user_access");
     useEffect(() => {
         getStudentData();
       },[]);
@@ -32,6 +33,8 @@ const ViewPlacements = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Placements</h1>
@@ -87,7 +90,10 @@ const ViewPlacements = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

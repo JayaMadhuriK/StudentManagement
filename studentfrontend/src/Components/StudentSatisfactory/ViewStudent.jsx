@@ -18,7 +18,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ViewStudent = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const [studentData,setStudentData] = useState([]);
+    const access = localStorage.getItem("user_access");
     const getStudentData = async () =>{
         const response =await axios.get('http://localhost:4000/studentsatisfactory')
         setStudentData(response?.data);
@@ -32,6 +33,8 @@ const ViewStudent = () =>{
         window.alert("downloaded");
     }
     return(
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Student Satisfactory</h1>
@@ -88,7 +91,10 @@ const ViewStudent = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

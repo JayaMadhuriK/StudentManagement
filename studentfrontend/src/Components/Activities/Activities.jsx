@@ -25,6 +25,7 @@ const Activities = () =>{
         type:"",
         message:""
     });
+    const access = localStorage.getItem("user_access");
     const [file,setFile] = useState();
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
@@ -105,6 +106,8 @@ const Activities = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -163,6 +166,10 @@ const Activities = () =>{
                     }
             </Grid>
         </Grid>
+        ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

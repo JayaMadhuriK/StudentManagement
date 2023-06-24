@@ -21,6 +21,7 @@ const HigherEdu = () =>{
     const [dateOfBirth,setDateOfBirth] = useState(null)
     const location = useLocation();
     const navigate = useNavigate();
+    const access = localStorage.getItem("user_access");
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
@@ -104,6 +105,8 @@ const HigherEdu = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -160,7 +163,10 @@ const HigherEdu = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid> ):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 

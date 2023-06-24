@@ -7,7 +7,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 const HomeStudent = () =>{
-
     return(
             <Grid className="stu">
                <Grid><Home/></Grid>

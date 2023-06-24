@@ -86,6 +86,7 @@ const ValueAddedYr4 = () =>{
             }
         }
     }
+    const access = localStorage.getItem("user_access");
     useEffect(()=>{
         if(editData){
             const year = Number(student.Yr_Of_Offering) - 1;
@@ -93,6 +94,8 @@ const ValueAddedYr4 = () =>{
         }
     },[]);
     return (
+        <>
+        {access == "ADMIN_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
@@ -151,7 +154,10 @@ const ValueAddedYr4 = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid>):(
+            <p>No Access</p>
+        )}
+        </>
     )
 }
 export default ValueAddedYr4;
