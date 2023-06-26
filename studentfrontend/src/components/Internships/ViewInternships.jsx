@@ -25,6 +25,7 @@ const ViewInternships = () =>{
         setStudentData(response?.data);
         console.log(response);
     };
+    const access = localStorage.getItem("user_access");
     const handleFileOpen = (filename) => {
         axios
           .get(`http://localhost:4000/internships/open/${filename}`, {
@@ -67,7 +68,8 @@ const ViewInternships = () =>{
         window.alert("downloaded");
     }
     return(
-        <Grid className="grid">
+        <>
+        {access == "ADMIN_ACCESS" ? (<Grid className="grid">
             <Grid className="grid-btn">
                 <h1>Internships</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} className="btn"><ArrowBackIcon/></Button>
@@ -119,7 +121,10 @@ const ViewInternships = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
+        </Grid> ):(
+            <h1 style={{color:"red",marginTop:"300px"}}> 401 UnAuthorized! No Access</h1>
+        )}
+        </>
     )
 }
 

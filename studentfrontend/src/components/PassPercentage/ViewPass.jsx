@@ -83,7 +83,7 @@ const ViewPass = () =>{
                 </Table>
             </TableContainer>
         </Grid>):(
-            <p>No Access</p>
+            <h1 style={{color:"red",marginTop:"300px"}}> 401 UnAuthorized! No Access</h1>
         )}
         </>
     )

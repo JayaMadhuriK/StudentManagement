@@ -21,6 +21,7 @@ const PerStudentUndertaking = () =>{
         type:"",
         message:""
     });
+    const access = localStorage.getItem("user_access");
     const [file,setFile] = useState();
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
@@ -89,7 +90,8 @@ const PerStudentUndertaking = () =>{
         }
     }
     return (
-        <Grid>
+        <>
+        {access == "ADMIN_ACCESS" ? (<Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>
             </Grid>
@@ -122,7 +124,10 @@ const PerStudentUndertaking = () =>{
                         </Alert>
                     }
             </Grid>
-        </Grid>
+        </Grid> ):(
+            <h1 style={{color:"red",marginTop:"300px"}}> 401 UnAuthorized! No Access</h1>
+        )}
+        </>
     )
 }
 

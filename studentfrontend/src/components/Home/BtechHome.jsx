@@ -215,8 +215,8 @@ const BtechHome = () =>{
         <>
         {access == "STUDENT_ACCESS" ? (
         <Grid>
-            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2000px'}}>{systemErrors?.networkError}</Alert>}   
-            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2000px'}}>{systemErrors?.response}</Alert>} 
+            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2200px'}}>{systemErrors?.networkError}</Alert>}   
+            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2200px'}}>{systemErrors?.response}</Alert>} 
             <Grid>
                 <h2>Account Profile</h2>
                 <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"1100px",marginTop:"-90px",backgroundColor:"black"}} variant="contained" size="medium">Logout</Button>
@@ -997,7 +997,7 @@ const BtechHome = () =>{
                 </DialogActions>
             </Dialog>
         </Grid> ):(
-            <p>No Access</p>
+            <h1 style={{color:"red",marginTop:"300px"}}> 401 UnAuthorized! No Access</h1>
         )}
         </>
     );
