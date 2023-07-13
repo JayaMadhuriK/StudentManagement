@@ -128,10 +128,6 @@ const ViewBtech = () =>{
                             <TableCell align="center">IssuedBy</TableCell>
                             <TableCell align="center">Platform</TableCell>
                             <TableCell align="center">Files</TableCell>
-                            <TableCell align="center">Number Of Companies selected</TableCell>
-                            <TableCell align="center">Company Name</TableCell>
-                            <TableCell align="center">Pay Package</TableCell>
-                            <TableCell align="center">Files</TableCell>
                             <TableCell align="center">Internship Company Name</TableCell>
                             <TableCell align="center">Internship Duration</TableCell>
                             <TableCell align="center">Files</TableCell>
@@ -186,15 +182,6 @@ const ViewBtech = () =>{
                                     <Grid>
                                         <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.CertificateUpload)} ><DownloadIcon/></Button>
                                         <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.CertificateUpload)} >Open<FileOpenIcon/></Button>
-                                    </Grid>
-                                </TableCell>
-                                <TableCell>{student.NumberOfCompanies}</TableCell>
-                                <TableCell>{student.Company}</TableCell>
-                                <TableCell>{student.Package}</TableCell>
-                                <TableCell>
-                                    <Grid>
-                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.Upload)} ><DownloadIcon/></Button>
-                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.Upload)} >Open<FileOpenIcon/></Button>
                                     </Grid>
                                 </TableCell>
                                 <TableCell>{student.InternCompany}</TableCell>

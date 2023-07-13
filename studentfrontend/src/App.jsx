@@ -46,6 +46,8 @@ import ViewMscOrMca from './Components/McaAndMsc/ViewMscOrMca'
 import BtechHome from './Components/Home/BtechHome';
 import MscHome from './Components/Home/MscHome';
 import MtechHome from './Components/Home/MtechHome';
+import ViewExamination from './Components/Examination/ViewExamination';
+import Examination from './Components/Examination/Examination';
 
 function App() {
   return (
@@ -62,6 +64,8 @@ function App() {
               <Route path='/viewmscormca' element={<ViewMscOrMca/>}/>
               <Route path='/activities' element={<Activities/>}/>
               <Route path='/viewactivities' element={<ViewActivities/>}/>
+              <Route path='/exam' element={<Examination/>}/>
+              <Route path='/viewexam' element={<ViewExamination/>}/>
               <Route path='/home' element={<Home/>}/>
               <Route path='/numberofdays' element={<AvgNumOfDays/>}/>
               <Route path='/viewavg' element={<ViewAvg/>}/>

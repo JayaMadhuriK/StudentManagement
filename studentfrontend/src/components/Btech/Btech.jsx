@@ -28,15 +28,11 @@ const Btech = () =>{
     const [dateOfBtech,setDateOfBtech] = useState(null)
     const [file,setFile] = useState(location?.state?.student ? null : null);
     const [file1,setFile1] = useState(location?.state?.student ? null : null);
-    const [file2,setFile2] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
     const handleFile1=(e)=>{
         setFile1(e.target.files[0]);
-    }
-    const handleFile2=(e)=>{
-        setFile2(e.target.files[0]);
     }
     const [toastMessage,setToastMessage] = useState({
         type:"",
@@ -81,10 +77,6 @@ const Btech = () =>{
         Certificate_IssuedBy:"",
         CertificateUpload:"",
         CertificatePlatform:"",
-        NumberOfCompanies:"",
-        Company:"",
-        Package:"",
-        Upload:"",
         InternCompany:"",
         InternDuration:"",
         InternUpload:"",
@@ -150,13 +142,9 @@ const Btech = () =>{
         formdata.append('Certificate_IssuedBy',registerRequestBody.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',registerRequestBody.CertificatePlatform)
         formdata.append('CertificateUpload',file)
-        formdata.append('NumberOfCompanies',registerRequestBody.NumberOfCompanies)
-        formdata.append('Company',registerRequestBody.Company)
-        formdata.append('Package',registerRequestBody.Package)
-        formdata.append('Upload',file1);
         formdata.append('InternCompany',registerRequestBody.InternCompany)
         formdata.append('InternDuration',registerRequestBody.InternDuration)
-        formdata.append('InternUpload',file2)
+        formdata.append('InternUpload',file1)
         let res = {};
         if(editData){
             if (file!=null) {
@@ -165,10 +153,6 @@ const Btech = () =>{
               
               if (file1!=null) {
                 formdata.append('Upload', file1);
-              }
-              
-              if (file2!=null) {
-                formdata.append('InternUpload', file2);
               }
             
             await axios.put(`http://localhost:4000/btech/${student.University_RollNumber}`, formdata)
@@ -488,22 +472,6 @@ const Btech = () =>{
                                         <TextField name = "InternUpload" type='file' onChange={handleFile1} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
                                     </Grid>
                                 </Grid>
-                                <FormLabel className="placements">Placement Details</FormLabel>
-                                <Grid className="grid-container">
-                                    <Grid className="first-grid-item">
-                                        <TextField name = "NumberOfCompanies" type="Number" value={registerRequestBody?.NumberOfCompanies} label="Number of companies selected" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
-                                    </Grid>
-                                    <Grid className="second-grid-item">
-                                        <TextField name = "Company" value={registerRequestBody?.Company} label="Company Name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
-                                    </Grid>
-                                    <Grid className="third-grid-item">
-                                        <TextField name = "Package" value={registerRequestBody?.Package} label="Pay Package" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
-                                    </Grid>
-                                    <Grid className="fourth-grid-item">
-                                        <TextField name = "Upload" type='file' onChange={handleFile2} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
-                                    </Grid>
-                                </Grid>
-                     
                             <Grid className="submit-button">
                                 <Button variant="contained" style={{ minWidth:'200px'}} onClick={handleSubmit} color="primary">Submit</Button>
                             </Grid>

@@ -605,6 +605,37 @@ excel.route('/download19')
         console.log(e);
     }
 });
+excel.route('/download20')
+.post((req,res)=>{
+    try{
+    let callSP ="call exam()";
+    dbPool.query(callSP,(err,result)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            let response = result[0];
+            let worksheetName = '5.2.1';
+            const worksheetIndex = workbook.SheetNames.indexOf(worksheetName);
+            if (worksheetIndex !== -1) {
+            const worksheet = workbook.Sheets[worksheetName];
+            const newWorksheet = xlsx.utils.json_to_sheet(response);
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            } else {
+            const worksheet = xlsx.utils.json_to_sheet(response);
+            xlsx.utils.book_append_sheet(workbook, worksheet, worksheetName);
+            xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
+            }
+            xlsx.writeFile(workbook,workbookPath);
+
+            res.send("downloded");
+        }
+    })
+    }
+    catch(e){
+        console.log(e);
+    }
+});
 
 
 module.exports = excel;

@@ -24,8 +24,24 @@ app4.route('/')
            console.log(err);
        }else{
            res.send('inserted');
+           conn.query('select Name_of_the_Teacher, count(*) as count from avg_percentage_placement_outgoingstudents_lastfiveyears group by Name_of_the_Teacher',(err,rows)=>{
+            if(err){
+                console.log(err);
+            }else{
+                const resRows = rows;
+                resRows?.forEach(element => {
+                    let teacher = "'"+element?.Name_of_the_Teacher+"'";
+                    conn.query(`update avg_percentage_placement_outgoingstudents_lastfiveyears set NumberOfStudentsGuided=${element?.count} where Name_of_the_Teacher = ${teacher}`,(err,rows)=>{
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log(rows);
+                        }
+                    })
+                });
+            }
+           })
        }
-       
     })
 })
 .delete((req,res)=>{

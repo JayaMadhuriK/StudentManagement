@@ -48,14 +48,13 @@ const Home = () =>{
                 <Grid className="btn-2">
                 <h4><Button ClassName="button6" onClick={()=>{navigate("/viewhigher")}} variant="standard"><font color="white">HigherEducation</font></Button></h4>
                 <h4><Button ClassName="button7" onClick={()=>{navigate("/viewinternships")}} variant="standard"><font color="white">Internships</font></Button></h4>
-                <h4><Button ClassName="button8" onClick={()=>{navigate("/viewavg")}} variant="standard"><font color="white">NumberOfDays</font></Button></h4>
                 <h4><Button ClassName="button9" onClick={()=>{navigate("/viewpass")}} variant="standard"><font color="white">PassPercentage</font></Button></h4>
+                <h4><Button ClassName="button8" onClick={()=>{navigate("/viewexam")}} variant="standard"><font color="white">Examinations</font></Button></h4>
                 <h4><Button ClassName="button10" onClick={()=>{navigate("/viewplacements")}} variant="standard"><font color="white">Placements</font></Button></h4>
                 </Grid>
                 <Grid className="btn-3">
                 <h4><Button ClassName="button11" onClick={()=>{setIsDialogOpen(true)}} variant="standard"><font color="white">Value Added</font></Button></h4>
                 <h4><Button ClassName="button12" onClick={()=>{navigate("/viewstudent")}} variant="standard"><font color="white">Student Satisfactory</font></Button></h4>
-
                 <h4><Button ClassName="button18" onClick={()=>{navigate("/viewbtech")}} variant="standard"><font color="white">Btech</font></Button></h4>
                 <h4><Button ClassName="button19" onClick={()=>{navigate("/viewmtech")}} variant="standard"><font color="white">Mtech</font></Button></h4>
                 <h4><Button ClassName="button20" onClick={()=>{navigate("/viewmscormca")}} variant="standard"><font color="white">MSC And MCA</font></Button></h4>

@@ -106,7 +106,7 @@ const HigherEdu = () =>{
     },[]);
     return (
         <>
-        {access == "ADMIN_ACCESS" ? (
+        {access == "ADMIN_ACCESS" || "STUDENT_ACCESS" ? (
         <Grid>
             <Grid className="stu">
             <Button variant="contained" color="primary" size="large" onClick={()=>{navigate(-1)}} className="buttonnew"><ArrowBackIcon/>BACK</Button>

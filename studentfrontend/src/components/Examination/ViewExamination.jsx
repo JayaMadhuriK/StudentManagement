@@ -16,20 +16,20 @@ import AddIcon from '@mui/icons-material/Add';
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const ViewPlacements = () =>{
+const ViewExamination = () =>{
     const navigate = useNavigate();
-    const [studentData,setStudentData] = useState([])
+    const access = localStorage.getItem("user_access");
+    const [studentData,setStudentData] = useState([]);
     const getStudentData = async () =>{
-        const response =await axios.get('http://localhost:4000/placement')
+        const response =await axios.get('http://localhost:4000/exam')
         setStudentData(response?.data);
         console.log(response);
     }
-    const access = localStorage.getItem("user_access");
     useEffect(() => {
         getStudentData();
       },[]);
     const handleDownload = async() =>{
-        await axios.post('http://localhost:4000/download/download5');
+        await axios.post('http://localhost:4000/download/download20');
         window.alert("downloaded");
     }
     return(
@@ -37,10 +37,10 @@ const ViewPlacements = () =>{
         {access == "ADMIN_ACCESS" ? (
         <Grid className="grid">
             <Grid className="grid-btn">
-                <h1>Placements</h1>
+                <h1>Average Number of Students Qualifying in Examination</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} className="btn"><ArrowBackIcon/></Button>
 
-                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/placements")}} className="buttonnew"><AddIcon/>Add Record</Button>
+                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/exam")}} className="buttonnew"><AddIcon/>Add Record</Button>
 
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
@@ -49,36 +49,48 @@ const ViewPlacements = () =>{
                     <TableHead>
                         <TableRow>
                             <TableCell>Year</TableCell>
-                            <TableCell>Name of the Teacher</TableCell>
-                            <TableCell>NumberOfStudentsGuided</TableCell>
-                            <TableCell>Contact_Details</TableCell>
-                            <TableCell>Program_graduated_from</TableCell>
-                            <TableCell>Name_of_company</TableCell>
-                            <TableCell>Name_of_employer_with_contact_details</TableCell>
-                            <TableCell>Pay_package_at_appointment</TableCell>
+                            <TableCell>Registeration_Number</TableCell>
+                            <TableCell>NET</TableCell>
+                            <TableCell>SLET</TableCell>
+                            <TableCell>GATE</TableCell>
+                            <TableCell>GMAT</TableCell>
+                            <TableCell>CAT</TableCell>
+                            <TableCell>GRE</TableCell>
+                            <TableCell>JAM</TableCell>
+                            <TableCell>IELET</TableCell>
+                            <TableCell>TOEFL</TableCell>
+                            <TableCell>Civil_Services</TableCell>
+                            <TableCell>State_government</TableCell>
+                            <TableCell>Other_examinations</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {studentData.map((studentplace) => (
+                        {studentData.map((student) => (
                             <TableRow 
-                                key = {studentplace.Name_of_the_Teacher}
+                                key = {student.Registeration_Number}
                                 sx = {{ '&:last-child td, &:last-child th': {border:0} }}
                             >
-                                <TableCell>{studentplace.Year}</TableCell>
-                                <TableCell>{studentplace.Name_of_the_Teacher}</TableCell>
-                                <TableCell>{studentplace.NumberOfStudentsGuided}</TableCell>
-                                <TableCell>{studentplace.Contact_Details}</TableCell>
-                                <TableCell>{studentplace.Program_graduated_from}</TableCell>
-                                <TableCell>{studentplace.Name_of_company}</TableCell>
-                                <TableCell>{studentplace.Name_of_employer_with_contact_details}</TableCell>
-                                <TableCell>{studentplace.Pay_package_at_appointment}</TableCell>
+                                <TableCell>{student.year}</TableCell>
+                                <TableCell>{student.Registeration_Number}</TableCell>
+                                <TableCell>{student.NET}</TableCell>
+                                <TableCell>{student.SLET}</TableCell>
+                                <TableCell>{student.GATE}</TableCell>
+                                <TableCell>{student.GMAT}</TableCell>
+                                <TableCell>{student.CAT}</TableCell>
+                                <TableCell>{student.GRE}</TableCell>
+                                <TableCell>{student.JAM}</TableCell>
+                                <TableCell>{student.IELET}</TableCell>
+                                <TableCell>{student.TOEFL}</TableCell>
+                                <TableCell>{student.Civil_Services}</TableCell>
+                                <TableCell>{student.State_government}</TableCell>
+                                <TableCell>{student.Other_examinations}</TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
-                                        <Button variant="contained" size="small" onClick={()=>{navigate("/placements",{state:{studentplace:studentplace}})}}>Edit</Button>
+                                        <Button variant="contained" size="small" onClick={()=>{navigate("/exam",{state:{student:student}})}}>Edit</Button>
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
-                                            axios.delete(`http://localhost:4000/placement/${studentplace.Name_of_the_Teacher}`);
+                                            axios.delete(`http://localhost:4000/exam/${student.Registeration_Number}`);
                                             window.location.reload(false);
                                         }} 
                                         color="error" size="small">Delete</Button>
@@ -97,4 +109,4 @@ const ViewPlacements = () =>{
     )
 }
 
-export default ViewPlacements;
+export default ViewExamination;

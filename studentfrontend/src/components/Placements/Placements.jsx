@@ -26,7 +26,7 @@ const Placements = () =>{
         type:"",
         message:""
     });
-    const student= location?.state?.student ||{
+    const studentplace= location?.state?.studentplace ||{
         Year:"",
         Name_of_the_Teacher:"",
         NumberOfStudentsGuided:"",
@@ -41,12 +41,12 @@ const Placements = () =>{
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
-    const editData = location?.state?.student ? true : false;
-    const [registerRequestBody,setRegisterRequestBody] = useState(student);
+    const editData = location?.state?.studentplace ? true : false;
+    const [registerRequestBody,setRegisterRequestBody] = useState(studentplace);
     const handleSubmit = async() => {
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/placement/${student.Name_of_the_Teacher}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/placement/${studentplace.Name_of_the_Teacher}`, registerRequestBody)
             .then((response) => {
             res = response;
             })
@@ -90,7 +90,7 @@ const Placements = () =>{
     }
     useEffect(()=>{
         if(editData){
-            const year = Number(student.Year) - 1;
+            const year = Number(studentplace.Year) - 1;
             setDateOfBirth(dayjs(year+"-12-31T18:30:00.000Z"));
         }
     },[]);
@@ -127,9 +127,6 @@ const Placements = () =>{
                             </Grid>
                             <Grid className="first-name">
                                 <TextField name = "Name_of_the_Teacher" value={registerRequestBody?.Name_of_the_Teacher} label="Name of the Teacher" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
-                            </Grid>
-                            <Grid className="first-name">
-                                <TextField name = "NumberOfStudentsGuided" value={registerRequestBody?.NumberOfStudentsGuided} type="Number" label="Number Of Students Guided" onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
                                 <TextField name = "Contact_Details" value={registerRequestBody?.Contact_Details} label="Contact Details" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}}  size="medium"></TextField>

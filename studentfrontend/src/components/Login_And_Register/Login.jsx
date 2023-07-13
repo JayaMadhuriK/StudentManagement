@@ -74,6 +74,7 @@ const Login = () =>{
                 }, 2000);
             }
             else if(res?.data?.details?.rows[0]?.UserType == "student") {
+                localStorage.setItem("student",res?.data?.details?.rows[0]?.First_Name + res?.data?.details?.rows[0]?.Last_Name)
                 setToastMessage({...toastMessage, message:" Redirecting to Home Page in 2 seconds.... ",type:"success"});
                 localStorage.setItem("user_access","STUDENT_ACCESS");
                 if(res?.data?.details?.rows[0]?.branch == "btech"){

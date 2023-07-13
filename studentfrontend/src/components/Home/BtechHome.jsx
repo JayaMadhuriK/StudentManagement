@@ -67,23 +67,15 @@ const BtechHome = () =>{
         Certificate_IssuedBy:"",
         CertificateUpload:"",
         CertificatePlatform:"",
-        NumberOfCompanies:"",
-        Company:"",
-        Package:"",
-        Upload:"",
         InternCompany:"",
         InternDuration:"",
         InternUpload:"",
     });
     const [editing, setEditing] = useState(false);
     const [file,setFile] = useState(null);
-    const [file1,setFile1] = useState(null);
     const [file2,setFile2] = useState(null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
-    }
-    const handleFile1=(e)=>{
-        setFile1(e.target.files[0]);
     }
     const handleFile2=(e)=>{
         setFile2(e.target.files[0]);
@@ -150,19 +142,11 @@ const BtechHome = () =>{
         formdata.append('Certificate_IssuedBy',user.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',user.CertificatePlatform)
         formdata.append('CertificateUpload',file)
-        formdata.append('NumberOfCompanies',user.NumberOfCompanies)
-        formdata.append('Company',user.Company)
-        formdata.append('Package',user.Package)
-        formdata.append('Upload',file1);
         formdata.append('InternCompany',user.InternCompany)
         formdata.append('InternDuration',user.InternDuration)
         formdata.append('InternUpload',file2)
         if (file!=null) {
             formdata.append('CertificateUpload', file);
-        }
-          
-        if (file1!=null) {
-            formdata.append('Upload', file1);
         }
           
         if (file2!=null) {
@@ -219,7 +203,8 @@ const BtechHome = () =>{
             {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2200px'}}>{systemErrors?.response}</Alert>} 
             <Grid>
                 <h2>Account Profile</h2>
-                <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"1100px",marginTop:"-90px",backgroundColor:"black"}} variant="contained" size="medium">Logout</Button>
+                <Button onClick={()=>{navigate("/exam")}} style={{marginLeft:"-25px",marginTop:"-90px",position:"absoulte", backgroundColor:"black"}} variant="contained" size="medium">Higher Education</Button>
+                <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"1000px",marginTop:"-90px",position:"absoulte", backgroundColor:"black"}} variant="contained" size="medium">Logout</Button>
                 <Grid className="divider">
                     <hr/>
                 </Grid>
@@ -551,34 +536,6 @@ const BtechHome = () =>{
                                         </Grid>
                                         <Grid className="third-grid-item">
                                             <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.InternUpload)} >Certificate<FileOpen/></Button>
-                                            
-                                        </Grid>
-                                    </Grid>
-                                    <FormLabel className="placements">Placement Details</FormLabel>
-                                    <Grid className="grid-container">
-                                        <Grid className="first-grid-item">
-                                            <TextField
-                                            name="NumberOfCompanies"
-                                            label="Number of Companies"
-                                            value={user.NumberOfCompanies}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="second-grid-item">
-                                            <TextField
-                                            name="Company"
-                                            label="Company Name"
-                                            value={user.Company}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="third-grid-item">
-                                            <TextField
-                                            name="Package"
-                                            label="Package"
-                                            value={user.Package}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="fourth-grid-item">
-                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.Upload)} >OfferLetter<FileOpen/></Button>
                                             
                                         </Grid>
                                     </Grid>
@@ -933,37 +890,7 @@ const BtechHome = () =>{
                                             /> 
                                         </Grid>
                                         <Grid className="third-grid-item">
-                                            <TextField type='file' name='InternUpload' label="Upload Certificates(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile1}></TextField>
-                                        </Grid>
-                                    </Grid>
-                                    <FormLabel className="placements">Placement Details</FormLabel>
-                                    <Grid className="grid-container">
-                                        <Grid className="first-grid-item">
-                                            <TextField
-                                            name="NumberOfCompanies"
-                                            label="Number Of Companies"
-                                            value={user.NumberOfCompanies}
-                                            onChange={(e)=>{onChangeTextField(e)}}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="second-grid-item">
-                                            <TextField
-                                            name="Company"
-                                            value={user.Company}
-                                            label="Company"
-                                            onChange={(e)=>{onChangeTextField(e)}}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="third-grid-item">
-                                            <TextField
-                                            name="Package"
-                                            label="Package"
-                                            value={user.Package}
-                                            onChange={(e)=>{onChangeTextField(e)}}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="fourth-grid-item">
-                                            <TextField type='file' name='Upload' label="Upload OfferLetters(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile2}></TextField>
+                                            <TextField type='file' name='InternUpload' label="Upload Certificates(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile2}></TextField>
                                         </Grid>
                                     </Grid>
                                     <Grid className="submit-button">
