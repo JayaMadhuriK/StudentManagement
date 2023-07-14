@@ -133,13 +133,23 @@ const ViewMtech = () =>{
                             <TableCell align="center">IssuedBy</TableCell>
                             <TableCell align="center">Platform</TableCell>
                             <TableCell align="center">Files</TableCell>
-                            <TableCell align="center">Number Of Companies selected</TableCell>
-                            <TableCell align="center">Company Name</TableCell>
+                            <TableCell align="center">Program name</TableCell>
+                            <TableCell align="center">Program code</TableCell>
+                            <TableCell align="center">List of students undertaking in internships</TableCell>
+                            <TableCell align="center">Certificate</TableCell>
+                            <TableCell align="center">Year</TableCell>
+                            <TableCell align="center">Name of teacher for Placements</TableCell>
+                            <TableCell align="center">Contact details</TableCell>
+                            <TableCell align="center">Program Graduated from</TableCell>
+                            <TableCell align="center">Name of Company</TableCell>
+                            <TableCell align="center">Name of employer and contact details</TableCell>
                             <TableCell align="center">Pay Package</TableCell>
-                            <TableCell align="center">Files</TableCell>
-                            <TableCell align="center">Internship Company Name</TableCell>
-                            <TableCell align="center">Internship Duration</TableCell>
-                            <TableCell align="center">Files</TableCell>
+                            <TableCell align="center">Name of teacher for Higher Education</TableCell>
+                            <TableCell align="center">Name of student</TableCell>
+                            <TableCell align="center">Program Graduated from</TableCell>
+                            <TableCell align="center">Name of Institution</TableCell>
+                            <TableCell align="center">Name of Program Admitted to</TableCell>
+                            <TableCell align="center">File</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -198,21 +208,31 @@ const ViewMtech = () =>{
                                         <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.CertificateUpload)} >Open<FileOpenIcon/></Button>
                                     </Grid>
                                 </TableCell>
-                                <TableCell>{student.NumberOfCompanies}</TableCell>
-                                <TableCell>{student.Company}</TableCell>
-                                <TableCell>{student.Package}</TableCell>
-                                <TableCell>
-                                    <Grid>
-                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.Upload)} ><DownloadIcon/></Button>
-                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.Upload)} >Open<FileOpenIcon/></Button>
-                                    </Grid>
-                                </TableCell>
-                                <TableCell>{student.InternCompany}</TableCell>
-                                <TableCell>{student.InternDuration}</TableCell>
+                                <TableCell>{student.Program_name}</TableCell>
+                                <TableCell>{student.Program_code}</TableCell>
+                                <TableCell>{student.list_of_students_undertaking}</TableCell>
                                 <TableCell>
                                     <Grid>
                                         <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.InternUpload)} ><DownloadIcon/></Button>
                                         <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.InternUpload)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
+                                <TableCell>{student.Year}</TableCell>
+                                <TableCell>{student.Name_of_the_Teacher}</TableCell>
+                                <TableCell>{student.Contact_Details}</TableCell>
+                                <TableCell>{student.Program_graduated_from}</TableCell>
+                                <TableCell>{student.Name_of_company}</TableCell>
+                                <TableCell>{student.Name_of_employer_with_contact_details}</TableCell>
+                                <TableCell>{student.Pay_Package_at_appointment}</TableCell>
+                                <TableCell>{student.NameOfTeacher}</TableCell>
+                                <TableCell>{student.Name_Of_Students}</TableCell>
+                                <TableCell>{student.Program_Graduated}</TableCell>
+                                <TableCell>{student.Name_Of_Institution_joined}</TableCell>
+                                <TableCell>{student.Name_Of_Programme_Admitted_To}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.Upload)} ><DownloadIcon/></Button>
+                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.Upload)} >Open<FileOpenIcon/></Button>
                                     </Grid>
                                 </TableCell>
                                 <TableCell align="center" scope="row" component="th">

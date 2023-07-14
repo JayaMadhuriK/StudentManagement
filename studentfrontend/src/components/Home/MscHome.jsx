@@ -71,13 +71,23 @@ const MscHome = () =>{
         Certificate_IssuedBy:"",
         CertificateUpload:"",
         CertificatePlatform:"",
-        NumberOfCompanies:"",
-        Company:"",
-        Package:"",
-        Upload:"",
-        InternCompany:"",
-        InternDuration:"",
-        InternUpload:"",
+        Program_name:"",
+        Program_code:"",
+        list_of_students_undertaking:"",
+          InternUpload:"",
+          Year:"",
+          Name_of_the_Teacher:"",
+          Contact_Details:"",
+          Program_graduated_from:"",
+          Name_of_company:"",
+          Name_of_employer_with_contact_details:"",
+          Pay_Package_at_appointment:"",
+          NameOfTeacher:"",
+          Name_Of_Students:"",
+          Program_Graduated:"",
+          Name_Of_Institution_joined:"",
+          Name_Of_Programme_Admitted_To:"",
+          Upload:"",
     });
     const [editing, setEditing] = useState(false);
     const [file,setFile] = useState(null);
@@ -157,25 +167,33 @@ const MscHome = () =>{
         formdata.append('Certificate_IssuedBy',user.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',user.CertificatePlatform)
         formdata.append('CertificateUpload',file)
-        formdata.append('NumberOfCompanies',user.NumberOfCompanies)
-        formdata.append('Company',user.Company)
-        formdata.append('Package',user.Package)
-        formdata.append('Upload',file1);
-        formdata.append('InternCompany',user.InternCompany)
-        formdata.append('InternDuration',user.InternDuration)
-        formdata.append('InternUpload',file2)
-
+        formdata.append('Program_name',user.Program_name)
+        formdata.append('Program_code',user.Program_code)
+        formdata.append('list_of_students_undertaking',user.list_of_students_undertaking)
+        formdata.append('InternUpload',file1)
+        formdata.append('Year',user.Year)
+        formdata.append('Name_of_the_Teacher',user.Name_of_the_Teacher)
+        formdata.append('Contact_Details',user.Contact_Details)
+        formdata.append('Program_graduated_from',user.Program_graduated_from)
+        formdata.append('Name_of_company',user.Name_of_company)
+        formdata.append('Name_of_employer_with_contact_details',user.Name_of_employer_with_contact_details)
+        formdata.append('Pay_Package_at_appointment',user.Pay_Package_at_appointment)
+        formdata.append('NameOfTeacher',user.NameOfTeacher)
+        formdata.append('Name_Of_Students',user.Name_Of_Students)
+        formdata.append('Program_Graduated',user.Program_Graduated)
+        formdata.append('Name_Of_Institution_joined',user.Name_Of_Institution_joined)
+        formdata.append('Name_Of_Programme_Admitted_To',user.Name_Of_Programme_Admitted_To)
+        formdata.append('Upload',file2)
         if (file!=null) {
             formdata.append('CertificateUpload', file);
         }
-          
         if (file1!=null) {
-            formdata.append('Upload', file1);
-        }
-          
+            formdata.append('InternUpload', file1);
+        } 
         if (file2!=null) {
-            formdata.append('InternUpload', file2);
+            formdata.append('Upload', file2);
         }
+        
         await axios.put(`http://localhost:4000/mscormca/${user.University_RollNumber}`, formdata)
         .then(response=>{
             if(response?.status == 200){
@@ -222,8 +240,8 @@ const MscHome = () =>{
         <>
         {access == "STUDENT_ACCESS" ? (
         <Grid>
-            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'1840px'}}>{systemErrors?.networkError}</Alert>}   
-            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'1840px'}}>{systemErrors?.response}</Alert>} 
+            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2340px'}}>{systemErrors?.networkError}</Alert>}   
+            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2340px'}}>{systemErrors?.response}</Alert>} 
             <Grid>
                 <h2>Account Profile</h2>
                 <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"1100px",marginTop:"-90px",backgroundColor:"black"}} variant="contained" size="medium">Logout</Button>
@@ -557,51 +575,125 @@ const MscHome = () =>{
                                     <Grid className="grid-container">
                                         <Grid className="first-grid-item">
                                             <TextField
-                                            name="InternCompany"
-                                            label="Company"
-                                            value={user.InternCompany}
+                                            name="Program_name"
+                                            label="Program_name"
+                                            value={user.Program_name}
                                             /> 
                                         </Grid>
                                         <Grid className="second-grid-item">
                                             <TextField
-                                            name="InternDuration"
-                                            label="Duration"
-                                            value={user.InternDuration}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="third-grid-item">
-                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.InternUpload)} >Certificate<FileOpen/></Button>
-                                            
-                                        </Grid>
-                                    </Grid>
-                                    <FormLabel className="placements">Placement Details</FormLabel>
-                                    <Grid className="grid-container">
-                                        <Grid className="first-grid-item">
-                                            <TextField
-                                            name="NumberOfCompanies"
-                                            label="Number of Companies"
-                                            value={user.NumberOfCompanies}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="second-grid-item">
-                                            <TextField
-                                            name="Company"
-                                            label="Company Name"
-                                            value={user.Company}
+                                            name="Program_code"
+                                            label="Program_code"
+                                            value={user.Program_code}
                                             /> 
                                         </Grid>
                                         <Grid className="third-grid-item">
                                             <TextField
-                                            name="Package"
-                                            label="Package"
-                                            value={user.Package}
+                                            name="list_of_students_undertaking"
+                                            label="list_of_students_undertaking"
+                                            value={user.list_of_students_undertaking}
                                             /> 
                                         </Grid>
                                         <Grid className="fourth-grid-item">
-                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.Upload)} >OfferLetter<FileOpen/></Button>
-                                            
+                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.InternUpload)} >Certificate<FileOpen/></Button>
                                         </Grid>
                                     </Grid>
+                                    <FormLabel className="internships">Placements</FormLabel>
+                                    <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                        <TextField
+                                        name="Year"
+                                        label="Year"
+                                        value={user.Year}
+                                        /> 
+                                    </Grid>
+                                        <Grid className="second-grid-item">
+                                            <TextField
+                                            name="Name_of_the_Teacher"
+                                            label="Name_of_the_Teacher"
+                                            value={user.Name_of_the_Teacher}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="third-grid-item">
+                                            <TextField
+                                            name="Contact_Details"
+                                            label="Contact_Details"
+                                            value={user.Contact_Details}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="fourth-grid-item">
+                                            <TextField
+                                            name="Program_graduated_from"
+                                            label="Program_graduated_from"
+                                            value={user.Program_graduated_from}
+                                            /> 
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="grid-container">
+                                        <Grid className="first-grid-item">
+                                            <TextField
+                                            name="Name_of_company"
+                                            label="Name_of_company"
+                                            value={user.Name_of_company}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="second-grid-item">
+                                            <TextField
+                                            name="Name_of_employer_with_contact_details"
+                                            label="Name of Employer"
+                                            value={user.Name_of_employer_with_contact_details}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="third-grid-item">
+                                            <TextField
+                                            name="Pay_Package_at_appointment"
+                                            label="Pay_Package_at_appointment"
+                                            value={user.Pay_Package_at_appointment}
+                                            /> 
+                                        </Grid>
+                                    </Grid>
+                                    <FormLabel className="higher">Higher Education</FormLabel>                                    <Grid className="grid-container">
+                                        <Grid className="first-grid-item">
+                                            <TextField
+                                            name="NameOfTeacher"
+                                            label="NameOfTeacher"
+                                            value={user.NameOfTeacher}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="second-grid-item">
+                                            <TextField
+                                            name="Name_Of_Students"
+                                            label="Name_Of_Students"
+                                            value={user.Name_Of_Students}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="third-grid-item">
+                                            <TextField
+                                            name="Program_Graduated"
+                                            label="Program_Graduated"
+                                            value={user.Program_Graduated}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="fourth-grid-item">
+                                            <TextField
+                                            name="Name_Of_Institution_joined"
+                                            label="Name_Of_Institution_joined"
+                                            value={user.Name_Of_Institution_joined}
+                                            /> 
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                            <TextField
+                                            name="Name_Of_Programme_Admitted_To"
+                                            label="Name of program Admitted"
+                                            value={user.Name_Of_Programme_Admitted_To}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="second-grid-item">
+                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.Upload)} >Upload File<FileOpen/></Button>
+                                        </Grid>
+                                </Grid>
                                     <Grid className="submit-button">
                                         <Button variant="contained" style={{ minWidth:'200px', marginLeft:"900px", backgroundColor:"black"}} onClick={() => setEditing(true)}>
                                         Edit
@@ -894,54 +986,141 @@ const MscHome = () =>{
                                     <Grid className="grid-container">
                                         <Grid className="first-grid-item">
                                             <TextField
-                                            name="InternCompany"
-                                            label="Company"
-                                            value={user.InternCompany}
+                                            name="Program_name"
+                                            value={user.Program_name}
+                                            label="Program_name"
                                             onChange={(e)=>{onChangeTextField(e)}}
                                             /> 
                                         </Grid>
                                         <Grid className="second-grid-item">
                                             <TextField
-                                            name="InternDuration"
-                                            value={user.InternDuration}
-                                            label="Duration"
-                                            onChange={(e)=>{onChangeTextField(e)}}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="third-grid-item">
-                                            <TextField type='file' name='InternUpload' label="Upload Certificates(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile1}></TextField>
-                                        </Grid>
-                                    </Grid>
-                                    <FormLabel className="placements">Placement Details</FormLabel>
-                                    <Grid className="grid-container">
-                                        <Grid className="first-grid-item">
-                                            <TextField
-                                            name="NumberOfCompanies"
-                                            label="Number Of Companies"
-                                            value={user.NumberOfCompanies}
-                                            onChange={(e)=>{onChangeTextField(e)}}
-                                            /> 
-                                        </Grid>
-                                        <Grid className="second-grid-item">
-                                            <TextField
-                                            name="Company"
-                                            value={user.Company}
-                                            label="Company"
+                                            name="Program_code"
+                                            label="Program_code"
+                                            value={user.Program_code}
                                             onChange={(e)=>{onChangeTextField(e)}}
                                             /> 
                                         </Grid>
                                         <Grid className="third-grid-item">
                                             <TextField
-                                            name="Package"
-                                            label="Package"
-                                            value={user.Package}
+                                            name="list_of_students_undertaking"
+                                            label="list_of_students_undertaking"
+                                            value={user.list_of_students_undertaking}
                                             onChange={(e)=>{onChangeTextField(e)}}
                                             /> 
                                         </Grid>
                                         <Grid className="fourth-grid-item">
-                                            <TextField type='file' name='Upload' label="Upload OfferLetters(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile2}></TextField>
+                                        <TextField type='file' name='InternUpload' label="Certificates(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile1}></TextField>
                                         </Grid>
                                     </Grid>
+                                    <FormLabel className="internships">Placements</FormLabel>
+                                    <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                        <TextField
+                                        name="Year"
+                                        label="Year"
+                                        value={user.Year}
+                                        onChange={(e)=>{onChangeTextField(e)}}
+                                        /> 
+                                    </Grid>
+                                        <Grid className="second-grid-item">
+                                            <TextField
+                                            name="Name_of_the_Teacher"
+                                            label="Name_of_the_Teacher"
+                                            value={user.Name_of_the_Teacher}
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="third-grid-item">
+                                            <TextField
+                                            name="Contact_Details"
+                                            label="Contact_Details"
+                                            value={user.Contact_Details}
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="fourth-grid-item">
+                                            <TextField
+                                            name="Program_graduated_from"
+                                            label="Program_graduated_from"
+                                            value={user.Program_graduated_from}
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            /> 
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="grid-container">
+                                        <Grid className="first-grid-item">
+                                            <TextField
+                                            name="Name_of_company"
+                                            label="Name_of_company"
+                                            value={user.Name_of_company}
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="second-grid-item">
+                                            <TextField
+                                            name="Name_of_employer_with_contact_details"
+                                            label="Employer name and contact"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.Name_of_employer_with_contact_details}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="third-grid-item">
+                                            <TextField
+                                            name="Pay_Package_at_appointment"
+                                            label="Pay_Package_at_appointment"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.Pay_Package_at_appointment}
+                                            /> 
+                                        </Grid>
+                                    </Grid>
+                                    <FormLabel className="higher">Higher Education</FormLabel>                                   
+                                     <Grid className="grid-container">
+                                        <Grid className="first-grid-item">
+                                            <TextField
+                                            name="NameOfTeacher"
+                                            label="NameOfTeacher"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.NameOfTeacher}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="second-grid-item">
+                                            <TextField
+                                            name="Name_Of_Students"
+                                            label="Name_Of_Students"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.Name_Of_Students}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="third-grid-item">
+                                            <TextField
+                                            name="Program_Graduated"
+                                            label="Program_Graduated"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.Program_Graduated}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="fourth-grid-item">
+                                            <TextField
+                                            name="Name_Of_Institution_joined"
+                                            label="Name_Of_Institution_joined"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.Name_Of_Institution_joined}
+                                            /> 
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                            <TextField
+                                            name="Name_Of_Programme_Admitted_To"
+                                            label="Name of Program Admitted"
+                                            onChange={(e)=>{onChangeTextField(e)}}
+                                            value={user.Name_Of_Programme_Admitted_To}
+                                            /> 
+                                        </Grid>
+                                        <Grid className="second-grid-item">
+                                        <TextField type='file' name='Upload' label="ID Card/Admission letter" InputLabelProps={{shrink:true}} onChange={handleFile2}></TextField>
+                                        </Grid>
+                                </Grid>
                                     <Grid className="submit-button">
                                         <Button variant="contained" style={{ minWidth:'200px', marginLeft:"900px", backgroundColor:"black"}} onClick={handleUpdateUser}>
                                         Save

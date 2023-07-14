@@ -30,8 +30,6 @@ app12.route('/')
 })
 
 .post(upload.single('image'),(req,res)=>{
-    // var bt = req.body;
-    // var btData = [bt.NameOfTeacher,bt.NumberOf_Students_Enrolled,bt.Name_Of_Students,bt.Program_Graduated_From,bt.Name_Of_Institution_joined,bt.Name_Of_Programme_Admitted_To,bt.IdentityCardORAdmissionLetter];
     const {NameOfTeacher} = req.body;
     const {NumberOf_Students_Enrolled} = req.body;
     const {Name_Of_Students} = req.body;
@@ -52,6 +50,23 @@ app12.route('/')
            console.log(err);
        }else{
            res.send('inserted');
+           conn.query('select NameOfTeacher, count(*) as count from percentageof_highereducation_students group by NameOfTeacher',(err,rows)=>{
+            if(err){
+                console.log(err)
+            }else{
+                const resRows = rows;
+                resRows?.forEach(element => {
+                    let teacher = "'"+element?.NameOfTeacher+"'";
+                    conn.query(`update percentageof_highereducation_students set NumberOf_Students_Enrolled=${element?.count} where NameOfTeacher = ${teacher}`,(err,rows)=>{
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log(rows);
+                        }
+                    })
+                });
+            }
+           })
        }
        
     })

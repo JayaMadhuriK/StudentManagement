@@ -122,9 +122,6 @@ const HigherEdu = () =>{
                                 <TextField name = "NameOfTeacher" value={registerRequestBody?.NameOfTeacher} label="Name Of Teacher" InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "NumberOf_Students_Enrolled" value={registerRequestBody?.NumberOf_Students_Enrolled} type="Number" InputProps={{ sx: { width: 250 } }} label="Number Of Students Enrolled" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
-                            </Grid>
-                            <Grid className="first-name">
                                 <TextField name = "Name_Of_Students" label="Name Of Students" value={registerRequestBody?.Name_Of_Students} InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">

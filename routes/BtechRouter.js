@@ -33,7 +33,19 @@ app1.route('/')
 })
 
 .post(multiupload,(req,res)=>{
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,
+      Year,
+      Name_of_the_Teacher,
+      Contact_Details,
+      Program_graduated_from,
+      Name_of_company,
+      Name_of_employer_with_contact_details,
+      Pay_Package_at_appointment,
+      NameOfTeacher,
+      Name_Of_Students,
+      Program_Graduated,
+      Name_Of_Institution_joined,
+      Name_Of_Programme_Admitted_To,Program_name,Program_code,list_of_students_undertaking} = req.body;
     const CertificateUpload = req.files && req.files['CertificateUpload']? req.files['CertificateUpload'][0].filename:null;
     const Upload = req.files && req.files['Upload']? req.files['Upload'][0].filename:null;
     const InternUpload = req.files && req.files['InternUpload']? req.files['InternUpload'][0].filename:null;
@@ -76,21 +88,106 @@ app1.route('/')
         Certificate_IssuedBy:Certificate_IssuedBy,
         CertificatePlatform:CertificatePlatform,
         CertificateUpload:CertificateUpload,
-        NumberOfCompanies:NumberOfCompanies,
-        Company:Company,
-        Package:Package,
+        Year:Year,
+      Name_of_the_Teacher:Name_of_the_Teacher,
+      Contact_Details:Contact_Details,
+      Program_graduated_from:Program_graduated_from,
+      Name_of_company:Name_of_company,
+      Name_of_employer_with_contact_details:Name_of_employer_with_contact_details,
+      Pay_Package_at_appointment:Pay_Package_at_appointment,
+        NameOfTeacher:NameOfTeacher,
+        Name_Of_Students:Name_Of_Students,
+        Program_Graduated:Program_Graduated,
+        Name_Of_Institution_joined:Name_Of_Institution_joined,
+        Name_Of_Programme_Admitted_To:Name_Of_Programme_Admitted_To,
         Upload:Upload,
-        InternCompany:InternCompany,
-        InternDuration:InternDuration,
+        Program_name:Program_name,
+        Program_code:Program_code,
+        list_of_students_undertaking:list_of_students_undertaking,
         InternUpload:InternUpload,
     },(err,rows)=>{
        if(err){
            res.sendStatus(400);
            console.log(err);
        }else{
-           res.send('inserted');
-       }
-       
+            res.send('Inserted');
+            conn.query('insert into avg_percentage_placement_outgoingstudents_lastfiveyears SET ?',{
+                Year:Year,
+                Name_of_the_Teacher:Name_of_the_Teacher,
+                Contact_Details:Contact_Details,
+                Program_graduated_from:Program_graduated_from,
+                Name_of_company:Name_of_company,
+                Name_of_employer_with_contact_details:Name_of_employer_with_contact_details,
+                Pay_Package_at_appointment:Pay_Package_at_appointment,
+            },(err,rows)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(rows)
+                    conn.query('select Name_of_the_Teacher, count(*) as count from avg_percentage_placement_outgoingstudents_lastfiveyears group by Name_of_the_Teacher',(err,rows)=>{
+                        if(err){
+                            console.log(err);
+                        }else{
+                            const resRows = rows;
+                            resRows?.forEach(element => {
+                                let teacher = "'"+element?.Name_of_the_Teacher+"'";
+                                conn.query(`update avg_percentage_placement_outgoingstudents_lastfiveyears set NumberOfStudentsGuided=${element?.count} where Name_of_the_Teacher = ${teacher}`,(err,rows)=>{
+                                    if(err){
+                                        console.log(err);
+                                    }else{
+                                        console.log(rows);
+                                    }
+                                })
+                            });
+                        }
+                    })
+                }
+            });
+            conn.query('insert into percentageof_highereducation_students SET ?',{
+                NameOfTeacher:NameOfTeacher,
+                Name_Of_Students:Name_Of_Students,
+                Program_Graduated_From:Program_Graduated,
+                Name_Of_Institution_joined:Name_Of_Institution_joined,
+                Name_Of_Programme_Admitted_To:Name_Of_Programme_Admitted_To,
+                IdentityCardORAdmissionLetter:Upload
+            },(err,rows)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(rows)
+                    conn.query('select NameOfTeacher, count(*) as count from percentageof_highereducation_students group by NameOfTeacher',(err,rows)=>{
+                        if(err){
+                            console.log(err)
+                        }else{
+                            const resRows = rows;
+                            resRows?.forEach(element => {
+                                let teacher = "'"+element?.NameOfTeacher+"'";
+                                conn.query(`update percentageof_highereducation_students set NumberOf_Students_Enrolled=${element?.count} where NameOfTeacher = ${teacher}`,(err,rows)=>{
+                                    if(err){
+                                        console.log(err);
+                                    }else{
+                                        console.log(rows);
+                                    }
+                                })
+                            });
+                        }
+                    })
+                }
+            });
+            conn.query('insert into percentage_students_undertaking_internships_projects SET ?',{
+                Program_name:Program_name,
+                Program_code:Program_code,
+                list_of_students_undertakig_field_projects_researchs_internships:list_of_students_undertaking,
+                link_to_relevant_documents:InternUpload
+            },(err,rows)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(rows)
+                }
+            });
+        }
+        
     })
 })
 .delete((req,res)=>{
@@ -125,7 +222,20 @@ app1.route('/:University_RollNumber')
 })
    
 .put(multiupload,(req,res)=>{
-    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,NumberOfCompanies,Company,Package,InternCompany,InternDuration} = req.body;
+    const {University_RollNumber,First_Name,Last_Name,Gender,Nationality,DOB,Phone_Number,Email_ID,ADHAR_Number,Address,District,State,Country,Pin_Code,Category,Sub_Category,_10th_CGPA,_10th_Board,_10th_YOP,_12th_Percentage,_12th_Board,_12th_YOP,Diploma_Percentage,Diploma_Board,Diploma_YOP,Course_RegularORIntegrated,Branch,College_Name,Course_CGPA,Number_Of_Backlogs,Entrance_Exam,CET_Rank,Course_YOP,StudyingYear,Certificate_Course,Certificate_IssuedBy,CertificatePlatform,Year,
+      Name_of_the_Teacher,
+      Contact_Details,
+      Program_graduated_from,
+      Name_of_company,
+      Name_of_employer_with_contact_details,
+      Pay_Package_at_appointment,
+      NameOfTeacher,
+      Name_Of_Students,
+      Program_Graduated,
+      Name_Of_Institution_joined,
+      Name_Of_Programme_Admitted_To, Program_name,
+      Program_code,
+      list_of_students_undertaking} = req.body;
 
     conn.query('update btech_details set ? where University_RollNumber = ?',[{
         First_Name,
@@ -164,11 +274,21 @@ app1.route('/:University_RollNumber')
       Certificate_Course,
       Certificate_IssuedBy,
       CertificatePlatform,
-      NumberOfCompanies,
-      Company,
-      Package,
-      InternCompany,
-      InternDuration,
+      Year,
+      Name_of_the_Teacher,
+      Contact_Details,
+      Program_graduated_from,
+      Name_of_company,
+      Name_of_employer_with_contact_details,
+      Pay_Package_at_appointment,
+      NameOfTeacher,
+      Name_Of_Students,
+      Program_Graduated,
+      Name_Of_Institution_joined,
+      Name_Of_Programme_Admitted_To,
+      Program_name,
+      Program_code,
+      list_of_students_undertaking,
     },University_RollNumber],(err,rows)=>{
         if(err){
             console.log(err);

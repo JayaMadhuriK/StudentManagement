@@ -185,9 +185,19 @@ excel.route('/download6')
             if (worksheetIndex !== -1) {
             const worksheet = workbook.Sheets[worksheetName];
             const newWorksheet = xlsx.utils.json_to_sheet(response);
+            response.forEach((row) => {
+                row.CertificateUpload = { f: `HYPERLINK("${row.CertificateUpload}")`, t: 's', v: row.CertificateUpload };
+                row.Upload = { f: `HYPERLINK("${row.Upload}")`, t: 's', v: row.Upload };
+                row.InternUpload = { f: `HYPERLINK("${row.InternUpload}")`, t: 's', v: row.InternUpload };
+              });
             xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
             } else {
             const worksheet = xlsx.utils.json_to_sheet(response);
+            response.forEach((row) => {
+                row.CertificateUpload = { f: `HYPERLINK("${row.CertificateUpload}")`, t: 's', v: row.CertificateUpload };
+                row.Upload = { f: `HYPERLINK("${row.Upload}")`, t: 's', v: row.Upload };
+                row.InternUpload = { f: `HYPERLINK("${row.InternUpload}")`, t: 's', v: row.InternUpload };
+              });
             xlsx.utils.book_append_sheet(workbook, worksheet, worksheetName);
             xlsx.utils.sheet_add_json(worksheet, response, {skipHeader: true, origin: 'A2'});
             }

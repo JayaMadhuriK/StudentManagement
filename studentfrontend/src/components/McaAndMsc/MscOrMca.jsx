@@ -27,6 +27,7 @@ const MscOrMca = () =>{
     const [dateOfInter,setDateOfInter] = useState(null)
     const [dateOfBtech,setDateOfBtech] = useState(null)
     const [dateOfMsc,setDateOfMsc] = useState(null)
+    const [place,setPlace] = useState(null)
     const [file,setFile] = useState(location?.state?.student ? null : null);
     const [file1,setFile1] = useState(location?.state?.student ? null : null);
     const [file2,setFile2] = useState(location?.state?.student ? null : null);
@@ -85,13 +86,23 @@ const MscOrMca = () =>{
         Certificate_IssuedBy:"",
         CertificateUpload:"",
         CertificatePlatform:"",
-        NumberOfCompanies:"",
-        Company:"",
-        Package:"",
-        Upload:"",
-        InternCompany:"",
-        InternDuration:"",
-        InternUpload:"",
+        Program_name:"",
+        Program_code:"",
+        list_of_students_undertaking:"",
+          InternUpload:"",
+          Year:"",
+          Name_of_the_Teacher:"",
+          Contact_Details:"",
+          Program_graduated_from:"",
+          Name_of_company:"",
+          Name_of_employer_with_contact_details:"",
+          Pay_Package_at_appointment:"",
+          NameOfTeacher:"",
+          Name_Of_Students:"",
+          Program_Graduated:"",
+          Name_Of_Institution_joined:"",
+          Name_Of_Programme_Admitted_To:"",
+          Upload:"",
     };
     const onChangeTextField = (e) => {
         const name = e.target.name;
@@ -158,13 +169,23 @@ const MscOrMca = () =>{
         formdata.append('Certificate_IssuedBy',registerRequestBody.Certificate_IssuedBy)
         formdata.append('CertificatePlatform',registerRequestBody.CertificatePlatform)
         formdata.append('CertificateUpload',file)
-        formdata.append('NumberOfCompanies',registerRequestBody.NumberOfCompanies)
-        formdata.append('Company',registerRequestBody.Company)
-        formdata.append('Package',registerRequestBody.Package)
-        formdata.append('Upload',file1);
-        formdata.append('InternCompany',registerRequestBody.InternCompany)
-        formdata.append('InternDuration',registerRequestBody.InternDuration)
-        formdata.append('InternUpload',file2)
+        formdata.append('Program_name',registerRequestBody.Program_name)
+        formdata.append('Program_code',registerRequestBody.Program_code)
+        formdata.append('list_of_students_undertaking',registerRequestBody.list_of_students_undertaking)
+        formdata.append('InternUpload',file1)
+        formdata.append('Year',registerRequestBody.Year)
+        formdata.append('Name_of_the_Teacher',registerRequestBody.Name_of_the_Teacher)
+        formdata.append('Contact_Details',registerRequestBody.Contact_Details)
+        formdata.append('Program_graduated_from',registerRequestBody.Program_graduated_from)
+        formdata.append('Name_of_company',registerRequestBody.Name_of_company)
+        formdata.append('Name_of_employer_with_contact_details',registerRequestBody.Name_of_employer_with_contact_details)
+        formdata.append('Pay_Package_at_appointment',registerRequestBody.Pay_Package_at_appointment)
+        formdata.append('NameOfTeacher',registerRequestBody.NameOfTeacher)
+        formdata.append('Name_Of_Students',registerRequestBody.Name_Of_Students)
+        formdata.append('Program_Graduated',registerRequestBody.Program_Graduated)
+        formdata.append('Name_Of_Institution_joined',registerRequestBody.Name_Of_Institution_joined)
+        formdata.append('Name_Of_Programme_Admitted_To',registerRequestBody.Name_Of_Programme_Admitted_To)
+        formdata.append('Upload',file2)
 
         let res = {};
         if(editData){
@@ -172,12 +193,12 @@ const MscOrMca = () =>{
                 formdata.append('CertificateUpload', file);
               }
               
-              if (file1!=null) {
-                formdata.append('Upload', file1);
+              if (file2!=null) {
+                formdata.append('Upload', file2);
               }
               
-              if (file2!=null) {
-                formdata.append('InternUpload', file2);
+              if (file1!=null) {
+                formdata.append('InternUpload', file1);
               }
             await axios.put(`http://localhost:4000/mscormca/${student.University_RollNumber}`, formdata)
             .then((response) => {
@@ -254,6 +275,8 @@ const MscOrMca = () =>{
             setDateOfBtech(dayjs(year2+"-12-31T18:30:00.000Z"));
             const year3 = Number(student.YOP)-1;
             setDateOfMsc(dayjs(year3+"-12-31T18:30:00.000Z"));
+            const year4 = Number(student.Year)-1;
+            setPlace(dayjs(year4+"-12-31T18:30:00.000Z"));
         }
     },[]);
     return (
@@ -266,18 +289,18 @@ const MscOrMca = () =>{
                             <FormLabel className="personal-details">Personal Details</FormLabel>
                                 <Grid className = "grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "University_RollNumber" type="Number" label="University Roll Number"  value={registerRequestBody?.University_RollNumber} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }} required></TextField>
+                                        <TextField name = "University_RollNumber" type="Number" label="University Roll Number"  value={registerRequestBody?.University_RollNumber} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }}   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "First_Name" value={registerRequestBody?.First_Name} label="First Name" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "First_Name" value={registerRequestBody?.First_Name} label="First Name" onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "Last_Name" label="Last Name" value={registerRequestBody?.Last_Name} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Last_Name" label="Last Name" value={registerRequestBody?.Last_Name} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}> 
                                         <DatePicker 
-                                            label="Date Of Birth*"
+                                            label="Date Of Birth"
                                             value={dateOfBirth}
                                             onChange={(newValue)=>{
                                             setDateOfBirth(newValue);
@@ -309,59 +332,59 @@ const MscOrMca = () =>{
                                 </Grid>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "Nationality" value={registerRequestBody?.Nationality} label="Nationality" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Nationality" value={registerRequestBody?.Nationality} label="Nationality" onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Category" label="Category" value={registerRequestBody?.Category} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Category" label="Category" value={registerRequestBody?.Category} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "Sub_Category" label="Sub Category" value={registerRequestBody?.Sub_Category} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Sub_Category" label="Sub Category" value={registerRequestBody?.Sub_Category} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
-                                        <TextField name = "ADHAR_Number" type="Number" label="Aadhar Number" value={registerRequestBody?.ADHAR_Number} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }} required></TextField>
+                                        <TextField name = "ADHAR_Number" type="Number" label="Aadhar Number" value={registerRequestBody?.ADHAR_Number} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }}   ></TextField>
                                     </Grid>
                                 </Grid>
                                 <FormLabel className="contact-details">Contact Details</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "Phone_Number" type="Number" label="Phone Number"  value={registerRequestBody?.Phone_Number} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }} required></TextField>
+                                        <TextField name = "Phone_Number" type="Number" label="Phone Number"  value={registerRequestBody?.Phone_Number} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }}   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Email_ID" label="Email ID" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?.Email_ID} type="email" size="small" required></TextField>
+                                        <TextField name = "Email_ID" label="Email ID" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?.Email_ID} type="email" size="small"   ></TextField>
                                     </Grid>
                                 </Grid>
                                 <FormLabel className="address-details">Address</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "Address" label="House Number and City" value={registerRequestBody?.Address} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Address" label="House Number and City" value={registerRequestBody?.Address} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "District" label="District" value={registerRequestBody?.District} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "District" label="District" value={registerRequestBody?.District} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "State" label="State" value={registerRequestBody?.State} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "State" label="State" value={registerRequestBody?.State} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
-                                        <TextField name = "Country" label="Country" value={registerRequestBody?.Country} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Country" label="Country" value={registerRequestBody?.Country} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                 </Grid>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "Pin_Code" label="Pin Code" type="Number"  value={registerRequestBody?.Pin_Code} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 10 }} required></TextField>
+                                        <TextField name = "Pin_Code" label="Pin Code" type="Number"  value={registerRequestBody?.Pin_Code} onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 10 }}   ></TextField>
                                     </Grid>
                                 </Grid>
                                 <FormLabel className="secondary-details">Seconday Education</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "_10th_CGPA" label="CGPA" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?._10th_CGPA} size="small" required></TextField>
+                                        <TextField name = "_10th_CGPA" label="CGPA" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?._10th_CGPA} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "_10th_Board" label="Board" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?._10th_Board} size="small" required></TextField>
+                                        <TextField name = "_10th_Board" label="Board" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?._10th_Board} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
                                         <LocalizationProvider dateAdapter={AdapterDayjs}> 
                                             <DatePicker 
-                                                label="Year Of Passing*"
+                                                label="Year Of Passing"
                                                 value={dateOfInter}
                                                 views={['year']}
                                                 name="small"
@@ -379,15 +402,15 @@ const MscOrMca = () =>{
                                 <FormLabel className="intermediate-details">Intermediate Education</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "_12th_Percentage" label="Percentage" value={registerRequestBody?._12th_Percentage} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "_12th_Percentage" label="Percentage" value={registerRequestBody?._12th_Percentage} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "_12th_Board" label="Board" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?._12th_Board} size="small" required></TextField>
+                                        <TextField name = "_12th_Board" label="Board" onChange={(e)=>{onChangeTextField(e)}} value={registerRequestBody?._12th_Board} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
                                         <LocalizationProvider dateAdapter={AdapterDayjs}> 
                                             <DatePicker 
-                                                label="Year Of Passing*"
+                                                label="Year Of Passing"
                                                 value={dateOfSec}
                                                 views={['year']}
                                                 name="small"
@@ -405,26 +428,26 @@ const MscOrMca = () =>{
                                 <FormLabel className="graduation-details">Graduation</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "Degree" label="Degree" value={registerRequestBody?.Degree} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Degree" label="Degree" value={registerRequestBody?.Degree} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Degree_Specialization" value={registerRequestBody?.Degree_Specialization} label="Specialization" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Degree_Specialization" value={registerRequestBody?.Degree_Specialization} label="Specialization" onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "Degree_Score" label="CGPA" value={registerRequestBody?.Degree_Score} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Degree_Score" label="CGPA" value={registerRequestBody?.Degree_Score} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
-                                        <TextField name = "Degree_University" label="University" value={registerRequestBody?.Degree_University} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Degree_University" label="University" value={registerRequestBody?.Degree_University} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                 </Grid>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "Degree_College" label="College" value={registerRequestBody?.Degree_College} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Degree_College" label="College" value={registerRequestBody?.Degree_College} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
                                         <LocalizationProvider dateAdapter={AdapterDayjs}> 
                                             <DatePicker 
-                                                label="Year Of Passing*"
+                                                label="Year Of Passing"
                                                 value={dateOfBtech}
                                                 views={['year']}
                                                 name="small"
@@ -442,32 +465,32 @@ const MscOrMca = () =>{
                                 <FormLabel className="msc-details">MSC/MCA Details</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "MSC_OR_MCA" label=" MSC/MCA" value={registerRequestBody?.MSC_OR_MCA} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "MSC_OR_MCA" label=" MSC/MCA" value={registerRequestBody?.MSC_OR_MCA} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Course_Branch" label="Branch" value={registerRequestBody?.Course_Branch} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Course_Branch" label="Branch" value={registerRequestBody?.Course_Branch} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "College" label="College" value={registerRequestBody?.College} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "College" label="College" value={registerRequestBody?.College} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
-                                        <TextField name = "Entrance_CET" label="CET" value={registerRequestBody?.Entrance_CET} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Entrance_CET" label="CET" value={registerRequestBody?.Entrance_CET} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                 </Grid>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "CET_Rank" label="Rank" value={registerRequestBody?.CET_Rank} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "CET_Rank" label="Rank" value={registerRequestBody?.CET_Rank} onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "MSC_OR_MCA_CGPA" value={registerRequestBody?.MSC_OR_MCA_CGPA} label="CGPA" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "MSC_OR_MCA_CGPA" value={registerRequestBody?.MSC_OR_MCA_CGPA} label="CGPA" onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "Number_Of_Backlogs" value={registerRequestBody?.Number_Of_Backlogs} label="Number Of Backlogs" type="Number" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
+                                        <TextField name = "Number_Of_Backlogs" value={registerRequestBody?.Number_Of_Backlogs} label="Number Of Backlogs" type="Number" onChange={(e)=>{onChangeTextField(e)}} size="small"   ></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
                                         <LocalizationProvider dateAdapter={AdapterDayjs}> 
                                             <DatePicker 
-                                                label="Year Of Passing*"
+                                                label="Year Of Passing"
                                                 value={dateOfMsc}
                                                 views={['year']}
                                                 name="small"
@@ -514,27 +537,78 @@ const MscOrMca = () =>{
                                 <FormLabel className="internships">Internships</FormLabel>
                                 <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "InternCompany" value={registerRequestBody?.InternCompany} label="Company Name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Program_name" value={registerRequestBody?.Program_name} label="Program_name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "InternDuration" value={registerRequestBody?.InternDuration} label="Duration" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Program_code" value={registerRequestBody?.Program_code} label="Program_code" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
+                                        <TextField name = "list_of_students_undertaking" value={registerRequestBody?.list_of_students_undertaking} label="list_of_students_undertaking" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                    </Grid>
+                                    <Grid className="fourth-grid-item">
                                         <TextField name = "InternUpload" type='file' onChange={handleFile1} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
                                     </Grid>
                                 </Grid>
-                                <FormLabel className="placements">Placement Details</FormLabel>
-                                <Grid className="grid-container">
+                                <FormLabel className="internships">Placements</FormLabel>
+                               <Grid className="grid-container">
+                               <Grid className="first-grid-item">
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}> 
+                                        <DatePicker 
+                                            label="Year"
+                                            value={place}
+                                            views={['year']}
+                                            name="small"
+                                            onChange={(newValue)=>{
+                                            setPlace(newValue);
+                                            const date = new Date(newValue);
+                                            const year =String(date.getFullYear())
+                                            setRegisterRequestBody({...registerRequestBody,Year:year});
+                                            }}
+                                            renderInput={(props)=>{ <TextField {...props}/> }}
+                                        />
+                                    </LocalizationProvider>
+                                </Grid>
+                                <Grid className="second-grid-item">
+                                    <TextField name = "Name_of_the_Teacher" value={registerRequestBody?.Name_of_the_Teacher} label="Name_of_the_Teacher" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                </Grid>
+                                <Grid className="third-grid-item">
+                                    <TextField name = "Contact_Details" value={registerRequestBody?.Contact_Details} label="Contact_Details" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                </Grid>
+                                <Grid className="fourth-grid-item">
+                                    <TextField name = "Program_graduated_from" value={registerRequestBody?.Program_graduated_from} label="Program_graduated_from" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                </Grid>
+                            </Grid>
+                            <Grid className="grid-container">
                                     <Grid className="first-grid-item">
-                                        <TextField name = "NumberOfCompanies" type="Number" value={registerRequestBody?.NumberOfCompanies} label="Number of companies selected" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Name_of_company" value={registerRequestBody?.Name_of_company} label="Name_of_company" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Company" value={registerRequestBody?.Company} label="Company Name" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Name_of_employer_with_contact_details" value={registerRequestBody?.Name_of_employer_with_contact_details} label="Name_of_employer_with_contact_details" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "Package" value={registerRequestBody?.Package} label="Pay Package" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Pay_Package_at_appointment" value={registerRequestBody?.Pay_Package_at_appointment} label="Pay_Package_at_appointment" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                    </Grid>
+                                </Grid>
+                                <FormLabel className="higher">Higher Education</FormLabel>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                        <TextField name = "NameOfTeacher" value={registerRequestBody?.NameOfTeacher} label="NameOfTeacher" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                    </Grid>
+                                    <Grid className="second-grid-item">
+                                        <TextField name = "Name_Of_Students" value={registerRequestBody?.Name_Of_Students} label="Name_Of_Students" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                    </Grid>
+                                    <Grid className="third-grid-item">
+                                        <TextField name = "Program_Graduated" value={registerRequestBody?.Program_Graduated} label="Program_Graduated" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
+                                        <TextField name = "Name_Of_Institution_joined" value={registerRequestBody?.Name_Of_Institution_joined} label="Name_Of_Institution_joined" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                        <TextField name = "Name_Of_Programme_Admitted_To" value={registerRequestBody?.Name_Of_Programme_Admitted_To} label="Name_Of_Programme_Admitted_To" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                    </Grid>
+                                    <Grid className="second-grid-item">
                                         <TextField name = "Upload" type='file' onChange={handleFile2} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
                                     </Grid>
                                 </Grid>
