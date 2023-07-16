@@ -101,7 +101,6 @@ const Education = () =>{
             }
         }
     }
-    console.log(registerRequestBody)
     useEffect(()=>{
         if(editData){
             const years = Number(student.year);

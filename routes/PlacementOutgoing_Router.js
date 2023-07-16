@@ -18,7 +18,7 @@ app4.route('/')
 
 .post((req,res)=>{
     var bt = req.body;
-    var btData = [bt.Year,bt.Name_of_the_Teacher,bt.NumberOfStudentsGuided,bt.Contact_Details,bt.Program_graduated_from,bt.Name_of_company,bt.Name_of_employer_with_contact_details,bt.Pay_package_at_appointment];
+    var btData = [bt.Id,bt.Year,bt.Name_of_the_Teacher,bt.NumberOfStudentsGuided,bt.Contact_Details,bt.Program_graduated_from,bt.Name_of_company,bt.Name_of_employer_with_contact_details,bt.Pay_package_at_appointment];
     conn.query('insert into avg_percentage_placement_outgoingstudents_lastfiveyears values(?)',[btData],(err,rows)=>{
        if(err){
            console.log(err);
@@ -54,9 +54,9 @@ app4.route('/')
     });
 });
 
-app4.route('/:teacher')
+app4.route('/:Id')
 .get((req,res)=>{
-    conn.query('select * from avg_percentage_placement_outgoingstudents_lastfiveyears where Name_of_the_Teacher = ?',[req.params.teacher],(err,rows)=>{
+    conn.query('select * from avg_percentage_placement_outgoingstudents_lastfiveyears where Id = ?',[req.params.Id],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -66,19 +66,19 @@ app4.route('/:teacher')
 })
    
 .delete((req,res)=>{
-       conn.query('delete from avg_percentage_placement_outgoingstudents_lastfiveyears where Name_of_the_Teacher= ?',[req.params.teacher],(err,rows)=>{
+       conn.query('delete from avg_percentage_placement_outgoingstudents_lastfiveyears where Id= ?',[req.params.Id],(err,rows)=>{
           if(err){
               console.log(err);
           }else{
-              res.send('Details of '+req.params.teacher+' deleted');
+              res.send('Details of '+req.params.Id+' deleted');
           }
        });
 })
    
 .put((req,res)=>{
-    const teachers= '"'+req.params.teacher+'"';
+    const teachers= '"'+req.params.Id+'"';
     var bt = req.body
-    conn.query('update avg_percentage_placement_outgoingstudents_lastfiveyears set ? where Name_of_the_Teacher ='+teachers,[bt],(err,rows)=>{
+    conn.query('update avg_percentage_placement_outgoingstudents_lastfiveyears set ? where Id ='+teachers,[bt],(err,rows)=>{
        if(err){
            console.log(err);
        }else{

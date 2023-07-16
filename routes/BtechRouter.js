@@ -45,7 +45,21 @@ app1.route('/')
       Name_Of_Students,
       Program_Graduated,
       Name_Of_Institution_joined,
-      Name_Of_Programme_Admitted_To,Program_name,Program_code,list_of_students_undertaking} = req.body;
+      Name_Of_Programme_Admitted_To,Program_name,Program_code,list_of_students_undertaking,
+      yearforexamination,
+      Registeration_Number,
+      NET,
+      SLET,
+      GATE,
+      GMAT,
+      CAT,
+      GRE,
+      JAM,
+      IELET,
+      TOEFL,
+      Civil_Services,
+      State_government,
+      Other_examinations} = req.body;
     const CertificateUpload = req.files && req.files['CertificateUpload']? req.files['CertificateUpload'][0].filename:null;
     const Upload = req.files && req.files['Upload']? req.files['Upload'][0].filename:null;
     const InternUpload = req.files && req.files['InternUpload']? req.files['InternUpload'][0].filename:null;
@@ -105,6 +119,20 @@ app1.route('/')
         Program_code:Program_code,
         list_of_students_undertaking:list_of_students_undertaking,
         InternUpload:InternUpload,
+        yearforexamination:yearforexamination,
+        Registeration_Number:Registeration_Number,
+        NET:NET,
+        SLET:SLET,
+        GATE:GATE,
+        GMAT:GMAT,
+        CAT:CAT,
+        GRE:GRE,
+        JAM:JAM,
+        IELET:IELET,
+        TOEFL:TOEFL,
+        Civil_Services:Civil_Services,
+        State_government:State_government,
+        Other_examinations:Other_examinations
     },(err,rows)=>{
        if(err){
            res.sendStatus(400);
@@ -186,6 +214,29 @@ app1.route('/')
                     console.log(rows)
                 }
             });
+            conn.query('insert into examinations SET ?',{
+                year:yearforexamination,
+                Registeration_Number:Registeration_Number,
+                NET:NET,
+                SLET:SLET,
+                GATE:GATE,
+                GMAT:GMAT,
+                CAT:CAT,
+                GRE:GRE,
+                JAM:JAM,
+                IELET:IELET,
+                TOEFL:TOEFL,
+                Civil_Services:Civil_Services,
+                State_government:State_government,
+                Other_examinations:Other_examinations
+            },(err,rows)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(rows)
+                }
+                
+             })
         }
         
     })
@@ -235,7 +286,23 @@ app1.route('/:University_RollNumber')
       Name_Of_Institution_joined,
       Name_Of_Programme_Admitted_To, Program_name,
       Program_code,
-      list_of_students_undertaking} = req.body;
+      list_of_students_undertaking,
+      yearforexamination,
+      Registeration_Number,
+      NET ,
+      SLET ,
+      GATE ,
+      GMAT ,
+      CAT ,
+      GRE ,
+      JAM ,
+      IELET ,
+      TOEFL ,
+      Civil_Services ,
+      State_government ,
+      Other_examinations,CertificateUpload,
+      Upload,
+      InternUpload } = req.body;
 
     conn.query('update btech_details set ? where University_RollNumber = ?',[{
         First_Name,
@@ -289,6 +356,23 @@ app1.route('/:University_RollNumber')
       Program_name,
       Program_code,
       list_of_students_undertaking,
+      yearforexamination,
+      Registeration_Number,
+      NET ,
+      SLET ,
+      GATE ,
+      GMAT ,
+      CAT ,
+      GRE ,
+      JAM ,
+      IELET ,
+      TOEFL ,
+      Civil_Services ,
+      State_government ,
+      Other_examinations,
+      CertificateUpload,
+      Upload,
+      InternUpload
     },University_RollNumber],(err,rows)=>{
         if(err){
             console.log(err);
@@ -316,7 +400,106 @@ app1.route('/:University_RollNumber')
                     console.log(err);
                     res.sendStatus(500);
                   } else {
-                    res.send("Details updated");
+                    res.send('updated');
+                    conn.query('insert into avg_percentage_placement_outgoingstudents_lastfiveyears SET ?',{
+                        Year:Year,
+                        Name_of_the_Teacher:Name_of_the_Teacher,
+                        Contact_Details:Contact_Details,
+                        Program_graduated_from:Program_graduated_from,
+                        Name_of_company:Name_of_company,
+                        Name_of_employer_with_contact_details:Name_of_employer_with_contact_details,
+                        Pay_Package_at_appointment:Pay_Package_at_appointment,
+                    },(err,rows)=>{
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log(rows)
+                            conn.query('select Name_of_the_Teacher, count(*) as count from avg_percentage_placement_outgoingstudents_lastfiveyears group by Name_of_the_Teacher',(err,rows)=>{
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    const resRows = rows;
+                                    resRows?.forEach(element => {
+                                        let teacher = "'"+element?.Name_of_the_Teacher+"'";
+                                        conn.query(`update avg_percentage_placement_outgoingstudents_lastfiveyears set NumberOfStudentsGuided=${element?.count} where Name_of_the_Teacher = ${teacher}`,(err,rows)=>{
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                console.log(rows);
+                                            }
+                                        })
+                                    });
+                                }
+                            })
+                            conn.query('insert into percentageof_highereducation_students SET ?',{
+                                NameOfTeacher:NameOfTeacher,
+                                Name_Of_Students:Name_Of_Students,
+                                Program_Graduated_From:Program_Graduated,
+                                Name_Of_Institution_joined:Name_Of_Institution_joined,
+                                Name_Of_Programme_Admitted_To:Name_Of_Programme_Admitted_To,
+                                IdentityCardORAdmissionLetter:Upload
+                            },(err,rows)=>{
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    console.log(rows)
+                                    conn.query('select NameOfTeacher, count(*) as count from percentageof_highereducation_students group by NameOfTeacher',(err,rows)=>{
+                                        if(err){
+                                            console.log(err)
+                                        }else{
+                                            const resRows = rows;
+                                            resRows?.forEach(element => {
+                                                let teacher = "'"+element?.NameOfTeacher+"'";
+                                                conn.query(`update percentageof_highereducation_students set NumberOf_Students_Enrolled=${element?.count} where NameOfTeacher = ${teacher}`,(err,rows)=>{
+                                                    if(err){
+                                                        console.log(err);
+                                                    }else{
+                                                        console.log(rows);
+                                                    }
+                                                })
+                                            });
+                                        }
+                                    })
+                                }
+                            });
+                            conn.query('insert into percentage_students_undertaking_internships_projects SET ?',{
+                                Program_name:Program_name,
+                                Program_code:Program_code,
+                                list_of_students_undertakig_field_projects_researchs_internships:list_of_students_undertaking,
+                                link_to_relevant_documents:InternUpload
+                            },(err,rows)=>{
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    console.log(rows)
+                                }
+                            });
+                            conn.query('insert into examinations SET ?',{
+                                year:yearforexamination,
+                                Registeration_Number:Registeration_Number,
+                                NET:NET,
+                                SLET:SLET,
+                                GATE:GATE,
+                                GMAT:GMAT,
+                                CAT:CAT,
+                                GRE:GRE,
+                                JAM:JAM,
+                                IELET:IELET,
+                                TOEFL:TOEFL,
+                                Civil_Services:Civil_Services,
+                                State_government:State_government,
+                                Other_examinations:Other_examinations
+                            },(err,rows)=>{
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    console.log(rows)
+                                }
+                                
+                             })
+                        
+                        }
+                    });
                   }
                 });
               }

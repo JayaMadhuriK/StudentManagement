@@ -145,6 +145,20 @@ const ViewBtech = () =>{
                             <TableCell align="center">Name of Institution</TableCell>
                             <TableCell align="center">Name of Program Admitted to</TableCell>
                             <TableCell align="center">File</TableCell>
+                             <TableCell align="center">Year</TableCell>
+                            <TableCell align="center">Registeration Number</TableCell>
+                            <TableCell align="center">NET</TableCell>
+                            <TableCell align="center">SLET</TableCell>
+                            <TableCell align="center">GATE</TableCell>
+                            <TableCell align="center">GMAT</TableCell>
+                            <TableCell align="center">CAT</TableCell>
+                            <TableCell align="center">GRE</TableCell>
+                            <TableCell align="center">JAM</TableCell>
+                            <TableCell align="center">IELET</TableCell>
+                            <TableCell align="center">TOEFL</TableCell>
+                            <TableCell align="center">Civil_Services</TableCell>
+                            <TableCell align="center">State_government</TableCell>
+                            <TableCell align="center">Other_examinations</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -225,6 +239,20 @@ const ViewBtech = () =>{
                                         <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.Upload)} >Open<FileOpenIcon/></Button>
                                     </Grid>
                                 </TableCell>
+                                <TableCell>{student.yearforexamination}</TableCell>
+                                <TableCell>{student.Registeration_Number}</TableCell>
+                                <TableCell>{student.NET}</TableCell>
+                                <TableCell>{student.SLET}</TableCell>
+                                <TableCell>{student.GATE}</TableCell>
+                                <TableCell>{student.GMAT}</TableCell>
+                                <TableCell>{student.CAT}</TableCell>
+                                <TableCell>{student.GRE}</TableCell>
+                                <TableCell>{student.JAM}</TableCell>
+                                <TableCell>{student.IELET}</TableCell>
+                                <TableCell>{student.TOEFL}</TableCell>
+                                <TableCell>{student.Civil_Services}</TableCell>
+                                <TableCell>{student.State_government}</TableCell>
+                                <TableCell>{student.Other_examinations}</TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
                                         <Button variant="contained" size="small" onClick={()=>{navigate("/btech",{state:{student:student}})}}>Edit</Button>

@@ -30,6 +30,7 @@ app12.route('/')
 })
 
 .post(upload.single('image'),(req,res)=>{
+    const {Id} = req.body;
     const {NameOfTeacher} = req.body;
     const {NumberOf_Students_Enrolled} = req.body;
     const {Name_Of_Students} = req.body;
@@ -38,6 +39,7 @@ app12.route('/')
     const {Name_Of_Programme_Admitted_To} = req.body;
     const IdentityCardORAdmissionLetter = req.file.filename;
     conn.query('insert into percentageof_highereducation_students SET ?',{
+        Id:Id,
         NameOfTeacher:NameOfTeacher,
         NumberOf_Students_Enrolled:NumberOf_Students_Enrolled,
         Name_Of_Students:Name_Of_Students,
@@ -81,9 +83,9 @@ app12.route('/')
     });
 });
 
-app12.route('/:teacher')
+app12.route('/:Id')
 .get((req,res)=>{
-    conn.query('select * from percentageof_highereducation_students where NameOfTeacher = ?',[req.params.teacher],(err,rows)=>{
+    conn.query('select * from percentageof_highereducation_students where Id = ?',[req.params.Id],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -93,19 +95,19 @@ app12.route('/:teacher')
 })
    
 .delete((req,res)=>{
-       conn.query('delete from percentageof_highereducation_students where NameOfTeacher= ?',[req.params.teacher],(err,rows)=>{
+       conn.query('delete from percentageof_highereducation_students where Id= ?',[req.params.Id],(err,rows)=>{
           if(err){
               console.log(err);
           }else{
-              res.send('Details of '+req.params.teacher+' deleted');
+              res.send('Details of '+req.params.Id+' deleted');
           }
        });
 })
    
 .put((req,res)=>{
-    var con ='"' +req.params.teacher+'"';
+    var con ='"' +req.params.Id+'"';
     var bt = req.body
-    conn.query('update percentageof_highereducation_students set ? where NameOfTeacher ='+con,[bt],(err,rows)=>{
+    conn.query('update percentageof_highereducation_students set ? where Id ='+con,[bt],(err,rows)=>{
        if(err){
            console.log(err);
        }else{

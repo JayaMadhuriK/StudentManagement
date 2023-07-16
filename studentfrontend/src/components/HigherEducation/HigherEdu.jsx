@@ -31,6 +31,7 @@ const HigherEdu = () =>{
         setFile(e.target.files[0]);
     }
     const student= location?.state?.student ||{
+        Id:"",
         NameOfTeacher:"",
         NumberOf_Students_Enrolled:"",
         Name_Of_Students:"",
@@ -48,6 +49,7 @@ const HigherEdu = () =>{
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
      const handleSubmit = async() => {
         const formdata = new FormData();
+        formdata.append('Id',registerRequestBody.Id)
         formdata.append('NameOfTeacher',registerRequestBody.NameOfTeacher)
         formdata.append('NumberOf_Students_Enrolled',registerRequestBody.NumberOf_Students_Enrolled)
         formdata.append('Name_Of_Students',registerRequestBody.Name_Of_Students)
@@ -57,7 +59,7 @@ const HigherEdu = () =>{
         formdata.append('image',file);
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/highereducation/${student.NameOfTeacher}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/highereducation/${student.Id}`, registerRequestBody)
             .then((response) => {
             res = response;
             })

@@ -15,7 +15,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
 const BtechHome = () =>{
     const location = useLocation();
     const navigate = useNavigate();
@@ -84,6 +85,20 @@ const BtechHome = () =>{
         Name_Of_Institution_joined:"",
         Name_Of_Programme_Admitted_To:"",
         Upload:"",
+        yearforexamination:"",
+        Registeration_Number:"",
+        NET:"",
+        SLET:"",
+        GATE:"",
+        GMAT:"",
+        CAT:"",
+        GRE:"",
+        JAM:"",
+        IELET:"",
+        TOEFL:"",
+        Civil_Services:"",
+        State_government:"",
+        Other_examinations:""
     });
     const [editing, setEditing] = useState(false);
     const [file,setFile] = useState(null);
@@ -116,6 +131,10 @@ const BtechHome = () =>{
         const name = e.target.name;
         const value = e.target.value;
         setUser({...user,[name]:value})
+    }
+    const onChangeCheckboxGroup = (e) => {
+        const {name,value,checked} = e.target;
+        setUser({...user,[name]:checked ? user.First_Name+user.Last_Name : ""})
     }
     const onChangeRadioGroup = (e) => {
         setUser({...user,Gender:e.target.value})
@@ -178,6 +197,20 @@ const BtechHome = () =>{
         formdata.append('Name_Of_Institution_joined',user.Name_Of_Institution_joined)
         formdata.append('Name_Of_Programme_Admitted_To',user.Name_Of_Programme_Admitted_To)
         formdata.append('Upload',file2)
+        formdata.append('yearforexamination',user.yearforexamination)
+        formdata.append('Registeration_Number',user.Registeration_Number)
+        formdata.append('NET',user.NET)
+        formdata.append('SLET',user.SLET)
+        formdata.append('GATE',user.GATE)
+        formdata.append('GMAT',user.GMAT)
+        formdata.append('CAT',user.CAT)
+        formdata.append('GRE',user.GRE)
+        formdata.append('JAM',user.JAM)
+        formdata.append('IELET',user.IELET)
+        formdata.append('TOEFL',user.TOEFL)
+        formdata.append('Civil_Services',user.Civil_Services)
+        formdata.append('State_government',user.State_government)
+        formdata.append('Other_examinations',user.Other_examinations)
         if (file!=null) {
             formdata.append('CertificateUpload', file);
         }
@@ -234,8 +267,8 @@ const BtechHome = () =>{
         <>
         {access == "STUDENT_ACCESS" ? (
         <Grid>
-            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2200px'}}>{systemErrors?.networkError}</Alert>}   
-            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2200px'}}>{systemErrors?.response}</Alert>} 
+            {systemErrors?.networkError?.length>0 && <Alert severity="error" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2700px'}}>{systemErrors?.networkError}</Alert>}   
+            {systemErrors?.response?.length>0 && <Alert severity="success" style={{width:'400px', position:"absolute", marginLeft:'920px', marginTop:'2700px'}}>{systemErrors?.response}</Alert>} 
             <Grid>
                 <h2>Account Profile</h2>
                 <Button onClick={()=>{setIsLogOutDialogOpen(true)}} style={{marginLeft:"1000px",marginTop:"-90px",position:"absoulte", backgroundColor:"black"}} variant="contained" size="medium">Logout</Button>
@@ -664,7 +697,7 @@ const BtechHome = () =>{
                                         </Grid>
                                     </Grid>
                                     <Grid className="grid-container">
-                                    <Grid className="first-grid-item">
+                                        <Grid className="first-grid-item">
                                             <TextField
                                             name="Name_Of_Programme_Admitted_To"
                                             label="Name of program Admitted"
@@ -674,6 +707,94 @@ const BtechHome = () =>{
                                         <Grid className="second-grid-item">
                                             <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.Upload)} >Upload File<FileOpen/></Button>
                                         </Grid>
+                                    </Grid>
+                                    <FormLabel className="average">Average percentage of students qualifying in examinations</FormLabel>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                        <TextField name = "yearforexamination" label="year" value={user?.yearforexamination} inputProps={{ maxLength: 12 }} size="small" ></TextField>
+                               
+                                    </Grid>
+                                    <Grid className="second-grid-item">
+                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" value={user?.Registeration_Number} inputProps={{ maxLength: 12 }} size="small" ></TextField>
+                                    </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "NET" control={<Checkbox checked = {user?.NET}/>} label="NET" value="NET"/>
+                                    </FormGroup>  
+                                    </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel name = "SLET" control={<Checkbox checked = {user?.SLET}/>} label="SLET" value="SLET"/>
+                                    </FormGroup>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "GATE" control={<Checkbox checked = {user?.GATE}/>} label="GATE" value="GATE"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "GMAT" control={<Checkbox checked = {user?.GMAT} />} label="GMAT" value="GMAT"/>
+                                    </FormGroup>                                  
+                                      </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "CAT" control={<Checkbox checked = {user?.CAT}/>} label="CAT" value="CAT"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "GRE" control={<Checkbox checked = {user?.GRE}/>} label="GRE" value="GRE"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "JAM" control={<Checkbox checked = {user?.JAM}/>} label="JAM" value="JAM"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "IELET" control={<Checkbox checked = {user?.IELET} />} label="IELET" value="IELET"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "TOEFL" control={<Checkbox checked = {user?.TOEFL}/>} label="TOEFL" value="TOEFL"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "Civil_Services" control={<Checkbox checked = {user?.Civil_Services}/>} label="Civil_Services" value="Civil_Services"/>
+                                    </FormGroup>                                    
+                                     </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "State_government" control={<Checkbox checked = {user?.State_government}/>} label="State_government" value="State_government"/>
+                                    </FormGroup>                                    
+                                    </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                    >
+                                    <FormControlLabel  name = "Other_examinations" control={<Checkbox checked = {user?.Other_examinations} />} label="Other_examinations" value="Other_examinations"/>
+                                    </FormGroup>  
+                                    </Grid>
                                 </Grid>
                                     <Grid className="submit-button">
                                         <Button variant="contained" style={{ minWidth:'200px', marginLeft:"900px", backgroundColor:"black"}} onClick={() => setEditing(true)}>
@@ -1146,6 +1267,110 @@ const BtechHome = () =>{
                                         <TextField type='file' name='Upload' label="ID Card/Admission letter" InputLabelProps={{shrink:true}} onChange={handleFile2}></TextField>
                                         </Grid>
                                 </Grid>
+                                <FormLabel className="average">Average percentage of students qualifying in examinations</FormLabel>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <TextField
+                                        name="yearforexamination"
+                                        label="Year"
+                                        value={user.yearforexamination}
+                                        onChange={(e)=>{onChangeTextField(e)}}
+                                        />                                
+                                    </Grid>
+                                    <Grid className="second-grid-item">
+                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" onChange={(e)=>{onChangeTextField(e)}} value={user?.Registeration_Number} inputProps={{ maxLength: 12 }} size="small" ></TextField>
+                                    </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "NET" control={<Checkbox checked = {user?.NET}/>} label="NET" value="NET"/>
+                                    </FormGroup>  
+                                    </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel name = "SLET" control={<Checkbox checked = {user?.SLET}/>} label="SLET" value="SLET"/>
+                                    </FormGroup>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "GATE" control={<Checkbox checked = {user?.GATE}/>} label="GATE" value="GATE"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "GMAT" control={<Checkbox checked = {user?.GMAT} />} label="GMAT" value="GMAT"/>
+                                    </FormGroup>                                  
+                                      </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "CAT" control={<Checkbox checked = {user?.CAT}/>} label="CAT" value="CAT"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "GRE" control={<Checkbox checked = {user?.GRE}/>} label="GRE" value="GRE"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "JAM" control={<Checkbox checked = {user?.JAM}/>} label="JAM" value="JAM"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "IELET" control={<Checkbox checked = {user?.IELET} />} label="IELET" value="IELET"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "TOEFL" control={<Checkbox checked = {user?.TOEFL}/>} label="TOEFL" value="TOEFL"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "Civil_Services" control={<Checkbox checked = {user?.Civil_Services}/>} label="Civil_Services" value="Civil_Services"/>
+                                    </FormGroup>                                    
+                                     </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "State_government" control={<Checkbox checked = {user?.State_government}/>} label="State_government" value="State_government"/>
+                                    </FormGroup>                                    
+                                    </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "Other_examinations" control={<Checkbox checked = {user?.Other_examinations} />} label="Other_examinations" value="Other_examinations"/>
+                                    </FormGroup>  
+                                    </Grid>
+                                    </Grid>
                                     <Grid className="submit-button">
                                         <Button variant="contained" style={{ minWidth:'200px', marginLeft:"900px", backgroundColor:"black"}} onClick={handleUpdateUser}>
                                         Save

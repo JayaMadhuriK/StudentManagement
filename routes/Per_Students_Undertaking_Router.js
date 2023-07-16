@@ -30,13 +30,13 @@ app11.route('/')
 })
 
 .post(upload.single('image'),(req,res)=>{
-    // var bt = req.body;
-    // var btData = [bt.Program_Name,bt.Program_Code,bt.list_of_students_undertakig_field_projects_researchs_internships,bt.link_to_relevant_documents];
+    const {Id} = req.body;
     const {Program_name} = req.body;
     const {Program_code} = req.body;
     const {list_of_students_undertakig_field_projects_researchs_internships} = req.body;
     const link_to_relevant_documents = req.file.filename;
     conn.query('insert into percentage_students_undertaking_internships_projects SET ?',{
+        Id:Id,
         Program_name:Program_name,
         Program_code:Program_code,
         list_of_students_undertakig_field_projects_researchs_internships:list_of_students_undertakig_field_projects_researchs_internships,
@@ -60,9 +60,9 @@ app11.route('/')
     });
 });
 
-app11.route('/:code')
+app11.route('/:Id')
 .get((req,res)=>{
-    conn.query('select * from percentage_students_undertaking_internships_projects where Program_code = ?',[req.params.code],(err,rows)=>{
+    conn.query('select * from percentage_students_undertaking_internships_projects where Id = ?',[req.params.Id],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -72,11 +72,11 @@ app11.route('/:code')
 })
    
 .delete((req,res)=>{
-       conn.query('delete from percentage_students_undertaking_internships_projects where Program_code= ?',[req.params.code],(err,rows)=>{
+       conn.query('delete from percentage_students_undertaking_internships_projects where Id= ?',[req.params.Id],(err,rows)=>{
           if(err){
               console.log(err);
           }else{
-              res.send('Details of '+req.params.code+' deleted');
+              res.send('Details of '+req.params.Id+' deleted');
           }
        });
 })
@@ -84,7 +84,7 @@ app11.route('/:code')
 .put((req,res)=>{
    
     var bt = req.body
-    conn.query('update percentage_students_undertaking_internships_projects set ? where Program_code ='+req.params.code,[bt],(err,rows)=>{
+    conn.query('update percentage_students_undertaking_internships_projects set ? where Id ='+req.params.Id,[bt],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
