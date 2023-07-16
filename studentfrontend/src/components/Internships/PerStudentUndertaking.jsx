@@ -27,6 +27,7 @@ const PerStudentUndertaking = () =>{
         setFile(e.target.files[0]);
     }
     const student= location?.state?.student ||{
+        Id:"",
         Program_name:"",
         Program_code:"",
         list_of_students_undertakig_field_projects_researchs_internships:"",

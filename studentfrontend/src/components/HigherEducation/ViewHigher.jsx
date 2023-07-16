@@ -95,7 +95,7 @@ const ViewHigher = () =>{
                     <TableBody>
                         {studentData.map((student) => (
                             <TableRow 
-                                key = {student.Student_Unique_Enrollment}
+                                key = {student.Id}
                                 sx = {{ '&:last-child td, &:last-child th': {border:0} }}
                             >
                                 <TableCell>{student.NameOfTeacher}</TableCell>
@@ -115,8 +115,8 @@ const ViewHigher = () =>{
                                         <Button variant="contained" size="small" onClick={()=>{navigate("/highereducation",{state:{student:student}})}}>Edit</Button>
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
-                                            axios.delete(`http://localhost:4000/highereducation/${student.NameOfTeacher}`);
-                                            window.location.reload(false);
+                                            axios.delete(`http://localhost:4000/highereducation/${student.Id}`);
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

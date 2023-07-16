@@ -98,12 +98,14 @@ const BtechHome = () =>{
         TOEFL:"",
         Civil_Services:"",
         State_government:"",
-        Other_examinations:""
+        Other_examinations:"",
+        PlaceFile:""
     });
     const [editing, setEditing] = useState(false);
     const [file,setFile] = useState(null);
     const [file1,setFile1] = useState(null);
     const [file2,setFile2] = useState(null);
+    const [file3,setFile3] = useState(null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -112,6 +114,9 @@ const BtechHome = () =>{
     }
     const handleFile2=(e)=>{
         setFile2(e.target.files[0]);
+    }
+    const handleFile3=(e)=>{
+        setFile3(e.target.files[0]);
     }
     const [systemErrors,setSystemErrors] = useState("");
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -198,7 +203,7 @@ const BtechHome = () =>{
         formdata.append('Name_Of_Programme_Admitted_To',user.Name_Of_Programme_Admitted_To)
         formdata.append('Upload',file2)
         formdata.append('yearforexamination',user.yearforexamination)
-        formdata.append('Registeration_Number',user.Registeration_Number)
+        formdata.append('Registeration_Number',user.University_RollNumber)
         formdata.append('NET',user.NET)
         formdata.append('SLET',user.SLET)
         formdata.append('GATE',user.GATE)
@@ -211,6 +216,7 @@ const BtechHome = () =>{
         formdata.append('Civil_Services',user.Civil_Services)
         formdata.append('State_government',user.State_government)
         formdata.append('Other_examinations',user.Other_examinations)
+        formdata.append('PlaceFile',file3)
         if (file!=null) {
             formdata.append('CertificateUpload', file);
         }
@@ -219,6 +225,9 @@ const BtechHome = () =>{
         } 
         if (file2!=null) {
             formdata.append('Upload', file2);
+        }
+        if (file3!=null) {
+            formdata.append('PlaceFile', file3);
         }
         await axios.put(`http://localhost:4000/btech/${user.University_RollNumber}`,formdata)
         .then(response=>{
@@ -665,6 +674,9 @@ const BtechHome = () =>{
                                             value={user.Pay_Package_at_appointment}
                                             /> 
                                         </Grid>
+                                        <Grid className="fourth-grid-item">
+                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.PlaceFile)} >OfferLetter<FileOpen/></Button>
+                                        </Grid>
                                     </Grid>
                                     <FormLabel className="higher">Higher Education</FormLabel>                                    <Grid className="grid-container">
                                         <Grid className="first-grid-item">
@@ -715,7 +727,7 @@ const BtechHome = () =>{
                                
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" value={user?.Registeration_Number} inputProps={{ maxLength: 12 }} size="small" ></TextField>
+                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" value={user?.University_RollNumber} inputProps={{ maxLength: 12 }} size="small" ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
                                     <FormGroup
@@ -1218,6 +1230,9 @@ const BtechHome = () =>{
                                             value={user.Pay_Package_at_appointment}
                                             /> 
                                         </Grid>
+                                        <Grid className="fourth-grid-item">
+                                        <TextField type='file' name='PlaceFile' label="OfferLetter(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile3}></TextField>
+                                        </Grid>
                                     </Grid>
                                     <FormLabel className="higher">Higher Education</FormLabel>                                   
                                      <Grid className="grid-container">
@@ -1278,7 +1293,7 @@ const BtechHome = () =>{
                                         />                                
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" onChange={(e)=>{onChangeTextField(e)}} value={user?.Registeration_Number} inputProps={{ maxLength: 12 }} size="small" ></TextField>
+                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" onChange={(e)=>{onChangeTextField(e)}} value={user?.University_RollNumber} inputProps={{ maxLength: 12 }} size="small" ></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
                                     <FormGroup

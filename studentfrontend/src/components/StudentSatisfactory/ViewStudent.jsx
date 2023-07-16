@@ -80,7 +80,7 @@ const ViewStudent = () =>{
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/studentsatisfactory/${student.Student_Unique_Enrollment}`);
-                                            window.location.reload(false);
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

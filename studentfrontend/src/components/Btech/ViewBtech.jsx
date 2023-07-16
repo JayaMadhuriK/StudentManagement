@@ -259,7 +259,8 @@ const ViewBtech = () =>{
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/btech/${student.University_RollNumber}`);
-                                            window.location.reload(false);
+                                            axios.delete(`http://localhost:4000/login/${student.Email_ID}`)
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

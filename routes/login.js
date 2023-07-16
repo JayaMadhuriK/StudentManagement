@@ -36,6 +36,16 @@ app16.route('/login')
 
     })
 });
+app16.route('/login/:Admin_EmailID')
+.delete((req,res)=>{
+    conn.query('delete from login where Admin_EmailID= ?',[req.params.Admin_EmailID],(err,rows)=>{
+       if(err){
+           console.log(err);
+       }else{
+           res.send('Details of '+req.params.Admin_EmailID+' deleted');
+       }
+    });
+})
 
 app16.post("/register",(req,res)=>{
     var bt = req.body;

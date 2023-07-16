@@ -109,7 +109,7 @@ const ViewCouncil = () =>{
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/councilactivities/${student.StudentCouncil_Name}`);
-                                            window.location.reload(false);
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

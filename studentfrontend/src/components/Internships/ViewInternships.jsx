@@ -110,7 +110,7 @@ const ViewInternships = () =>{
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/internships/${student.Program_code}`);
-                                            window.location.reload(false);
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

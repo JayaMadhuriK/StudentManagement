@@ -33,6 +33,7 @@ const Btech = () =>{
     const [file,setFile] = useState(location?.state?.student ? null : null);
     const [file1,setFile1] = useState(location?.state?.student ? null : null);
     const [file2,setFile2] = useState(location?.state?.student ? null : null);
+    const [file3,setFile3] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -42,7 +43,9 @@ const Btech = () =>{
     const handleFile2=(e)=>{
         setFile2(e.target.files[0]);
     }
-    
+    const handleFile3=(e)=>{
+        setFile3(e.target.files[0]);
+    }
     const [toastMessage,setToastMessage] = useState({
         type:"",
         message:""
@@ -116,7 +119,8 @@ const Btech = () =>{
         TOEFL:"",
         Civil_Services:"",
         State_government:"",
-        Other_examinations:""
+        Other_examinations:"",
+        PlaceFile:""
     };
     const onChangeTextField = (e) => {
         const name = e.target.name;
@@ -202,7 +206,7 @@ const Btech = () =>{
         formdata.append('Name_Of_Programme_Admitted_To',registerRequestBody.Name_Of_Programme_Admitted_To)
         formdata.append('Upload',file2)
         formdata.append('yearforexamination',registerRequestBody.yearforexamination)
-        formdata.append('Registeration_Number',registerRequestBody.Registeration_Number)
+        formdata.append('Registeration_Number',registerRequestBody.University_RollNumber)
         formdata.append('NET',registerRequestBody.NET)
         formdata.append('SLET',registerRequestBody.SLET)
         formdata.append('GATE',registerRequestBody.GATE)
@@ -215,6 +219,7 @@ const Btech = () =>{
         formdata.append('Civil_Services',registerRequestBody.Civil_Services)
         formdata.append('State_government',registerRequestBody.State_government)
         formdata.append('Other_examinations',registerRequestBody.Other_examinations)
+        formdata.append('PlaceFile',file3)
         let res = {};
         if(editData){
             if (file!=null) {
@@ -227,7 +232,9 @@ const Btech = () =>{
               if (file2!=null) {
                 formdata.append('Upload', file2);
               }
-            
+              if (file3!=null) {
+                formdata.append('PlaceFile', file3);
+              }
             await axios.put(`http://localhost:4000/btech/${student.University_RollNumber}`, formdata)
             .then((response) => {
             res = response;
@@ -314,13 +321,13 @@ const Btech = () =>{
                         <FormLabel className="personal-details">Personal Details</FormLabel>
                             <Grid className = "grid-container">
                                 <Grid className="first-grid-item">
-                                    <TextField name = "University_RollNumber" type="Number" label="University Roll Number"  value={registerRequestBody?.University_RollNumber} inputProps={{ maxLength: 12 }} onChange={(e)=>{onChangeTextField(e)}} size="small" ></TextField>
+                                    <TextField name = "University_RollNumber" type="Number" label="University Roll Number"  value={registerRequestBody?.University_RollNumber} inputProps={{ maxLength: 12 }} onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
                                 </Grid>
                                 <Grid className="second-grid-item">
-                                    <TextField name = "First_Name" value={registerRequestBody?.First_Name} label="First Name" onChange={(e)=>{onChangeTextField(e)}} size="small" ></TextField>
+                                    <TextField name = "First_Name" value={registerRequestBody?.First_Name} label="First Name" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
                                 </Grid>
                                 <Grid className="third-grid-item">
-                                    <TextField name = "Last_Name" value={registerRequestBody?.Last_Name} label="Last Name" onChange={(e)=>{onChangeTextField(e)}} size="small" ></TextField>
+                                    <TextField name = "Last_Name" value={registerRequestBody?.Last_Name} label="Last Name" onChange={(e)=>{onChangeTextField(e)}} size="small" required></TextField>
                                 </Grid>
                                 <Grid className="fourth-grid-item">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}> 
@@ -375,7 +382,7 @@ const Btech = () =>{
                                     <TextField name = "Phone_Number" value={registerRequestBody?.Phone_Number} label="Phone Number" type="Number" onChange={(e)=>{onChangeTextField(e)}} size="small" inputProps={{ maxLength: 12 }} ></TextField>
                                 </Grid>
                                 <Grid className="second-grid-item">
-                                    <TextField name = "Email_ID" value={registerRequestBody?.Email_ID} label="Email ID" onChange={(e)=>{onChangeTextField(e)}} type="email" size="small" ></TextField>
+                                    <TextField name = "Email_ID" value={registerRequestBody?.Email_ID} label="Email ID" onChange={(e)=>{onChangeTextField(e)}} type="email" size="small" required></TextField>
                                 </Grid>
                             </Grid>
                             <FormLabel className="address-details">Address</FormLabel>
@@ -591,6 +598,9 @@ const Btech = () =>{
                                     <Grid className="third-grid-item">
                                         <TextField name = "Pay_Package_at_appointment" value={registerRequestBody?.Pay_Package_at_appointment} label="Pay_Package_at_appointment" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
+                                    <Grid className="fourth-grid-item">
+                                        <TextField name = "PlaceFile" type='file' onChange={handleFile3} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
+                                    </Grid>
                                 </Grid>
                                 <FormLabel className="higher">Higher Education</FormLabel>
                                 <Grid className="grid-container">
@@ -635,16 +645,13 @@ const Btech = () =>{
                                     </LocalizationProvider>                                 
                                 </Grid>
                                     <Grid className="second-grid-item">
-                                    <TextField name = "Registeration_Number" type="Number" label="Registeration Number" value={registerRequestBody?.Registeration_Number} inputProps={{ maxLength: 12 }} onChange={(e)=>{onChangeTextField(e)}} size="small" ></TextField>
-                                    </Grid>
-                                    <Grid className="third-grid-item">
                                     <FormGroup
                                         onChange={(e)=>{onChangeCheckboxGroup(e)}}
                                     >
                                     <FormControlLabel  name = "NET" control={<Checkbox checked = {registerRequestBody?.NET}/>} label="NET" value="NET"/>
                                     </FormGroup>  
                                     </Grid>
-                                    <Grid className="fourth-grid-item">
+                                    <Grid className="third-grid-item">
                                     <FormGroup
                                         onChange={(e)=>{onChangeCheckboxGroup(e)}}
                                     >

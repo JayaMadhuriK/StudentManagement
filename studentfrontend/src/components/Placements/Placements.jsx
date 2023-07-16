@@ -27,26 +27,41 @@ const Placements = () =>{
         message:""
     });
     const studentplace= location?.state?.studentplace ||{
+        Id:"",
         Year:"",
         Name_of_the_Teacher:"",
-        NumberOfStudentsGuided:"",
         Contact_Details:"",
         Program_graduated_from:"",
         Name_of_company:"",
         Name_of_employer_with_contact_details:"",
         Pay_package_at_appointment:"",
+        PlaceFile:""
     };
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
+    const [file,setFile] = useState();
+    const handleFile=(e)=>{
+        setFile(e.target.files[0]);
+    }
     const editData = location?.state?.studentplace ? true : false;
     const [registerRequestBody,setRegisterRequestBody] = useState(studentplace);
     const handleSubmit = async() => {
+        const formdata = new FormData();
+        formdata.append('Id',registerRequestBody.Id)
+        formdata.append('Year',registerRequestBody.Year)
+        formdata.append('Name_of_the_Teacher',registerRequestBody.Name_of_the_Teacher)
+        formdata.append('Pay_package_at_appointment',registerRequestBody.Pay_package_at_appointment)
+        formdata.append('Contact_Details',registerRequestBody.Contact_Details)
+        formdata.append('Program_graduated_from',registerRequestBody.Program_graduated_from)
+        formdata.append('Name_of_company',registerRequestBody.Name_of_company)
+        formdata.append('Name_of_employer_with_contact_details',registerRequestBody.Name_of_employer_with_contact_details)
+        formdata.append('image',file);
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/placement/${studentplace.Name_of_the_Teacher}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/placement/${studentplace.Id}`, formdata)
             .then((response) => {
             res = response;
             })
@@ -62,11 +77,11 @@ const Placements = () =>{
             else if(!res.data){
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
         }else{
-            await axios.post('http://localhost:4000/placement', registerRequestBody)
+            await axios.post('http://localhost:4000/placement', formdata)
             .then((response) => {
                 res = response;
             })
@@ -142,6 +157,9 @@ const Placements = () =>{
                             </Grid>
                             <Grid className="first-name">
                                 <TextField name = "Pay_package_at_appointment" label="Pay package at appointment" value={registerRequestBody?.Pay_package_at_appointment}  onChange={(e)=>{onChangeTextField(e)}} InputProps={{ sx: { width: 250 } }} size="medium"></TextField>
+                            </Grid>
+                            <Grid className="first-name">
+                            <Button variant="contained" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>
                             </Grid>
                             <Grid className="button-grid">
                                 <Button variant="contained" className="button" onClick={handleSubmit}>Submit</Button>

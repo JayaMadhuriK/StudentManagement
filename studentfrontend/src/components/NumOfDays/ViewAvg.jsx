@@ -73,7 +73,7 @@ const ViewAvg = () =>{
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/avgnumberofdays/${student.Program_Code}`);
-                                            window.location.reload(false);
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

@@ -40,7 +40,7 @@ const ViewExamination = () =>{
                 <h1>Average Number of Students Qualifying in Examination</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} className="btn"><ArrowBackIcon/></Button>
 
-                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/exam")}} className="buttonnew"><AddIcon/>Add Record</Button>
+                {/* <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/exam")}} className="buttonnew"><AddIcon/>Add Record</Button> */}
 
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
@@ -91,7 +91,7 @@ const ViewExamination = () =>{
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/exam/${student.Registeration_Number}`);
-                                            window.location.reload(false);
+                                            getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>
                                     </Grid>

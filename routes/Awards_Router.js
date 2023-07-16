@@ -32,8 +32,6 @@ app10.route('/')
 })
 
 .post(upload.single('image'),(req,res)=>{
-    // var bt = req.body;
-    // var btData = [bt.Year,bt.Name_Of_Award,bt.TeamORIndividual,bt.InterUniversity_State_National_International,bt.Name_Of_Event,bt.Name_Of_Student,bt.University_RollNumber,bt.E_Copy_Of_Award_Letter];
     const {Year} = req.body;
     const {Name_Of_Award} = req.body;
     const {TeamORIndividual} = req.body;
