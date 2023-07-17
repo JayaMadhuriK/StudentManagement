@@ -63,17 +63,18 @@ const StudentSatisfactory = () =>{
             .catch((error) => {
                 res = error;
             });
-            if(res.data) {
+            console.log(res)
+            if(res?.statusText == "OK") {
                 setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
                 setTimeout(function() {
                     navigate("/viewstudent")
                 }, 2000);
             }
-            else if(!res.data){
+            else{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
-                setTimeout(function() {
-                    window.location.reload(false);
-                }, 2000);
+                // setTimeout(function() {
+                //      window.location.reload(false);
+                // }, 2000);
             }
         }else{
             await axios.post('http://localhost:4000/studentsatisfactory', registerRequestBody)
@@ -86,15 +87,15 @@ const StudentSatisfactory = () =>{
             if(res.data) {
                 setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                     window.location.reload(false);
                 }, 2000);
 
             }
             else{
                 setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
-                setTimeout(function() {
-                    window.location.reload(false);
-                }, 2000);
+                // setTimeout(function() {
+                //      window.location.reload(false);
+                // }, 2000);
             }
         }
     }
@@ -173,8 +174,9 @@ const StudentSatisfactory = () =>{
                             </Grid>
                     </FormControl>
                 </Grid>
+                {console.log(toastMessage)}
                     {toastMessage?.message.length > 0 && 
-                        <Alert sx={{ marginTop: '-550px',position:"fixed",marginRight:"300px" , minWidth:'500px'}} severity={toastMessage?.type}>
+                        <Alert sx={{marginTop:"-300px"}} severity={toastMessage?.type}>
                             <AlertTitle>{toastMessage?.type}</AlertTitle>
                             <strong>{toastMessage?.message}</strong>
                         </Alert>

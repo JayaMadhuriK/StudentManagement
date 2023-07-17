@@ -26,7 +26,7 @@ const CouncilActivity = () =>{
         type:"",
         message:""
     });
-    const [file,setFile] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -49,6 +49,7 @@ const CouncilActivity = () =>{
         formdata.append('Date_Of_Establishment',registerRequestBody.Date_Of_Establishment)
         formdata.append('Activities',registerRequestBody.Activities)
         formdata.append('image',file);
+       
         let res = {};
         if(editData){
             await axios.put(`http://localhost:4000/councilactivities/${student.StudentCouncil_Name}`, formdata)

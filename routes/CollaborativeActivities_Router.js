@@ -84,10 +84,30 @@ app5.route('/:title')
        });
 })
    
-.put((req,res)=>{
+.put(upload.single('image'),(req,res)=>{
     const Title= '"'+req.params.title+'"';
-    var bt = req.body
-    conn.query('update collaborative_activities_withotherinstitutions_pastfiveyrs set ? where Title_of_collaborative_activity ='+Title,[bt],(err,rows)=>{
+    const {
+        Title_of_collaborative_activity,
+        Name_of_collaborative_agency_with_contact_details,
+        Name_of_Participant,
+        Year_of_collaboration,
+        Duration,
+        Nature_of_Activity,
+    } = req.body;
+    const Link_to_the_relevant_documents = req.file ? req.file.filename : null;
+    const updateData = {
+        Title_of_collaborative_activity,
+        Name_of_collaborative_agency_with_contact_details,
+        Name_of_Participant,
+        Year_of_collaboration,
+        Duration,
+        Nature_of_Activity,
+    };
+    if (Link_to_the_relevant_documents) {
+        updateData.Link_to_the_relevant_documents = Link_to_the_relevant_documents;
+    }
+
+    conn.query('update collaborative_activities_withotherinstitutions_pastfiveyrs set ? where Title_of_collaborative_activity ='+Title,[updateData],(err,rows)=>{
        if(err){
            console.log(err);
        }else{

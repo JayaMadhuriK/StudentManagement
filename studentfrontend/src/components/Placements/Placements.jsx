@@ -42,7 +42,7 @@ const Placements = () =>{
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
     }
-    const [file,setFile] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }

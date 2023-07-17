@@ -74,7 +74,7 @@ const ViewHigher = () =>{
                 <h1>Higher Education</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} className="btn"><ArrowBackIcon/></Button>
 
-                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/highereducation")}} className="buttonnew"><AddIcon/>Add Record</Button>
+                {/* <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/highereducation")}} className="buttonnew"><AddIcon/>Add Record</Button> */}
 
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
@@ -112,7 +112,7 @@ const ViewHigher = () =>{
                                 </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
-                                        <Button variant="contained" size="small" onClick={()=>{navigate("/highereducation",{state:{student:student}})}}>Edit</Button>
+                                        {/* <Button variant="contained" size="small" onClick={()=>{navigate("/highereducation",{state:{student:student}})}}>Edit</Button> */}
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/highereducation/${student.Id}`);

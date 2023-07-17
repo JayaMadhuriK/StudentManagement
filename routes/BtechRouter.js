@@ -17,7 +17,7 @@ const upload = multer({
     storage:storage,
 })
 
-var multiupload = upload.fields([{name:'CertificateUpload',maxCount:5},{name:'Upload',maxCount:5},{name:'InternUpload',maxCount:5},{name:'PlaceFile',maxCount:5}]);
+var multiupload = upload.fields([{name:'CertificateUpload',maxCount:5},{name:'Upload',maxCount:5},{name:'InternUpload',maxCount:5},{name:'PlaceFile',maxCount:5},{name:'ExamFile',maxCount:5}]);
 
 
 app1.use(bodyParser.json());
@@ -59,12 +59,12 @@ app1.route('/')
       TOEFL,
       Civil_Services,
       State_government,
-      Other_examinations,PlaceId,InternId,HigherId} = req.body;
+      Other_examinations} = req.body;
     const CertificateUpload = req.files && req.files['CertificateUpload']? req.files['CertificateUpload'][0].filename:null;
     const Upload = req.files && req.files['Upload']? req.files['Upload'][0].filename:null;
     const InternUpload = req.files && req.files['InternUpload']? req.files['InternUpload'][0].filename:null;
     const PlaceFile = req.files && req.files['PlaceFile']? req.files['PlaceFile'][0].filename:null;
-
+    const ExamFile = req.files && req.files['ExamFile']? req.files['ExamFile'][0].filename:null;
     conn.query('insert into btech_details SET ?',{
         University_RollNumber:University_RollNumber,
         First_Name:First_Name,
@@ -122,7 +122,7 @@ app1.route('/')
         list_of_students_undertaking:list_of_students_undertaking,
         InternUpload:InternUpload,
         yearforexamination:yearforexamination,
-        Registeration_Number:Registeration_Number,
+        Registeration_Number:University_RollNumber,
         NET:NET,
         SLET:SLET,
         GATE:GATE,
@@ -135,7 +135,8 @@ app1.route('/')
         Civil_Services:Civil_Services,
         State_government:State_government,
         Other_examinations:Other_examinations,
-        PlaceFile:PlaceFile
+        PlaceFile:PlaceFile,
+        ExamFile:ExamFile
     },(err,rows)=>{
        if(err){
            res.sendStatus(400);
@@ -226,7 +227,6 @@ app1.route('/')
                     console.log(rows)
                 }
             });
-        
            
             conn.query('insert into examinations SET ?',{
                 year:yearforexamination,
@@ -242,7 +242,8 @@ app1.route('/')
                 TOEFL:TOEFL,
                 Civil_Services:Civil_Services,
                 State_government:State_government,
-                Other_examinations:Other_examinations
+                Other_examinations:Other_examinations,
+                ExamFile:ExamFile
             },(err,rows)=>{
                 if(err){
                     console.log(err);
@@ -265,7 +266,6 @@ app1.route('/')
        }
     });
 });
-
 app1.route('/:University_RollNumber')
 .get((req,res)=>{
     conn.query('select * from btech_details where University_RollNumber = ?',[req.params.University_RollNumber],(err,rows)=>{
@@ -317,7 +317,7 @@ app1.route('/:University_RollNumber')
       State_government ,
       Other_examinations,CertificateUpload,
       Upload,
-      InternUpload,PlaceFile } = req.body;
+      InternUpload,PlaceFile,ExamFile } = req.body;
 
     conn.query('update btech_details set ? where University_RollNumber = ?',[{
         First_Name,
@@ -387,12 +387,12 @@ app1.route('/:University_RollNumber')
       Other_examinations,
       CertificateUpload,
       Upload,
-      InternUpload,PlaceFile
+      InternUpload,PlaceFile,ExamFile
     },University_RollNumber],(err,rows)=>{
         if(err){
             console.log(err);
         }else{
-            const filesToUpdate = ['CertificateUpload', 'Upload', 'InternUpload','PlaceFile'];
+            const filesToUpdate = ['CertificateUpload', 'Upload', 'InternUpload','PlaceFile','ExamFile'];
             const fileUpdates = {};
 
         filesToUpdate.forEach((fieldName) => {
@@ -416,121 +416,11 @@ app1.route('/:University_RollNumber')
                     res.sendStatus(500);
                   } else {
                     res.send('updated');
-
-                    if(Program_name.length>0){
-                    conn.query('update percentage_students_undertaking_internships_projects set ? where Id =?',[{
-                        Program_name:Program_name,
-                        Program_code:Program_code,
-                        list_of_students_undertakig_field_projects_researchs_internships:list_of_students_undertaking,
-                        link_to_relevant_documents:InternUpload
-                    },University_RollNumber],(err,rows)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
-                        
-                            console.log("updated")
-                         }
-                     
-                    })
                   }
-
-                    if(yearforexamination.length>0){
-                    conn.query('update examinations set ? where Registeration_Number = ?',[{
-                        year:yearforexamination,
-                        Registeration_Number:Registeration_Number,
-                        NET :NET,
-                        SLET :SLET,
-                        GATE:GATE ,
-                        GMAT:GMAT ,
-                        CAT:CAT ,
-                        GRE:GRE ,
-                        JAM :JAM,
-                        IELET:IELET ,
-                        TOEFL :TOEFL,
-                        Civil_Services:Civil_Services ,
-                        State_government:State_government ,
-                        Other_examinations:Other_examinations,
-                    },University_RollNumber],(err,rows)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
-                             console.log('updated');
-                        }
-                    })
-                }
-
-                    if(NameOfTeacher.length > 0){
-                    conn.query('update percentageof_highereducation_students set ? where Id = ?',[{
-                        NameOfTeacher:NameOfTeacher,
-                        Name_Of_Students:Name_Of_Students,
-                        Program_Graduated_From:Program_Graduated,
-                        Name_Of_Institution_joined:Name_Of_Institution_joined,
-                        Name_Of_Programme_Admitted_To:Name_Of_Programme_Admitted_To,
-                        IdentityCardORAdmissionLetter:Upload
-                     },University_RollNumber],(err,rows)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
-                            const resRows = rows;
-                            if (Array.isArray(resRows)) {
-                            resRows?.forEach(element => {
-                                let teacher = "'"+element?.NameOfTeacher+"'";
-                                conn.query(`update percentageof_highereducation_students set NumberOf_Students_Enrolled=${element?.count} where NameOfTeacher = ${teacher}`,(err,rows)=>{
-                                    if(err){
-                                        console.log(err);
-                                    }else{
-                                        console.log(rows);
-                                    }
-                                });
-                            });
-                        }
-                         }
-                     
-                    })
-                }
-                if(Name_of_the_Teacher.length > 0){
-
-                    conn.query('update avg_percentage_placement_outgoingstudents_lastfiveyears set ? where Id =?',[{
-                        Year:Year,
-                        Name_of_the_Teacher:Name_of_the_Teacher,
-                        Contact_Details:Contact_Details,
-                        Program_graduated_from:Program_graduated_from,
-                        Name_of_company:Name_of_company,
-                        Name_of_employer_with_contact_details:Name_of_employer_with_contact_details,
-                        Pay_Package_at_appointment:Pay_Package_at_appointment,
-                        PlaceFile:PlaceFile
-                    },University_RollNumber],(err,rows)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
-                            conn.query('select Name_of_the_Teacher, count(*) as count from avg_percentage_placement_outgoingstudents_lastfiveyears group by Name_of_the_Teacher',(err,rows)=>{
-                                if(err){
-                                    console.log(err);
-                                }else{
-                                    const resRows = rows;
-                                    if (Array.isArray(resRows)) {
-                                    resRows?.forEach(element => {
-                                        let teacher = "'"+element?.Name_of_the_Teacher+"'";
-                                        conn.query(`update avg_percentage_placement_outgoingstudents_lastfiveyears set NumberOfStudentsGuided=${element?.count} where Name_of_the_Teacher = ${teacher}`,(err,rows)=>{
-                                            if(err){
-                                                console.log(err);
-                                            }else{
-                                                console.log(rows);
-                                            }
-                                        });
-                                    });
-                                    }
-                                }
-                               });
-                         }
-                     
-                       })
-                  }
-                }
                 });
-            
-              }
+                }
             });
+
         }else{res.send("Details updated");
     }
             

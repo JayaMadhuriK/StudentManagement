@@ -20,7 +20,7 @@ const upload = multer({
 app12.use(bodyParser.json());
 app12.route('/')
 .get((req,res)=>{
-    conn.query('select * from percentageof_highereducation_students',(err,rows)=>{
+    conn.query('select * from percentageof_highereducation_students where NameOfTeacher!="" and Program_Graduated_From!="" ',(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -104,15 +104,47 @@ app12.route('/:Id')
        });
 })
    
-.put((req,res)=>{
-    var con ='"' +req.params.Id+'"';
-    var bt = req.body
-    conn.query('update percentageof_highereducation_students set ? where Id ='+con,[bt],(err,rows)=>{
+.put(upload.single('image'),(req,res)=>{
+    const {
+        Id   ,
+        NameOfTeacher   ,
+        NumberOf_Students_Enrolled   ,
+        Name_Of_Students   ,
+        Program_Graduated_From   ,
+        Name_Of_Institution_joined   ,
+        Name_Of_Programme_Admitted_To   
+           
+       } = req.body;
+       const IdentityCardORAdmissionLetter = req.file ? req.file.filename : null;
+        const updateData = {
+            Id   ,
+            NameOfTeacher   ,
+            NumberOf_Students_Enrolled   ,
+            Name_Of_Students   ,
+            Program_Graduated_From   ,
+            Name_Of_Institution_joined   ,
+            Name_Of_Programme_Admitted_To   
+        };
+        if (IdentityCardORAdmissionLetter) {
+            updateData.IdentityCardORAdmissionLetter = IdentityCardORAdmissionLetter;
+        }
+    conn.query('update percentageof_highereducation_students set ? where Id ='+req.params.Id,[updateData],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
-       
-            res.send("Details updated");
+        const resRows = rows;
+        if (Array.isArray(resRows)) {
+        resRows?.forEach(element => {
+            let teacher = "'"+element?.NameOfTeacher+"'";
+            conn.query(`update percentageof_highereducation_students set NumberOf_Students_Enrolled=${element?.count} where NameOfTeacher = ${teacher}`,(err,rows)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(rows);
+                }
+            });
+        });
+    }
         }
     
       })

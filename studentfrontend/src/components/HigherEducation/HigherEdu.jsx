@@ -26,7 +26,7 @@ const HigherEdu = () =>{
         type:"",
         message:""
     });
-    const [file,setFile] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -59,7 +59,7 @@ const HigherEdu = () =>{
         formdata.append('image',file);
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/highereducation/${student.Id}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/highereducation/${student.Id}`, formdata)
             .then((response) => {
             res = response;
             })

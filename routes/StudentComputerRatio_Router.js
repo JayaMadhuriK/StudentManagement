@@ -35,8 +35,8 @@ app13.route('/')
 .post(multiupload,(req,res)=>{
     const {Total_number_of_students} = req.body;
     const {Number_of_computers_available_to_use} = req.body;
-    const Bills_Purchase_documents = req.files['image'][0].filename;
-    const Proof_of_stock_register_entry = req.files['image1'][0].filename;
+    const Bills_Purchase_documents = req.files && req.files['Bills_Purchase_documents']? req.files['Bills_Purchase_documents'][0].filename:null;
+    const Proof_of_stock_register_entry = req.files && req.files['Proof_of_stock_register_entry']? req.files['Proof_of_stock_register_entry'][0].filename:null;
     const {Student_Computer_Ratio} = req.body;
     const {Name_Of_Department} = req.body;
     conn.query('insert into student_computer_ratio SET ?',{
@@ -65,9 +65,9 @@ app13.route('/')
     });
 });
 
-app13.route('/:Name_Of_Department')
+app13.route('/:Id')
 .get((req,res)=>{
-    conn.query('select * from student_computer_ratio where Name_Of_Department = ?',[req.params.Name_Of_Department],(err,rows)=>{
+    conn.query('select * from student_computer_ratio where Id = ?',[req.params.Id],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -77,24 +77,64 @@ app13.route('/:Name_Of_Department')
 })
    
 .delete((req,res)=>{
-       conn.query('delete from student_computer_ratio where Name_Of_Department= ?',[req.params.Name_Of_Department],(err,rows)=>{
+       conn.query('delete from student_computer_ratio where Id= ?',[req.params.Id],(err,rows)=>{
           if(err){
               console.log(err);
           }else{
-              res.send('Details of '+req.params.Name_Of_Department+' deleted');
+              res.send('Details of '+req.params.Id+' deleted');
           }
        });
 })
    
-.put((req,res)=>{
-    
-    var bt = req.body
-    conn.query('update student_computer_ratio set ? where Name_Of_Department ='+req.params.Name_Of_Department,[bt],(err,rows)=>{
+.put(multiupload,(req,res)=>{
+    const {Id} = req.body;
+    const {Total_number_of_students} = req.body;
+    const {Number_of_computers_available_to_use} = req.body;
+    const {Student_Computer_Ratio} = req.body;
+    const {Bills_Purchase_documents} = req.body;
+    const {Proof_of_stock_register_entry} = req.body;
+    const {Name_Of_Department} = req.body;
+    conn.query('update student_computer_ratio set ? where Id ='+req.params.Id,[{
+        Id,
+        Total_number_of_students,
+        Number_of_computers_available_to_use,
+        Bills_Purchase_documents,
+        Proof_of_stock_register_entry,
+        Student_Computer_Ratio,
+        Name_Of_Department
+    }],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
-       
-            res.send("Details updated");
+        const filesToUpdate = ['Bills_Purchase_documents', 'Proof_of_stock_register_entry'];
+            const fileUpdates = {};
+
+        filesToUpdate.forEach((fieldName) => {
+          if (req.files[fieldName]) {
+            const file = req.files[fieldName][0];
+            fileUpdates[fieldName] = file.filename;
+          }
+        });
+        if (Object.keys(fileUpdates).length > 0 || Object.keys(fileUpdates) == null) {
+            conn.query('SELECT * FROM student_computer_ratio WHERE Id = ?', [Id], (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.sendStatus(500);
+              } else {
+                const existingRecord = rows[0];
+                const updatedRecord = { ...existingRecord, ...fileUpdates };
+  
+                conn.query('UPDATE student_computer_ratio SET ? WHERE Id = ?', [updatedRecord, Id], (err, result) => {
+                  if (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                  } else {
+                    console.log('updated')
+                  }
+                });
+            }
+        });
+    }
         }
     
       })

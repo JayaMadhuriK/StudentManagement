@@ -84,23 +84,23 @@ app14.route('/:name')
 })
    
 .put(upload.single('image'),(req,res)=>{
-    const {StudentCouncil_Name} = req.body;
+    const {StudentCouncil_Name,Date_Of_Establishment,Activities} = req.body
     var con = "'"+StudentCouncil_Name+"'";
-    const {Date_Of_Establishment} = req.body;
-    const {Activities} = req.body;
-    const ProofsOREvidencesOrWebLinks = req.file.filename;
-    console.log(req)
-    conn.query('update student_council_activities set ? where StudentCouncil_Name ='+con,[{
-        StudentCouncil_Name:StudentCouncil_Name,
-        Date_Of_Establishment:Date_Of_Establishment,
-        Activities:Activities,
-        ProofsOREvidencesOrWebLinks:ProofsOREvidencesOrWebLinks
-    }],(err,rows)=>{
+    const ProofsOREvidencesOrWebLinks = req.file ? req.file.filename : null;
+    const updateData = {
+        StudentCouncil_Name,
+        Date_Of_Establishment,
+        Activities
+    };
+    if (ProofsOREvidencesOrWebLinks) {
+        updateData.ProofsOREvidencesOrWebLinks = ProofsOREvidencesOrWebLinks;
+    }
+
+    conn.query('update student_council_activities set ? where StudentCouncil_Name ='+con,[updateData],(err,rows)=>{
        if(err){
            console.log(err);
           
        }else{
-            console.log(StudentCouncil_Name+"...."+Date_Of_Establishment+"..."+Activities+"..."+ProofsOREvidencesOrWebLinks)
             res.send("Details updated");
         }
     

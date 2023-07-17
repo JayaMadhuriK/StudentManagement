@@ -143,11 +143,27 @@ const ViewMscOrMca = () =>{
                             <TableCell align="center">Name of Company</TableCell>
                             <TableCell align="center">Name of employer and contact details</TableCell>
                             <TableCell align="center">Pay Package</TableCell>
+                            <TableCell align="center">File</TableCell>
                             <TableCell align="center">Name of teacher for Higher Education</TableCell>
                             <TableCell align="center">Name of student</TableCell>
                             <TableCell align="center">Program Graduated from</TableCell>
                             <TableCell align="center">Name of Institution</TableCell>
                             <TableCell align="center">Name of Program Admitted to</TableCell>
+                            <TableCell align="center">File</TableCell>
+                            <TableCell align="center">Year</TableCell>
+                            <TableCell align="center">Registeration Number</TableCell>
+                            <TableCell align="center">NET</TableCell>
+                            <TableCell align="center">SLET</TableCell>
+                            <TableCell align="center">GATE</TableCell>
+                            <TableCell align="center">GMAT</TableCell>
+                            <TableCell align="center">CAT</TableCell>
+                            <TableCell align="center">GRE</TableCell>
+                            <TableCell align="center">JAM</TableCell>
+                            <TableCell align="center">IELET</TableCell>
+                            <TableCell align="center">TOEFL</TableCell>
+                            <TableCell align="center">Civil_Services</TableCell>
+                            <TableCell align="center">State_government</TableCell>
+                            <TableCell align="center">Other_examinations</TableCell>
                             <TableCell align="center">File</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
@@ -221,6 +237,12 @@ const ViewMscOrMca = () =>{
                                 <TableCell>{student.Name_of_company}</TableCell>
                                 <TableCell>{student.Name_of_employer_with_contact_details}</TableCell>
                                 <TableCell>{student.Pay_Package_at_appointment}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.PlaceFile)} ><DownloadIcon/></Button>
+                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.PlaceFile)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
                                 <TableCell>{student.NameOfTeacher}</TableCell>
                                 <TableCell>{student.Name_Of_Students}</TableCell>
                                 <TableCell>{student.Program_Graduated}</TableCell>
@@ -232,9 +254,29 @@ const ViewMscOrMca = () =>{
                                         <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.Upload)} >Open<FileOpenIcon/></Button>
                                     </Grid>
                                 </TableCell>
+                                <TableCell>{student.yearforexamination}</TableCell>
+                                <TableCell>{student.Registeration_Number}</TableCell>
+                                <TableCell>{student.NET}</TableCell>
+                                <TableCell>{student.SLET}</TableCell>
+                                <TableCell>{student.GATE}</TableCell>
+                                <TableCell>{student.GMAT}</TableCell>
+                                <TableCell>{student.CAT}</TableCell>
+                                <TableCell>{student.GRE}</TableCell>
+                                <TableCell>{student.JAM}</TableCell>
+                                <TableCell>{student.IELET}</TableCell>
+                                <TableCell>{student.TOEFL}</TableCell>
+                                <TableCell>{student.Civil_Services}</TableCell>
+                                <TableCell>{student.State_government}</TableCell>
+                                <TableCell>{student.Other_examinations}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                        <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.ExamFile)} ><DownloadIcon/></Button>
+                                        <Button variant="contained" size="small" style={{marginLeft:'70px',marginTop:'-55px'}}  onClick={() => handleFileOpen(student.ExamFile)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
-                                        <Button variant="contained" size="small" onClick={()=>{navigate("/mscormca",{state:{student:student}})}}>Edit</Button>
+                                        {/* <Button variant="contained" size="small" onClick={()=>{navigate("/mscormca",{state:{student:student}})}}>Edit</Button> */}
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/mscormca/${student.University_RollNumber}`);

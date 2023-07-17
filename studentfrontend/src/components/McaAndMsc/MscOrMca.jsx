@@ -17,6 +17,8 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs'; 
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
 import {useLocation} from 'react-router-dom'
 
 const MscOrMca = () =>{
@@ -28,6 +30,9 @@ const MscOrMca = () =>{
     const [dateOfBtech,setDateOfBtech] = useState(null)
     const [dateOfMsc,setDateOfMsc] = useState(null)
     const [place,setPlace] = useState(null)
+    const [dateOfYear,setDateOfYear] = useState(null)
+    const [file3,setFile3] = useState(location?.state?.student ? null : null);
+    const [file4,setFile4] = useState(location?.state?.student ? null : null);
     const [file,setFile] = useState(location?.state?.student ? null : null);
     const [file1,setFile1] = useState(location?.state?.student ? null : null);
     const [file2,setFile2] = useState(location?.state?.student ? null : null);
@@ -39,6 +44,12 @@ const MscOrMca = () =>{
     }
     const handleFile2=(e)=>{
         setFile2(e.target.files[0]);
+    }
+    const handleFile3=(e)=>{
+        setFile3(e.target.files[0]);
+    }
+    const handleFile4=(e)=>{
+        setFile4(e.target.files[0]);
     }
     const [toastMessage,setToastMessage] = useState({
         type:"",
@@ -103,12 +114,32 @@ const MscOrMca = () =>{
           Name_Of_Institution_joined:"",
           Name_Of_Programme_Admitted_To:"",
           Upload:"",
+          yearforexamination:"",
+          Registeration_Number:"",
+          NET:"",
+          SLET:"",
+          GATE:"",
+          GMAT:"",
+          CAT:"",
+          GRE:"",
+          JAM:"",
+          IELET:"",
+          TOEFL:"",
+          Civil_Services:"",
+          State_government:"",
+          Other_examinations:"",
+          PlaceFile:"",
+          ExamFile:""
     };
     const onChangeTextField = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setRegisterRequestBody({...registerRequestBody,[name]:value})
        
+    }
+    const onChangeCheckboxGroup = (e) => {
+        const {name,value,checked} = e.target;
+        setRegisterRequestBody({...registerRequestBody,[name]:checked ? registerRequestBody.First_Name+registerRequestBody.Last_Name : ""})
     }
     const onChangeRadioGroup = (e) => {
         const name = e.target.name;
@@ -171,7 +202,7 @@ const MscOrMca = () =>{
         formdata.append('CertificateUpload',file)
         formdata.append('Program_name',registerRequestBody.Program_name)
         formdata.append('Program_code',registerRequestBody.Program_code)
-        formdata.append('list_of_students_undertaking',registerRequestBody.list_of_students_undertaking)
+        formdata.append('list_of_students_undertaking',registerRequestBody.First_Name+registerRequestBody.Last_Name)
         formdata.append('InternUpload',file1)
         formdata.append('Year',registerRequestBody.Year)
         formdata.append('Name_of_the_Teacher',registerRequestBody.Name_of_the_Teacher)
@@ -181,12 +212,27 @@ const MscOrMca = () =>{
         formdata.append('Name_of_employer_with_contact_details',registerRequestBody.Name_of_employer_with_contact_details)
         formdata.append('Pay_Package_at_appointment',registerRequestBody.Pay_Package_at_appointment)
         formdata.append('NameOfTeacher',registerRequestBody.NameOfTeacher)
-        formdata.append('Name_Of_Students',registerRequestBody.Name_Of_Students)
+        formdata.append('Name_Of_Students',registerRequestBody.First_Name+registerRequestBody.Last_Name)
         formdata.append('Program_Graduated',registerRequestBody.Program_Graduated)
         formdata.append('Name_Of_Institution_joined',registerRequestBody.Name_Of_Institution_joined)
         formdata.append('Name_Of_Programme_Admitted_To',registerRequestBody.Name_Of_Programme_Admitted_To)
         formdata.append('Upload',file2)
-
+        formdata.append('yearforexamination',registerRequestBody.yearforexamination)
+        formdata.append('Registeration_Number',registerRequestBody.University_RollNumber)
+        formdata.append('NET',registerRequestBody.NET)
+        formdata.append('SLET',registerRequestBody.SLET)
+        formdata.append('GATE',registerRequestBody.GATE)
+        formdata.append('GMAT',registerRequestBody.GMAT)
+        formdata.append('CAT',registerRequestBody.CAT)
+        formdata.append('GRE',registerRequestBody.GRE)
+        formdata.append('JAM',registerRequestBody.JAM)
+        formdata.append('IELET',registerRequestBody.IELET)
+        formdata.append('TOEFL',registerRequestBody.TOEFL)
+        formdata.append('Civil_Services',registerRequestBody.Civil_Services)
+        formdata.append('State_government',registerRequestBody.State_government)
+        formdata.append('Other_examinations',registerRequestBody.Other_examinations)
+        formdata.append('PlaceFile',file3)
+        formdata.append('ExamFile',file4)
         let res = {};
         if(editData){
             if (file!=null) {
@@ -199,6 +245,12 @@ const MscOrMca = () =>{
               
               if (file1!=null) {
                 formdata.append('InternUpload', file1);
+              }
+              if (file3!=null) {
+                formdata.append('PlaceFile', file3);
+              }
+              if (file4!=null) {
+                formdata.append('ExamFile', file4);
               }
             await axios.put(`http://localhost:4000/mscormca/${student.University_RollNumber}`, formdata)
             .then((response) => {
@@ -277,6 +329,8 @@ const MscOrMca = () =>{
             setDateOfMsc(dayjs(year3+"-12-31T18:30:00.000Z"));
             const year4 = Number(student.Year)-1;
             setPlace(dayjs(year4+"-12-31T18:30:00.000Z"));
+            const years = Number(student.yearforexamination);
+            setDateOfYear(dayjs(years+"T18:30:00.000Z"));
         }
     },[]);
     return (
@@ -543,7 +597,7 @@ const MscOrMca = () =>{
                                         <TextField name = "Program_code" value={registerRequestBody?.Program_code} label="Program_code" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "list_of_students_undertaking" value={registerRequestBody?.list_of_students_undertaking} label="list_of_students_undertaking" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "list_of_students_undertaking" value={registerRequestBody?.First_Name+registerRequestBody?.Last_Name} label="list_of_students_undertaking" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
                                         <TextField name = "InternUpload" type='file' onChange={handleFile1} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
@@ -588,6 +642,9 @@ const MscOrMca = () =>{
                                     <Grid className="third-grid-item">
                                         <TextField name = "Pay_Package_at_appointment" value={registerRequestBody?.Pay_Package_at_appointment} label="Pay_Package_at_appointment" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
+                                    <Grid className="fourth-grid-item">
+                                        <TextField name = "PlaceFile" type='file' onChange={handleFile3} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
+                                    </Grid>
                                 </Grid>
                                 <FormLabel className="higher">Higher Education</FormLabel>
                                 <Grid className="grid-container">
@@ -595,7 +652,7 @@ const MscOrMca = () =>{
                                         <TextField name = "NameOfTeacher" value={registerRequestBody?.NameOfTeacher} label="NameOfTeacher" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Name_Of_Students" value={registerRequestBody?.Name_Of_Students} label="Name_Of_Students" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Name_Of_Students" value={registerRequestBody?.First_Name+registerRequestBody?.Last_Name} label="Name_Of_Students" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
                                         <TextField name = "Program_Graduated" value={registerRequestBody?.Program_Graduated} label="Program_Graduated" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
@@ -610,6 +667,119 @@ const MscOrMca = () =>{
                                     </Grid>
                                     <Grid className="second-grid-item">
                                         <TextField name = "Upload" type='file' onChange={handleFile2} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
+                                    </Grid>
+                                </Grid>
+                                <FormLabel className="average">Average percentage of students qualifying in examinations</FormLabel>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}> 
+                                    <DatePicker 
+                                        label="Year"
+                                        value={dateOfYear}
+                                        views={['year']}
+                                        name="small"
+                                        onChange={(newValue)=>{
+                                        setDateOfYear(newValue);
+                                        const date = new Date(newValue);
+                                        const year =String(date.getFullYear())
+                                        setRegisterRequestBody({...registerRequestBody,yearforexamination:year});
+                                        }}
+                                        renderInput={(props)=>{ <TextField {...props}/> }}
+                                    />
+                                    </LocalizationProvider>                                 
+                                </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "NET" control={<Checkbox checked = {registerRequestBody?.NET}/>} label="NET" value="NET"/>
+                                    </FormGroup>  
+                                    </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel name = "SLET" control={<Checkbox checked = {registerRequestBody?.SLET}/>} label="SLET" value="SLET"/>
+                                    </FormGroup>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "GATE" control={<Checkbox checked = {registerRequestBody?.GATE}/>} label="GATE" value="GATE"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "GMAT" control={<Checkbox checked = {registerRequestBody?.GMAT} />} label="GMAT" value="GMAT"/>
+                                    </FormGroup>                                  
+                                      </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "CAT" control={<Checkbox checked = {registerRequestBody?.CAT}/>} label="CAT" value="CAT"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "GRE" control={<Checkbox checked = {registerRequestBody?.GRE}/>} label="GRE" value="GRE"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "JAM" control={<Checkbox checked = {registerRequestBody?.JAM}/>} label="JAM" value="JAM"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "IELET" control={<Checkbox checked = {registerRequestBody?.IELET} />} label="IELET" value="IELET"/>
+                                    </FormGroup>                                   
+                                     </Grid>
+                                    <Grid className="third-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "TOEFL" control={<Checkbox checked = {registerRequestBody?.TOEFL}/>} label="TOEFL" value="TOEFL"/>
+                                    </FormGroup>                                   
+                                      </Grid>
+                                    <Grid className="fourth-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "Civil_Services" control={<Checkbox checked = {registerRequestBody?.Civil_Services}/>} label="Civil_Services" value="Civil_Services"/>
+                                    </FormGroup>                                    
+                                     </Grid>
+                                </Grid>
+                                <Grid className="grid-container">
+                                    <Grid className="first-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "State_government" control={<Checkbox checked = {registerRequestBody?.State_government}/>} label="State_government" value="State_government"/>
+                                    </FormGroup>                                    
+                                    </Grid>
+                                    <Grid className="second-grid-item">
+                                    <FormGroup
+                                        onChange={(e)=>{onChangeCheckboxGroup(e)}}
+                                    >
+                                    <FormControlLabel  name = "Other_examinations" control={<Checkbox checked = {registerRequestBody?.Other_examinations} />} label="Other_examinations" value="Other_examinations"/>
+                                    </FormGroup>  
+                                    </Grid>
+                                    <Grid className="third-grid-item">
+                                        <TextField name = "ExamFile" type='file' onChange={handleFile4} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
                                     </Grid>
                                 </Grid>
                                 <Grid className="submit-button">

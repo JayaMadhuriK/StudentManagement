@@ -74,7 +74,7 @@ const ViewPlacements = () =>{
                 <h1>Placements</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} className="btn"><ArrowBackIcon/></Button>
 
-                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/placements")}} className="buttonnew"><AddIcon/>Add Record</Button>
+                {/* <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/placements")}} className="buttonnew"><AddIcon/>Add Record</Button> */}
 
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
@@ -116,7 +116,7 @@ const ViewPlacements = () =>{
                                 </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
-                                        <Button variant="contained" size="small" onClick={()=>{navigate("/placements",{state:{studentplace:studentplace}})}}>Edit</Button>
+                                        {/* <Button variant="contained" size="small" onClick={()=>{navigate("/placements",{state:{studentplace:studentplace}})}}>Edit</Button> */}
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/placement/${studentplace.Id}`);

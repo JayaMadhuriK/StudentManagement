@@ -12,6 +12,8 @@ import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../View.scss'
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+
 import AddIcon from '@mui/icons-material/Add';
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -25,6 +27,39 @@ const ViewExamination = () =>{
         setStudentData(response?.data);
         console.log(response);
     }
+    const handleFileOpen = (filename) => {
+        axios
+          .get(`http://localhost:4000/exam/open/${filename}`, {
+            responseType: 'blob',
+          })
+          .then((response) => {
+            const file = new Blob([response.data], { type: 'application/pdf' });
+            const fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
+          })
+          .catch((error) => {
+            console.log(error);
+            // Handle error
+          });
+      };
+      const handleFileDownload = (filename) => {
+        axios
+          .get(`http://localhost:4000/exam/download/${filename}`, {
+            responseType: 'blob',
+          })
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+          })
+          .catch((error) => {
+            console.log(error);
+            // Handle error
+          });
+      };
     useEffect(() => {
         getStudentData();
       },[]);
@@ -62,6 +97,7 @@ const ViewExamination = () =>{
                             <TableCell>Civil_Services</TableCell>
                             <TableCell>State_government</TableCell>
                             <TableCell>Other_examinations</TableCell>
+                            <TableCell>File</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -85,9 +121,15 @@ const ViewExamination = () =>{
                                 <TableCell>{student.Civil_Services}</TableCell>
                                 <TableCell>{student.State_government}</TableCell>
                                 <TableCell>{student.Other_examinations}</TableCell>
+                                <TableCell>
+                                    <Grid>
+                                    <Button variant="contained" size="small"  onClick={() => handleFileDownload(student.ExamFile)} ><DownloadIcon/></Button>
+                                    <Button variant="contained" size="small" style={{marginLeft:'10px'}}  onClick={() => handleFileOpen(student.ExamFile)} >Open<FileOpenIcon/></Button>
+                                    </Grid>
+                                </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
-                                        <Button variant="contained" size="small" onClick={()=>{navigate("/exam",{state:{student:student}})}}>Edit</Button>
+                                        {/* <Button variant="contained" size="small" onClick={()=>{navigate("/exam",{state:{student:student}})}}>Edit</Button> */}
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
                                             axios.delete(`http://localhost:4000/exam/${student.Registeration_Number}`);

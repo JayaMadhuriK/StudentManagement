@@ -20,7 +20,7 @@ const upload = multer({
 })
 app11.route('/')
 .get((req,res)=>{
-    conn.query('select * from percentage_students_undertaking_internships_projects',(err,rows)=>{
+    conn.query('select * from percentage_students_undertaking_internships_projects where Program_name!="" and Program_code!=""',(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -81,10 +81,22 @@ app11.route('/:Id')
        });
 })
    
-.put((req,res)=>{
-   
-    var bt = req.body
-    conn.query('update percentage_students_undertaking_internships_projects set ? where Id ='+req.params.Id,[bt],(err,rows)=>{
+.put(upload.single('image'),(req,res)=>{
+    const {
+        Program_name,
+        Program_code,
+        list_of_students_undertakig_field_projects_researchs_internships,
+       } = req.body;
+       const link_to_relevant_documents = req.file ? req.file.filename : null;
+        const updateData = {
+            Program_name,
+            Program_code,
+            list_of_students_undertakig_field_projects_researchs_internships,
+        };
+        if (link_to_relevant_documents) {
+            updateData.link_to_relevant_documents = link_to_relevant_documents;
+        }
+    conn.query('update percentage_students_undertaking_internships_projects set ? where Id ='+req.params.Id,[updateData],(err,rows)=>{
        if(err){
            console.log(err);
        }else{

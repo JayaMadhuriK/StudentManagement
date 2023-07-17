@@ -20,8 +20,8 @@ const StudentComputer = () =>{
         type:"",
         message:""
     });
-    const [file,setFile] = useState();
-    const [file1,setFile1] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
+    const [file1,setFile1] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -30,6 +30,7 @@ const StudentComputer = () =>{
     }
     const access = localStorage.getItem("user_access");
     const student= location?.state?.student || {
+        Id:"",
         Name_Of_Department:"",
         Total_number_of_students:"",
         Number_of_computers_available_to_use:"",
@@ -46,6 +47,7 @@ const StudentComputer = () =>{
     }
     const handleSubmit = async() => {
         const formdata = new FormData();
+        formdata.append('Id',registerRequestBody.Id)
         formdata.append('Name_Of_Department',registerRequestBody.Name_Of_Department)
         formdata.append('Total_number_of_students',registerRequestBody.Total_number_of_students)
         formdata.append('Number_of_computers_available_to_use',registerRequestBody.Number_of_computers_available_to_use)
@@ -55,20 +57,20 @@ const StudentComputer = () =>{
 
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/computerratio/${student.Name_Of_Department}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/computerratio/${student.Id}`, formdata)
             .then((response) => {
             res = response;
             })
             .catch((error) => {
                 res = error;
             });
-            if(res.data) {
+            if(res.statusText == "OK") {
                 setToastMessage({...toastMessage, message: "Data Successfully Updated" ,type:"success"});
                 setTimeout(function() {
                     navigate("/viewcomputers")
                 }, 2000);
             }
-            else if(!res.data){
+            else{
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
                 setTimeout(function() {
                     window.location.reload(false);
@@ -115,10 +117,10 @@ const StudentComputer = () =>{
                                 <TextField name = "Name_Of_Department" label="Name Of Department" value={registerRequestBody?.Name_Of_Department} InputProps={{ sx: { width: 250 } }}onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Total_number_of_students" label="Total number of students" value={registerRequestBody?.Total_number_of_students} type="Number" InputProps={{ sx: { width: 250 } }}onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Total_number_of_students" label="Total number of students" value={registerRequestBody?.Total_number_of_students} InputProps={{ sx: { width: 250 } }}onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "Number_of_computers_available_to_use" type="Number" label="Number Of Computer Available" value={registerRequestBody?.Number_of_computers_available_to_use} InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "Number_of_computers_available_to_use" label="Number Of Computer Available" value={registerRequestBody?.Number_of_computers_available_to_use} InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
                                 <TextField name = "Student_Computer_Ratio" label="Student Computer Ratio" value={registerRequestBody?.Student_Computer_Ratio} InputProps={{ sx: { width: 250 } }} onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>

@@ -74,7 +74,7 @@ const ViewInternships = () =>{
                 <h1>Internships</h1>
                 <Button variant="contained" color="success" size="large" onClick={()=>{navigate('/home')}} className="btn"><ArrowBackIcon/></Button>
 
-                <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/internships")}} className="buttonnew"><AddIcon/>Add Record</Button>
+                {/* <Button variant="contained" color="primary" size="large" onClick={()=>{navigate("/internships")}} className="buttonnew"><AddIcon/>Add Record</Button> */}
 
                 <Button variant="contained" color="success" size="large" onClick={handleDownload} className="button"><DownloadIcon/>Download</Button>
             </Grid>
@@ -92,7 +92,7 @@ const ViewInternships = () =>{
                     <TableBody>
                         {studentData.map((student) => (
                             <TableRow 
-                                key = {student.Program_code}
+                                key = {student.Id}
                                 sx = {{ '&:last-child td, &:last-child th': {border:0} }}
                             >
                                 <TableCell>{student.Program_name}</TableCell>
@@ -106,10 +106,10 @@ const ViewInternships = () =>{
                                 </TableCell>
                                 <TableCell align="center" scope="row" component="th">
                                     <Grid style={{display:'flex'}}>
-                                        <Button variant="contained" size="small" onClick={()=>{navigate("/internships",{state:{student:student}})}}>Edit</Button>
+                                        {/* <Button variant="contained" size="small" onClick={()=>{navigate("/internships",{state:{student:student}})}}>Edit</Button> */}
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
-                                            axios.delete(`http://localhost:4000/internships/${student.Program_code}`);
+                                            axios.delete(`http://localhost:4000/internships/${student.Id}`);
                                             getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>

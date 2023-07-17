@@ -41,7 +41,7 @@ const Home = () =>{
                 <Grid className="btn-1">
                 <h4><Button ClassName="button1" onClick={()=>{navigate("/viewactivities")}} variant="standard"><font color="white">Activties</font></Button></h4>
                 <h4><Button ClassName="button2" onClick={()=>{navigate("/viewawards")}} variant="standard"><font color="white">Awards</font></Button></h4>
-                <h4><Button ClassName="button3" onClick={()=>{navigate("/viewcomputers")}} variant="standard"><font color="white">ComputerRatio</font></Button></h4>
+                <h4><Button ClassName="button3" onClick={()=>{navigate("/viewavg")}} variant="standard"><font color="white">Number Of Days</font></Button></h4>
                 <h4><Button ClassName="button4" onClick={()=>{navigate("/viewcouncil")}} variant="standard"><font color="white">CouncilActivity</font></Button></h4>
                 <h4><Button ClassName="button5" onClick={()=>{navigate("/viewdemand")}} variant="standard"><font color="white">DemandRatio</font></Button></h4>
                 </Grid>

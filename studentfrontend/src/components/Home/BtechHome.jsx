@@ -99,13 +99,15 @@ const BtechHome = () =>{
         Civil_Services:"",
         State_government:"",
         Other_examinations:"",
-        PlaceFile:""
+        PlaceFile:"",
+        ExamFile:""
     });
     const [editing, setEditing] = useState(false);
     const [file,setFile] = useState(null);
     const [file1,setFile1] = useState(null);
     const [file2,setFile2] = useState(null);
     const [file3,setFile3] = useState(null);
+    const [file4,setFile4] = useState(null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -117,6 +119,9 @@ const BtechHome = () =>{
     }
     const handleFile3=(e)=>{
         setFile3(e.target.files[0]);
+    }
+    const handleFile4=(e)=>{
+        setFile4(e.target.files[0]);
     }
     const [systemErrors,setSystemErrors] = useState("");
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -144,6 +149,83 @@ const BtechHome = () =>{
     const onChangeRadioGroup = (e) => {
         setUser({...user,Gender:e.target.value})
         setUser({...user,StudyingYear:e.target.value})
+    }
+    const updateInternship = () =>{
+        const formdata = new FormData();
+        formdata.append('Id',user.University_RollNumber)
+        formdata.append('Program_name',user.Program_name)
+        formdata.append('Program_code',user.Program_code)
+        formdata.append('list_of_students_undertakig_field_projects_researchs_internships',user.First_Name+user.Last_Name)
+        formdata.append('image',file1);
+        axios.put(`http://localhost:4000/internships/${user.University_RollNumber}`, formdata)
+            .then((response) => {
+            const res = response;
+            })
+            .catch((error) => {
+            const res = error;
+            });
+    }
+    const updateExam = () =>{
+        const formdata = new FormData();
+        formdata.append('year',user.yearforexamination)
+        formdata.append('Registeration_Number',user.University_RollNumber)
+        formdata.append('NET',user.NET)
+        formdata.append('SLET',user.SLET)
+        formdata.append('GATE',user.GATE)
+        formdata.append('GMAT',user.GMAT)
+        formdata.append('CAT',user.CAT)
+        formdata.append('GRE',user.GRE)
+        formdata.append('JAM',user.JAM)
+        formdata.append('IELET',user.IELET)
+        formdata.append('TOEFL',user.TOEFL)
+        formdata.append('Civil_Services',user.Civil_Services)
+        formdata.append('State_government',user.State_government)
+        formdata.append('Other_examinations',user.Other_examinations)
+        formdata.append('image',file4)
+        axios.put(`http://localhost:4000/exam/${user.University_RollNumber}`, formdata)
+            .then((response) => {
+            const res = response;
+            })
+            .catch((error) => {
+            const res = error;
+            });
+    }
+    const updateHigher = () =>{
+        const formdata = new FormData();
+        formdata.append('Id',user.University_RollNumber)
+        formdata.append('NameOfTeacher',user.NameOfTeacher)
+        formdata.append('NumberOf_Students_Enrolled',user.NumberOf_Students_Enrolled)
+        formdata.append('Name_Of_Students',user.First_Name+user.Last_Name)
+        formdata.append('Program_Graduated_From',user.Program_Graduated)
+        formdata.append('Name_Of_Institution_joined',user.Name_Of_Institution_joined)
+        formdata.append('Name_Of_Programme_Admitted_To',user.Name_Of_Programme_Admitted_To)
+        formdata.append('image',file2);
+        axios.put(`http://localhost:4000/highereducation/${user.University_RollNumber}`, formdata)
+            .then((response) => {
+            const res = response;
+            })
+            .catch((error) => {
+            const res = error;
+            });
+    }
+    const updatePlacement = () =>{
+        const formdata = new FormData();
+        formdata.append('Id',user.University_RollNumber)
+        formdata.append('Year',user.Year)
+        formdata.append('Name_of_the_Teacher',user.Name_of_the_Teacher)
+        formdata.append('Pay_package_at_appointment',user.Pay_Package_at_appointment)
+        formdata.append('Contact_Details',user.Contact_Details)
+        formdata.append('Program_graduated_from',user.Program_graduated_from)
+        formdata.append('Name_of_company',user.Name_of_company)
+        formdata.append('Name_of_employer_with_contact_details',user.Name_of_employer_with_contact_details)
+        formdata.append('image',file3);
+        axios.put(`http://localhost:4000/placement/${user.University_RollNumber}`, formdata)
+            .then((response) => {
+            const res = response;
+            })
+            .catch((error) => {
+            const res = error;
+            });
     }
     const handleUpdateUser = async () => {
         const formdata = new FormData();
@@ -187,7 +269,7 @@ const BtechHome = () =>{
         formdata.append('CertificateUpload',file)
         formdata.append('Program_name',user.Program_name)
         formdata.append('Program_code',user.Program_code)
-        formdata.append('list_of_students_undertaking',user.list_of_students_undertaking)
+        formdata.append('list_of_students_undertaking',user.First_Name+user.Last_Name)
         formdata.append('InternUpload',file1)
         formdata.append('Year',user.Year)
         formdata.append('Name_of_the_Teacher',user.Name_of_the_Teacher)
@@ -197,7 +279,7 @@ const BtechHome = () =>{
         formdata.append('Name_of_employer_with_contact_details',user.Name_of_employer_with_contact_details)
         formdata.append('Pay_Package_at_appointment',user.Pay_Package_at_appointment)
         formdata.append('NameOfTeacher',user.NameOfTeacher)
-        formdata.append('Name_Of_Students',user.Name_Of_Students)
+        formdata.append('Name_Of_Students',user.First_Name+user.Last_Name)
         formdata.append('Program_Graduated',user.Program_Graduated)
         formdata.append('Name_Of_Institution_joined',user.Name_Of_Institution_joined)
         formdata.append('Name_Of_Programme_Admitted_To',user.Name_Of_Programme_Admitted_To)
@@ -217,6 +299,7 @@ const BtechHome = () =>{
         formdata.append('State_government',user.State_government)
         formdata.append('Other_examinations',user.Other_examinations)
         formdata.append('PlaceFile',file3)
+        formdata.append('ExamFile',file4)
         if (file!=null) {
             formdata.append('CertificateUpload', file);
         }
@@ -229,10 +312,17 @@ const BtechHome = () =>{
         if (file3!=null) {
             formdata.append('PlaceFile', file3);
         }
+        if (file4!=null) {
+            formdata.append('ExamFile', file4);
+        }
         await axios.put(`http://localhost:4000/btech/${user.University_RollNumber}`,formdata)
         .then(response=>{
             if(response?.status == 200){
                 setSystemErrors({...systemErrors,response:'Updated Successfully'});
+                updateInternship();
+                updateExam();
+                updateHigher();
+                updatePlacement();
                 setTimeout(function() {
                     setSystemErrors({...systemErrors,response:''});
                     setEditing(false);
@@ -807,6 +897,9 @@ const BtechHome = () =>{
                                     <FormControlLabel  name = "Other_examinations" control={<Checkbox checked = {user?.Other_examinations} />} label="Other_examinations" value="Other_examinations"/>
                                     </FormGroup>  
                                     </Grid>
+                                    <Grid className="third-grid-item">
+                                            <Button variant="contained" size="small" style={{marginLeft:'20px',marginTop:'15px'}} onClick={() => handleFileOpen(user?.ExamFile)} >Certificate<FileOpen/></Button>
+                                        </Grid>
                                 </Grid>
                                     <Grid className="submit-button">
                                         <Button variant="contained" style={{ minWidth:'200px', marginLeft:"900px", backgroundColor:"black"}} onClick={() => setEditing(true)}>
@@ -1385,7 +1478,10 @@ const BtechHome = () =>{
                                     <FormControlLabel  name = "Other_examinations" control={<Checkbox checked = {user?.Other_examinations} />} label="Other_examinations" value="Other_examinations"/>
                                     </FormGroup>  
                                     </Grid>
+                                    <Grid className="fourth-grid-item">
+                                        <TextField type='file' name='ExamFile' label="File(pdf only)" InputLabelProps={{shrink:true}} onChange={handleFile4}></TextField>
                                     </Grid>
+                                </Grid>
                                     <Grid className="submit-button">
                                         <Button variant="contained" style={{ minWidth:'200px', marginLeft:"900px", backgroundColor:"black"}} onClick={handleUpdateUser}>
                                         Save

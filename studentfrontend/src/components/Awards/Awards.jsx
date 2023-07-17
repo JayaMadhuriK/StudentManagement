@@ -25,6 +25,7 @@ const Awards = () =>{
         message:""
     });
     const student = location?.state?.student || {
+        Id:"",
         Year:"",
         Name_Of_Award:"",
         TeamORIndividual:"",
@@ -34,7 +35,7 @@ const Awards = () =>{
         University_RollNumber:"",
         E_Copy_Of_Award_Letter:"",
     };
-    const [file,setFile] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -49,6 +50,7 @@ const Awards = () =>{
     const access = localStorage.getItem("user_access");
     const handleSubmit = async() => {
         const formdata = new FormData();
+        formdata.append('Id',registerRequestBody.Id)
         formdata.append('Year',registerRequestBody.Year)
         formdata.append('Name_Of_Award',registerRequestBody.Name_Of_Award)
         formdata.append('TeamORIndividual',registerRequestBody.TeamORIndividual)
@@ -59,7 +61,7 @@ const Awards = () =>{
         formdata.append('image',file);
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/awards/${student.Name_Of_Award}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/awards/${student.Id}`, formdata)
             .then((response) => {
              res = response;
             })
@@ -73,9 +75,9 @@ const Awards = () =>{
                 }, 2000);
             }
             else{
-                setToastMessage({...toastMessage, message:"Duplicate! Entry......",type:"error"});
+                setToastMessage({...toastMessage, message:"Error in Entry......",type:"error"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
         }else{
@@ -90,14 +92,14 @@ const Awards = () =>{
             if(res.data) {
                 setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
 
             }
             else{
                 setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
         }

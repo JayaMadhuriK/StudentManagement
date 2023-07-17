@@ -94,7 +94,7 @@ const ViewComputer = () =>{
                     <TableBody>
                         {studentData.map((student) => (
                             <TableRow 
-                                key = {student.Name_Of_Department}
+                                key = {student.Id}
                                 sx = {{ '&:last-child td, &:last-child th': {border:0} }}
                             >
                                 <TableCell>{student.Name_Of_Department}</TableCell>
@@ -118,7 +118,7 @@ const ViewComputer = () =>{
                                         <Button variant="contained" size="small" onClick={()=>{navigate("/studentcomputerratio",{state:{student:student}})}}>Edit</Button>
                                         <Button variant="contained" style={{marginLeft:'10px'}} 
                                         onClick={()=>{
-                                            axios.delete(`http://localhost:4000/computerratio/${student.Name_Of_Department}`);
+                                            axios.delete(`http://localhost:4000/computerratio/${student.Id}`);
                                             getStudentData();
                                         }} 
                                         color="error" size="small">Delete</Button>

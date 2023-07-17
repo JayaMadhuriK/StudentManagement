@@ -32,6 +32,7 @@ app10.route('/')
 })
 
 .post(upload.single('image'),(req,res)=>{
+    const {Id} = req.body;
     const {Year} = req.body;
     const {Name_Of_Award} = req.body;
     const {TeamORIndividual} = req.body;
@@ -42,6 +43,7 @@ app10.route('/')
     const E_Copy_Of_Award_Letter = req.file.filename;
     conn.query('insert into no_of_awards_wonbystudents SET ?',
     {
+        Id:Id,
         Year:Year,
         Name_Of_Award:Name_Of_Award,
         TeamORIndividual:TeamORIndividual,
@@ -70,9 +72,9 @@ app10.route('/')
     });
 });
 
-app10.route('/:award')
+app10.route('/:Id')
 .get((req,res)=>{
-    conn.query('select * from no_of_awards_wonbystudents where Name_Of_Award = ?',[req.params.award],(err,rows)=>{
+    conn.query('select * from no_of_awards_wonbystudents where Id = ?',[req.params.Id],(err,rows)=>{
        if(err){
            console.log(err);
        }else{
@@ -82,19 +84,39 @@ app10.route('/:award')
 })
    
 .delete((req,res)=>{
-       conn.query('delete from no_of_awards_wonbystudents where Name_Of_Award= ?',[req.params.award],(err,rows)=>{
+       conn.query('delete from no_of_awards_wonbystudents where Id= ?',[req.params.Id],(err,rows)=>{
           if(err){
               console.log(err);
           }else{
-              res.send('Details of '+req.params.award+' deleted');
+              res.send('Details of '+req.params.Id+' deleted');
           }
        });
 })
    
-.put((req,res)=>{
-    var con = '"'+req.params.award+'"';
-    var bt = req.body
-    conn.query('update no_of_awards_wonbystudents set ? where Name_Of_Award ='+con,[bt],(err,rows)=>{
+.put(upload.single('image'),(req,res)=>{
+   const {
+    Year,
+    Name_Of_Award,
+    TeamORIndividual,
+    InterUniversity_State_National_International,
+    Name_Of_Event,
+    Name_Of_Student,
+    University_RollNumber,
+   } = req.body;
+   const E_Copy_Of_Award_Letter = req.file ? req.file.filename : null;
+    const updateData = {
+        Year,
+    Name_Of_Award,
+    TeamORIndividual,
+    InterUniversity_State_National_International,
+    Name_Of_Event,
+    Name_Of_Student,
+    University_RollNumber,
+    };
+    if (E_Copy_Of_Award_Letter) {
+        updateData.E_Copy_Of_Award_Letter = E_Copy_Of_Award_Letter;
+    }
+    conn.query('update no_of_awards_wonbystudents set ? where Id = '+req.params.Id,[updateData],(err,rows)=>{
        if(err){
            console.log(err);
        }else{

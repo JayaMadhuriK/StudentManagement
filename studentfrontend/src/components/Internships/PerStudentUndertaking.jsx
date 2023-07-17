@@ -22,7 +22,7 @@ const PerStudentUndertaking = () =>{
         message:""
     });
     const access = localStorage.getItem("user_access");
-    const [file,setFile] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -42,13 +42,14 @@ const PerStudentUndertaking = () =>{
     const [registerRequestBody,setRegisterRequestBody] = useState(student);
     const handleSubmit = async() => {
         const formdata = new FormData();
+        formdata.append('Id',registerRequestBody.Id)
         formdata.append('Program_name',registerRequestBody.Program_name)
         formdata.append('Program_code',registerRequestBody.Program_code)
         formdata.append('list_of_students_undertakig_field_projects_researchs_internships',registerRequestBody.list_of_students_undertakig_field_projects_researchs_internships)
         formdata.append('image',file);
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/internships/${student.Program_code}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/internships/${student.Id}`, formdata)
             .then((response) => {
             res = response;
             })
@@ -64,7 +65,7 @@ const PerStudentUndertaking = () =>{
             else if(!res.data){
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
         }else{
@@ -110,7 +111,7 @@ const PerStudentUndertaking = () =>{
                                 <TextField name = "Program_code" value={registerRequestBody?.Program_code} type="Number" label="Program Code" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="first-name">
-                                <TextField name = "list_of_students_undertakig_field_projects_researchs_internships" value={registerRequestBody?.list_of_students_undertakig_field_projects_researchs_internships} type="Number" label="list of students undertakig field/projects/researchs/internships" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
+                                <TextField name = "list_of_students_undertakig_field_projects_researchs_internships" value={registerRequestBody?.list_of_students_undertakig_field_projects_researchs_internships} label="list of students undertakig field/projects/researchs/internships" onChange={(e)=>{onChangeTextField(e)}} size="medium"></TextField>
                             </Grid>
                             <Grid className="button-grid">
                             <Button variant="contained" className="first-name" size="small" ><input type="file" name="image" onChange={handleFile}/></Button>

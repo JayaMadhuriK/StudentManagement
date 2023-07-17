@@ -34,6 +34,7 @@ const Btech = () =>{
     const [file1,setFile1] = useState(location?.state?.student ? null : null);
     const [file2,setFile2] = useState(location?.state?.student ? null : null);
     const [file3,setFile3] = useState(location?.state?.student ? null : null);
+    const [file4,setFile4] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -44,6 +45,9 @@ const Btech = () =>{
         setFile2(e.target.files[0]);
     }
     const handleFile3=(e)=>{
+        setFile3(e.target.files[0]);
+    }
+    const handleFile4=(e)=>{
         setFile3(e.target.files[0]);
     }
     const [toastMessage,setToastMessage] = useState({
@@ -120,7 +124,8 @@ const Btech = () =>{
         Civil_Services:"",
         State_government:"",
         Other_examinations:"",
-        PlaceFile:""
+        PlaceFile:"",
+        ExamFile:""
     };
     const onChangeTextField = (e) => {
         const name = e.target.name;
@@ -190,7 +195,7 @@ const Btech = () =>{
         formdata.append('CertificateUpload',file)
         formdata.append('Program_name',registerRequestBody.Program_name)
         formdata.append('Program_code',registerRequestBody.Program_code)
-        formdata.append('list_of_students_undertaking',registerRequestBody.list_of_students_undertaking)
+        formdata.append('list_of_students_undertaking',registerRequestBody.First_Name+registerRequestBody.Last_Name)
         formdata.append('InternUpload',file1)
         formdata.append('Year',registerRequestBody.Year)
         formdata.append('Name_of_the_Teacher',registerRequestBody.Name_of_the_Teacher)
@@ -200,7 +205,7 @@ const Btech = () =>{
         formdata.append('Name_of_employer_with_contact_details',registerRequestBody.Name_of_employer_with_contact_details)
         formdata.append('Pay_Package_at_appointment',registerRequestBody.Pay_Package_at_appointment)
         formdata.append('NameOfTeacher',registerRequestBody.NameOfTeacher)
-        formdata.append('Name_Of_Students',registerRequestBody.Name_Of_Students)
+        formdata.append('Name_Of_Students',registerRequestBody.First_Name+registerRequestBody.Last_Name)
         formdata.append('Program_Graduated',registerRequestBody.Program_Graduated)
         formdata.append('Name_Of_Institution_joined',registerRequestBody.Name_Of_Institution_joined)
         formdata.append('Name_Of_Programme_Admitted_To',registerRequestBody.Name_Of_Programme_Admitted_To)
@@ -220,6 +225,7 @@ const Btech = () =>{
         formdata.append('State_government',registerRequestBody.State_government)
         formdata.append('Other_examinations',registerRequestBody.Other_examinations)
         formdata.append('PlaceFile',file3)
+        formdata.append('ExamFile',file4)
         let res = {};
         if(editData){
             if (file!=null) {
@@ -234,6 +240,9 @@ const Btech = () =>{
               }
               if (file3!=null) {
                 formdata.append('PlaceFile', file3);
+              }
+              if (file4!=null) {
+                formdata.append('ExamFile', file4);
               }
             await axios.put(`http://localhost:4000/btech/${student.University_RollNumber}`, formdata)
             .then((response) => {
@@ -553,7 +562,7 @@ const Btech = () =>{
                                         <TextField name = "Program_code" value={registerRequestBody?.Program_code} label="Program_code" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
-                                        <TextField name = "list_of_students_undertaking" value={registerRequestBody?.list_of_students_undertaking} label="list_of_students_undertaking" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "list_of_students_undertaking" value={registerRequestBody?.First_Name+registerRequestBody?.Last_Name} label="list_of_students_undertaking" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="fourth-grid-item">
                                         <TextField name = "InternUpload" type='file' onChange={handleFile1} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
@@ -608,7 +617,7 @@ const Btech = () =>{
                                         <TextField name = "NameOfTeacher" value={registerRequestBody?.NameOfTeacher} label="NameOfTeacher" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="second-grid-item">
-                                        <TextField name = "Name_Of_Students" value={registerRequestBody?.Name_Of_Students} label="Name_Of_Students" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
+                                        <TextField name = "Name_Of_Students" value={registerRequestBody?.First_Name+registerRequestBody?.Last_Name} label="Name_Of_Students" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
                                     </Grid>
                                     <Grid className="third-grid-item">
                                         <TextField name = "Program_Graduated" value={registerRequestBody?.Program_Graduated} label="Program_Graduated" onChange={(e)=>{onChangeTextField(e)}} size="small"></TextField>
@@ -733,6 +742,9 @@ const Btech = () =>{
                                     >
                                     <FormControlLabel  name = "Other_examinations" control={<Checkbox checked = {registerRequestBody?.Other_examinations} />} label="Other_examinations" value="Other_examinations"/>
                                     </FormGroup>  
+                                    </Grid>
+                                    <Grid className="third-grid-item">
+                                        <TextField name = "ExamFile" type='file' onChange={handleFile4} InputProps={{ sx: { width: 250 } }} size="small"></TextField>
                                     </Grid>
                                 </Grid>
                             <Grid className="submit-button">

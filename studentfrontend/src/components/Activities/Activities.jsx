@@ -26,7 +26,7 @@ const Activities = () =>{
         message:""
     });
     const access = localStorage.getItem("user_access");
-    const [file,setFile] = useState();
+    const [file,setFile] = useState(location?.state?.student ? null : null);
     const handleFile=(e)=>{
         setFile(e.target.files[0]);
     }
@@ -57,7 +57,7 @@ const Activities = () =>{
         formdata.append('image',file);
         let res = {};
         if(editData){
-            await axios.put(`http://localhost:4000/activities/${student.Title_of_collaborative_activity}`, registerRequestBody)
+            await axios.put(`http://localhost:4000/activities/${student.Title_of_collaborative_activity}`, formdata)
             .then((response) => {
             res = response;
             })
@@ -73,7 +73,7 @@ const Activities = () =>{
             else if(!res.data){
                 setToastMessage({...toastMessage, message:"Error! Entry......",type:"error"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
         }else{
@@ -88,13 +88,13 @@ const Activities = () =>{
             if(res.data) {
                 setToastMessage({...toastMessage, message: "Data Successfully Submitted" ,type:"success"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
             else if(!res.data){
                 setToastMessage({...toastMessage, message:"Duplicate Entry...",type:"error"});
                 setTimeout(function() {
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 }, 2000);
             }
         }
